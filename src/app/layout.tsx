@@ -10,7 +10,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Thomas Winninger",
+  title: "Sckathach",
   description: "Thomas Winninger's personal website."
 };
 
