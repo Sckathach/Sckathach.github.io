@@ -17,7 +17,7 @@ function Hero() {
             color="gray"
             className="mt-4 mb-12 w-full md:max-w-full lg:max-w-4xl"
           >
-          Aka <i>le chameau masqué, le fan2thermo, le crabe sacré, l'ingénieur tuyaux, le chef d'orchestre de baleines</i>, or just <b>Sckathach</b>. I'm a french student at Télécom SudParis, and soon, a ML researcher!
+          Aka <i>le chameau masqué, le fan2thermo, le crabe sacré, l&apos;ingénieur tuyaux, le chef d&apos;orchestre de baleines</i>, or just <b>Sckathach</b>. I&apos;m a french student at Télécom SudParis, and soon, a ML researcher!
           </Typography>
           <Typography className="mt-12 mb-4 text-blue-gray-900 font-medium uppercase">
             Connect me on:

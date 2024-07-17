@@ -76,7 +76,7 @@ const SKILLS = [
   }
 ];
 
-export function InformationSection() {
+function InformationSection() {
   return (
     <section className="pb-28 px-8">
       <div className="grid xl:grid-cols-2 md:grid-cols-1 container gap-20 mx-auto items-start">
