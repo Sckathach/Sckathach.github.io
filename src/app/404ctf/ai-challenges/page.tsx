@@ -10,8 +10,18 @@ type Challenge = {
   link: string
 }
 const MAX_CHALLENGE = 4
-const DEFAULT_URL = '/404ctf/ai-challenges?challenge='
-const DEFAULT_PUBLIC_URL = './../../404ctf-public/ai-challenges/challenge_'
+
+function craft_url(pub: boolean, id: string, solution: boolean): string {
+  if (pub) {
+    return solution ? 
+      `./../../404ctf-public/ai-challenges/challenge_${id}_solution.html` :
+      `./../../404ctf-public/ai-challenges/challenge_${id}.html`
+  } else {
+    return solution ?
+      `/404ctf/ai-challenges?challenge=${id}` :
+      `/404ctf/ai-challenges?challenge=${id}&solution=true` 
+  }
+}
 
 function createChallengeList(excludeNum: number, solution: boolean): Challenge[] {
   if (excludeNum < 1 || excludeNum > MAX_CHALLENGE) {
@@ -23,21 +33,14 @@ function createChallengeList(excludeNum: number, solution: boolean): Challenge[]
     if (i !== excludeNum) {
       challenges.push({
         label: `Challenge ${i}`,
-        link: `${DEFAULT_URL}${i}`
+        link: craft_url(false, i.toString(), solution)
       })
     }
   }
-  if (solution) {
-    challenges.push({
-      label: `Énoncé ${excludeNum}`,
-      link: `${DEFAULT_URL}${excludeNum}`
-    })
-  } else {
-    challenges.push({
-      label: `Solution ${excludeNum}`,
-      link: `${DEFAULT_URL}${excludeNum}&solution=true`
-    })
-  }
+  challenges.push({
+    label: solution ? `Solution ${excludeNum}` : `Énoncé ${excludeNum}`,
+    link: craft_url(false, excludeNum.toString(), solution)
+  })
   return challenges
 }
 
@@ -46,9 +49,7 @@ export default function Challenge() {
   const id: string = params.get('challenge') ?? '1'
   const solution: boolean = params.get('solution') !== null
 
-  const url = solution ? 
-    `${DEFAULT_PUBLIC_URL}${id}_solution.html` : 
-    `${DEFAULT_PUBLIC_URL}${id}.html`  
+  const url = craft_url(true, id, solution)
   const challenges = createChallengeList(parseInt(id as string), solution)
 
   return (
