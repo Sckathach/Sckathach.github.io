@@ -18,8 +18,8 @@ function craft_url(pub: boolean, id: string, solution: boolean): string {
       `./../../404ctf-public/ai-challenges/challenge_${id}.html`
   } else {
     return solution ?
-      `/404ctf/ai-challenges?challenge=${id}` :
-      `/404ctf/ai-challenges?challenge=${id}&solution=true` 
+      `/404ctf/ai-challenges?challenge=${id}&solution=true` :
+      `/404ctf/ai-challenges?challenge=${id}` 
   }
 }
 
