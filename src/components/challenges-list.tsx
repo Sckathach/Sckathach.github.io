@@ -1,20 +1,22 @@
 "use client";
 import { Typography, Button } from "@material-tailwind/react"
 
-interface ChallengeItem {
+type Challenge = {
   label: string,
   link: string
 }
-interface ChallengeItemList {
-  challenges: ChallengeItem[]
+interface ChallengeList {
+  challenges: Challenge[]
 }
 
-export function ChallengesList({ challenges }: ChallengeItemList)  {
+export function ChallengesList({ challenges: initialChallenges }: ChallengeList)  {
+  const challenges = [...initialChallenges]
+  const button: Challenge = challenges.pop()! 
   return (
     <div className="px-8">
       <div className="container mx-auto">
         <div className="flex flex-wrap items-center justify-center gap-y-4 border-t border-gray-200 py-6 md:justify-between">
-          <Button color="light-green">Solution</Button>
+          <Button color="light-green"><a href={button.link}>{button.label}</a></Button>
           <ul className="flex gap-8 items-center">
             {challenges.map((chall) => (
               <li key={chall.link}>
