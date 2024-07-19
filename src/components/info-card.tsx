@@ -4,22 +4,31 @@ import {
   CardBody,
   Typography,
   IconButton,
-} from "@material-tailwind/react";
+} from '@material-tailwind/react'
+import './styles.css'
 
-interface InfoCardProps {
+export enum color {
+  PrimaryLow = 'carrara-100',
+  PrimaryHigh = 'carrara-400'
+}
+export interface InfoCardProps {
   icon: React.ElementType;
   title: string;
   date: string;
+  bgcolor?: color;
   children: React.ReactNode;
 }
 
-export function InfoCard({ icon: Icon, title, date, children }: InfoCardProps) {
+
+export function InfoCard({ icon: Icon, title, date, bgcolor = color.PrimaryLow, children }: InfoCardProps) {
+  const classname = `rounded-md bg-${bgcolor}`
   return (
-    <Card>
+    <Card shadow={false} className={classname}>
       <CardHeader
         className="flex items-center justify-between rounded-none overflow-visible"
         floated={false}
         shadow={false}
+        color="transparent"
       >
         <div className="flex flex-col gap-1 w-full">
           <Typography color="blue" className="font-bold text-xs">

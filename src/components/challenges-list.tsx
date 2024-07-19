@@ -5,12 +5,37 @@ type Challenge = {
   label: string,
   link: string
 }
-interface ChallengeList {
-  challenges: Challenge[]
+export interface ChallengeListProps {
+  excludeNum: number,
+  solution: boolean,
+  max_challenges: number,
+  craft_url: CallableFunction
 }
 
-export function ChallengesList({ challenges: initialChallenges }: ChallengeList)  {
-  const challenges = [...initialChallenges]
+function createChallengeList(props: ChallengeListProps): Challenge[] {
+  const { excludeNum, solution, max_challenges, craft_url } = props
+  if (excludeNum < 1 || excludeNum > max_challenges) {
+    throw new Error(`Number must be between 1 and ${max_challenges}`)
+  }
+  const challenges: Challenge[] = []
+
+  for (let i = 1; i <= max_challenges; i++) {
+    if (i !== excludeNum) {
+      challenges.push({
+        label: `Challenge ${i}`,
+        link: craft_url(false, i.toString(), false)
+      })
+    }
+  }
+  challenges.push({
+    label: solution ? `Énoncé ${excludeNum}` : `Solution ${excludeNum}`,
+    link: craft_url(false, excludeNum.toString(), !solution)
+  })
+  return challenges
+}
+
+export function ChallengesList(props: ChallengeListProps)  {
+  const challenges = createChallengeList(props)
   const button: Challenge = challenges.pop()! 
   return (
     <div className="px-8">

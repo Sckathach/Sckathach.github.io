@@ -49,9 +49,10 @@ export function Navbar() {
   return (
     <MTNavbar
       fullWidth
+      color="transparent"
       blurred={false}
       shadow={false}
-      color="white"
+      
       className="sticky top-0 z-50 border-0"
     >
       <div className="container mx-auto flex items-center justify-between">

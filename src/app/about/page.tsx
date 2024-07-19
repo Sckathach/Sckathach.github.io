@@ -6,7 +6,7 @@ import {
   BriefcaseIcon,
   FireIcon,
 } from "@heroicons/react/24/solid";
-import InfoCard from "@/components/info-card";
+import { InfoCard, color } from "@/components/info-card";
 import { Navbar } from "@/components";
 
 
@@ -72,7 +72,8 @@ const SKILLS = [
     icon: FireIcon,
     title: "Ninja",
     date: "Technical Skills",
-    children: "very good at ninjaing people"
+    children: "very good at ninjaing people",
+    bgcolor: color.PrimaryHigh 
   }
 ];
 

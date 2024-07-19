@@ -8,12 +8,12 @@ import { ChallengesList, ChallengeListProps } from '@/components/challenges-list
 function craft_url(pub: boolean, id: string, solution: boolean): string {
   if (pub) {
     return solution ? 
-      `./../../404ctf-public/ai-challenges/challenge_${id}_solution.html` :
-      `./../../404ctf-public/ai-challenges/challenge_${id}.html`
+      `./../../404ctf-public/quantum-challenges/challenge_${id}_solution.html` :
+      `./../../404ctf-public/quantum-challenges/challenge_${id}.html`
   } else {
     return solution ?
-      `/404ctf/ai-challenges?challenge=${id}&solution=true` :
-      `/404ctf/ai-challenges?challenge=${id}` 
+      `/404ctf/quantum-challenges?challenge=${id}&solution=true` :
+      `/404ctf/quantum-challenges?challenge=${id}` 
   }
 }
 
