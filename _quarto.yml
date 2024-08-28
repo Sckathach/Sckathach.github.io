@@ -1,0 +1,63 @@
+project:
+  type: website
+
+website:
+  title: "quartest"
+  navbar:
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            href: "https://github.com/sckathach"
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - text: "About"
+        href: about.md
+      - section: "404 CTF"
+        contents:
+          - section: "AI Challenges"
+            href: "404ctf/ai-challenges/index.md"
+            contents:
+              - text: "Challenge 1"
+                href: "404ctf/ai-challenges/chall_1-english_version.ipynb"
+              - text: "Challenge 2"
+                href: "404ctf/ai-challenges/chall_2-english_version.ipynb"
+              - text: "Challenge 3"
+                href: "404ctf/ai-challenges/chall_3-english_version.ipynb"
+              - text: "Challenge 4"
+                href: "404ctf/ai-challenges/chall_4-english_version.ipynb"
+              - text: "Solution Challenge 1"
+                href: "404ctf/ai-challenges/challenge_1_solution-english_version.ipynb"
+              - text: "Solution Challenge 2"
+                href: "404ctf/ai-challenges/challenge_2_solution-english_version.ipynb"
+              - text: "Solution Challenge 3"
+                href: "404ctf/ai-challenges/challenge_3_solution-english_version.ipynb"
+              - text: "Solution Challenge 4"
+                href: "404ctf/ai-challenges/challenge_4_solution-english_version.ipynb"
+          - section: "Quantum Challenges"
+            href: "404ctf/quantum-challenges/index.md"
+            contents:
+              - text: "Challenge 1"
+                href: "404ctf/quantum-challenges/challenge_1-english_version.ipynb"
+              - text: "Challenge 2"
+                href: "404ctf/quantum-challenges/challenge_2-english_version.ipynb"
+              - text: "Challenge 3"
+                href: "404ctf/quantum-challenges/challenge_3-english_version.ipynb"
+              - text: "Challenge 4"
+                href: "404ctf/quantum-challenges/challenge_4-english_version.ipynb"
+              - text: "Solution Challenge 1"
+                href: "404ctf/quantum-challenges/chall_1_solution-english_version.ipynb"
+              - text: "Solution Challenge 2"
+                href: "404ctf/quantum-challenges/chall_2_solution-english_version.ipynb"
+              - text: "Solution Challenge 3"
+                href: "404ctf/quantum-challenges/chall_3_solution-english_version.ipynb"
+              - text: "Solution Challenge 4"
+                href: "404ctf/quantum-challenges/chall_4_solution-english_version.ipynb"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
