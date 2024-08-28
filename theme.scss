@@ -1,0 +1,37 @@
+/*-- scss:defaults --*/
+// Sass variables for websites, books, manuscripts, revealjs presentations
+
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap");
+
+// Custom Theme Variables
+
+$body-bg: #ffffff;
+$body-color: #333333;
+$code-color: #d35400; // Orange for code
+$font-family-sans-serif: "Inria Sans", sans-serif !default;
+$font-family-monospace: "Source Code Pro", monospace !default;
+$link-color: #d35400; // Orange for links
+$code-block-bg: #f9f9f9;
+$code-block-border-color: #e67e22; // Lighter orange for borders
+$code-block-font-size: 16px;
+
+// Light theme-specific colors
+$light-bg-text-color: #333333 !default;
+$light-bg-link-color: #d35400 !default;
+$light-bg-code-color: #e67e22 !default;
+
+// Navbar customization
+$navbar-bg: #ffffff; // Orange shade for the navbar background
+$navbar-text-color: #ffffff; // White text on the navbar for contrast
+$navbar-link-color: #ffffff; // White links in the navbar
+$navbar-link-hover-color: #d35400; // Slightly darker orange on hover
+
+/*-- scss:rules --*/
+
+.quarto-light .code-with-filename .code-with-filename-file,
+.quarto-light .code-with-filename .code-with-filename-file pre {
+  background-color: #f9f9f9;
+  border-color: #e67e22;
+  color: #333333;
+}

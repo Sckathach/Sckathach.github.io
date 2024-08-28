@@ -1,63 +1,96 @@
 project:
   type: website
-
-website:
-  title: "quartest"
-  navbar:
-    tools:
-      - icon: github
-        menu:
-          - text: Source Code
-            href: "https://github.com/sckathach"
-  sidebar:
-    style: "floating"
-    search: true
-    contents:
-      - text: "About"
-        href: about.md
-      - section: "404 CTF"
-        contents:
-          - section: "AI Challenges"
-            href: "404ctf/ai-challenges/index.md"
-            contents:
-              - text: "Challenge 1"
-                href: "404ctf/ai-challenges/chall_1-english_version.ipynb"
-              - text: "Challenge 2"
-                href: "404ctf/ai-challenges/chall_2-english_version.ipynb"
-              - text: "Challenge 3"
-                href: "404ctf/ai-challenges/chall_3-english_version.ipynb"
-              - text: "Challenge 4"
-                href: "404ctf/ai-challenges/chall_4-english_version.ipynb"
-              - text: "Solution Challenge 1"
-                href: "404ctf/ai-challenges/challenge_1_solution-english_version.ipynb"
-              - text: "Solution Challenge 2"
-                href: "404ctf/ai-challenges/challenge_2_solution-english_version.ipynb"
-              - text: "Solution Challenge 3"
-                href: "404ctf/ai-challenges/challenge_3_solution-english_version.ipynb"
-              - text: "Solution Challenge 4"
-                href: "404ctf/ai-challenges/challenge_4_solution-english_version.ipynb"
-          - section: "Quantum Challenges"
-            href: "404ctf/quantum-challenges/index.md"
-            contents:
-              - text: "Challenge 1"
-                href: "404ctf/quantum-challenges/challenge_1-english_version.ipynb"
-              - text: "Challenge 2"
-                href: "404ctf/quantum-challenges/challenge_2-english_version.ipynb"
-              - text: "Challenge 3"
-                href: "404ctf/quantum-challenges/challenge_3-english_version.ipynb"
-              - text: "Challenge 4"
-                href: "404ctf/quantum-challenges/challenge_4-english_version.ipynb"
-              - text: "Solution Challenge 1"
-                href: "404ctf/quantum-challenges/chall_1_solution-english_version.ipynb"
-              - text: "Solution Challenge 2"
-                href: "404ctf/quantum-challenges/chall_2_solution-english_version.ipynb"
-              - text: "Solution Challenge 3"
-                href: "404ctf/quantum-challenges/chall_3_solution-english_version.ipynb"
-              - text: "Solution Challenge 4"
-                href: "404ctf/quantum-challenges/chall_4_solution-english_version.ipynb"
+  output-dir: docs
 
 format:
   html:
-    theme: cosmo
     css: styles.css
+    theme: theme.scss
     toc: true
+
+website:
+  title: "Sckathach's docs"
+  favicon: "assets/favicon.png"
+  site-url: "https://sckathach.github.io"
+  repo-url: "https://github.com/Sckathach/Sckathach.github.io"
+  issue-url: "https://github.com/Sckathach/Sckathach.github.io/issues"
+  repo-actions: [edit, source, issue]
+  twitter-card: true
+  reader-mode: true
+  open-graph:
+    description: "The very super website of the super Sckathach!"
+  page-footer:
+    left:
+      - text: "This website is made by the fabulous quarto engine!"
+        href: "https://quarto.org/"
+    right:
+      - text: "Home"
+        href: "https://sckathach.github.io"
+      - text: "About"
+        href: "https://le-magicien-quantique.github.io"
+  navbar:
+    collapse-below: lg
+    tools:
+      - icon: github
+        href: "https://github.com/sckathach"
+    left:
+      - text: "404 CTF"
+        href: "404ctf/index.qmd"
+
+  search:
+    show-item-context: true
+    type: overlay
+  sidebar:
+    - id: 404ctf
+      title: "404ctf"
+      style: "floating"
+      collapse-level: 2
+      align: left
+      contents:
+        - "404ctf/index.qmd"
+        - section: "Artificial Intelligence"
+          contents:
+            - "404ctf/artificial-intelligence/index.qmd"
+            - section: "Challenges"
+              contents:
+                - text: "Poison [1/2]"
+                  href: "404ctf/artificial-intelligence/challenges/poison-1/index.ipynb"
+                - text: "Poison [2/2]"
+                  href: "404ctf/artificial-intelligence/challenges/poison-2/index.ipynb"
+                - text: "Backdoor"
+                  href: "404ctf/artificial-intelligence/challenges/backdoor/index.ipynb"
+                - text: "Poison [3/2]"
+                  href: "404ctf/artificial-intelligence/challenges/poison-3/index.ipynb"
+            - section: "Solutions"
+              contents:
+                - text: "Poison [1/2]"
+                  href: "404ctf/artificial-intelligence/solutions/poison-1/index.ipynb"
+                - text: "Poison [2/2]"
+                  href: "404ctf/artificial-intelligence/solutions/poison-2/index.ipynb"
+                - text: "Backdoor"
+                  href: "404ctf/artificial-intelligence/solutions/backdoor/index.ipynb"
+                - text: "Poison [3/2]"
+                  href: "404ctf/artificial-intelligence/solutions/poison-3/index.ipynb"
+        - section: "Quantum Challenges"
+          contents:
+            - "404ctf/quantum-challenges/index.qmd"
+            - section: "Challenges"
+              contents:
+                - text: "Introduction to rail encoding"
+                  href: "404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.ipynb"
+                - text: "Quantum Woman in the Middle"
+                  href: "404ctf/quantum-challenges/challenges/quantum-woman-in-the-middle/index.ipynb"
+                - text: "Multiple Systems"
+                  href: "404ctf/quantum-challenges/challenges/multiple-systems/index.ipynb"
+                - text: "Reverse Engineering"
+                  href: "404ctf/quantum-challenges/challenges/reverse-engineering/index.ipynb"
+            - section: "Solutions"
+              contents:
+                - text: "Introduction to rail encoding"
+                  href: "404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.ipynb"
+                - text: "Quantum Woman in the Middle"
+                  href: "404ctf/quantum-challenges/solutions/quantum-woman-in-the-middle/index.ipynb"
+                - text: "Multiple Systems"
+                  href: "404ctf/quantum-challenges/solutions/multiple-systems/index.ipynb"
+                - text: "Reverse Engineering"
+                  href: "404ctf/quantum-challenges/solutions/reverse-engineering/index.ipynb"

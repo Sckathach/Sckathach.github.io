@@ -1,0 +1,8 @@
+---
+pagetitle: "404 CTF"
+toc: false
+description: "The super 404 CTF!"
+hide-description: true
+---
+
+# Yoyoyo

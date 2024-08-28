@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Le magicien quantique">
+<meta name="dcterms.date" content="2024-05-12">
 
-<title>index – Sckathach's docs</title>
+<title>Solution to Challenge 2: Poison [2/2] – Sckathach’s docs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html" rel="next">
-<link href="../../404ctf/artificial-intelligence/solutions/poison-3/index.html" rel="prev">
-<link href="../../assets/favicon.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<link href="../../../../404ctf/artificial-intelligence/solutions/backdoor/index.html" rel="next">
+<link href="../../../../404ctf/artificial-intelligence/solutions/poison-1/index.html" rel="prev">
+<link href="../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,12 +106,42 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../../styles.css">
-<meta property="og:title" content="Sckathach’s docs">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../styles.css">
+<meta property="og:title" content="Solution to Challenge 2: Poison [2/2] – Sckathach’s docs">
 <meta property="og:description" content="The very super website of the super Sckathach!">
 <meta property="og:site_name" content="Sckathach's docs">
-<meta name="twitter:title" content="Sckathach’s docs">
+<meta name="twitter:title" content="Solution to Challenge 2: Poison [2/2] – Sckathach’s docs">
+<meta name="twitter:description" content="">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -86,7 +152,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">Sckathach’s docs</span>
     </a>
   </div>
@@ -97,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../404ctf/index.html" aria-current="page"> 
+    <a class="nav-link active" href="../../../../404ctf/index.html" aria-current="page"> 
 <span class="menu-text">404 CTF</span></a>
   </li>  
 </ul>
@@ -117,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../404ctf/quantum-challenges/index.html">Quantum Challenges</a></li><li class="breadcrumb-item"><a href="../../404ctf/quantum-challenges/index.html">Welcome to the Quantum Challenges of the 404 CTF!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../404ctf/artificial-intelligence/index.html">Artificial Intelligence</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/artificial-intelligence/solutions/poison-1/index.html">Solutions</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/artificial-intelligence/solutions/poison-2/index.html">Poison [2/2]</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -131,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Yoyoyo</span></a>
   </div>
 </li>
@@ -146,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome to the AI Challenges of the 404 CTF!</span></a>
   </div>
 </li>
@@ -161,25 +227,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/challenges/poison-1/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/challenges/poison-1/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Poison [1/2]</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/challenges/poison-1/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/challenges/poison-1/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Poison [2/2]</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/challenges/backdoor/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/challenges/backdoor/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Backdoor</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/challenges/poison-3/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/challenges/poison-3/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Poison [3/2]</span></a>
   </div>
 </li>
@@ -187,34 +253,34 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
  <span class="menu-text">Solutions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/solutions/poison-1/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/solutions/poison-1/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Poison [1/2]</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/solutions/poison-2/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/solutions/poison-2/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Poison [2/2]</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/solutions/backdoor/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/solutions/backdoor/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Backdoor</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/artificial-intelligence/solutions/poison-3/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/artificial-intelligence/solutions/poison-3/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Poison [3/2]</span></a>
   </div>
 </li>
@@ -233,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../../404ctf/quantum-challenges/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome to the Quantum Challenges of the 404 CTF!</span></a>
   </div>
 </li>
@@ -248,25 +314,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to rail encoding</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/challenges/quantum-woman-in-the-middle/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/challenges/quantum-woman-in-the-middle/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quantum Woman in the Middle</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/challenges/multiple-systems/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/challenges/multiple-systems/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Multiple Systems</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/challenges/reverse-engineering/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/challenges/reverse-engineering/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reverse Engineering</span></a>
   </div>
 </li>
@@ -283,25 +349,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction to rail encoding</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/solutions/quantum-woman-in-the-middle/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/solutions/quantum-woman-in-the-middle/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Quantum Woman in the Middle</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/solutions/multiple-systems/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/solutions/multiple-systems/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Multiple Systems</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../404ctf/quantum-challenges/solutions/reverse-engineering/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../../404ctf/quantum-challenges/solutions/reverse-engineering/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reverse Engineering</span></a>
   </div>
 </li>
@@ -314,26 +380,124 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#welcome-to-the-quantum-challenges-of-the-404-ctf" id="toc-welcome-to-the-quantum-challenges-of-the-404-ctf" class="nav-link active" data-scroll-target="#welcome-to-the-quantum-challenges-of-the-404-ctf">Welcome to the Quantum Challenges of the 404 CTF!</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/404ctf/quantum-challenges/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/quantum-challenges/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../404ctf/artificial-intelligence/index.html">Artificial Intelligence</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/artificial-intelligence/solutions/poison-1/index.html">Solutions</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/artificial-intelligence/solutions/poison-2/index.html">Poison [2/2]</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Solution to Challenge 2: Poison [2/2]</h1>
+</div>
 
 
 
-<section id="welcome-to-the-quantum-challenges-of-the-404-ctf" class="level1">
-<h1>Welcome to the Quantum Challenges of the 404 CTF!</h1>
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Le magicien quantique </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 12, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-</section>
+</header>
+
+
+<div id="initial_id" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:20:37.485754Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:20:37.481879Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:true}" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> rq</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fl.model <span class="im">import</span> NN</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fl.preprocessing <span class="im">import</span> load_mnist, data_to_client</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fl.federated_learning <span class="im">import</span> train_and_test</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> <span class="st">"http://localhost:8000/"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># URL = "https://du-poison.challenges.404ctf.fr/" </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>During the 404 CTF, I set a threshold of 0.5 for the tests to be generous and ensure that anyone with a decent solution could succeed in getting the flag every time. Unfortunately, it turned out to be way too high, and many players were able to pass challenges 1 and 2 in the same way. I’ve now adjusted the threshold to 0.3 here to present a different solution.</p>
+<p>As before, we retrieve the model; this time, we will train it correctly:</p>
+<div id="f9d12e0e562f86ca" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:20:42.965468Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:20:41.590200Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_mnist()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> NN()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>model.load_weights(<span class="st">"../weights/base_fl.weights.h5"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>x_train, y_train, x_test, y_test <span class="op">=</span> dataset</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>x_clients, y_clients <span class="op">=</span> data_to_client(x_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="77c21ac6dcfdedc0" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:20:46.570290Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:20:43.513877Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> train_and_test(model, x_clients[<span class="dv">0</span>], y_clients[<span class="dv">0</span>], x_test, y_test, adam_lr<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> results[<span class="st">"model"</span>].get_weights()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>63/63 [==============================] - 0s 3ms/step
+Accuracy of the model: 0.799</code></pre>
+</div>
+</div>
+<p>We try the method from Challenge 1 again:</p>
+<div id="eccecf8fda6e0cf6" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:20:47.260599Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:20:47.165734Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w1"</span>: np.random.random(weights[<span class="dv">0</span>].shape).tolist(),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b1"</span>: np.random.random(weights[<span class="dv">1</span>].shape).tolist(),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w2"</span>: np.random.random(weights[<span class="dv">2</span>].shape).tolist(),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b2"</span>: np.random.random(weights[<span class="dv">3</span>].shape).tolist(),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w3"</span>: np.random.random(weights[<span class="dv">4</span>].shape).tolist(),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b3"</span>: np.random.random(weights[<span class="dv">5</span>].shape).tolist(),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w4"</span>: np.random.random(weights[<span class="dv">6</span>].shape).tolist(),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b4"</span>: np.random.random(weights[<span class="dv">7</span>].shape).tolist()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c7a96a0d856c1947" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:20:47.644348Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:20:47.630744Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>rq.get(URL <span class="op">+</span> <span class="st">"healthcheck"</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>{'message': 'Statut : en pleine forme !'}</code></pre>
+</div>
+</div>
+<div id="685535e8d48977e3" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:20:51.197594Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:20:48.340183Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"challenges/2"</span>, json<span class="op">=</span>d).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>{'message': "Raté ! Le score de l'apprentissage fédéré est de 0.4055. Il faut l'empoisonner pour qu'il passe en dessous de 0.3"}</code></pre>
+</div>
+</div>
+<p>As mentioned earlier, this method worked during the competition (0.4055 &lt; 0.5), but since the threshold is now set at 0.3, we’ll need to find another approach.</p>
+<p>What happened?</p>
+<p>Challenge 1 had no protection. So, when we used random weights ranging between -1 and 1, it completely broke the model. Typically, the usual weight values are very close to 0, around 0.001 for the networks used in these challenges. As a result, during aggregation, the random weights significantly dominated and poisoned the entire common model.</p>
+<p>This time, the challenge includes a small protection. To avoid extreme values, the server first clips the weights above a certain threshold: <span class="math display">\[
+w' = \text{sign}(w) \times \min(|w|, s)
+\]</span></p>
+<p>We, therefore, seek to have the maximum impact with the smallest weight amplitude possible. For example, we can take the inverse of the calculated weights: since the weights were calculated to maximize the model’s accuracy, taking the inverse would maximize the decrease in the model’s accuracy.</p>
+<div id="7be20b3cdeccea7a" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:21:19.143641Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:21:19.025473Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w1"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">0</span>])).tolist(),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b1"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">1</span>])).tolist(),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w2"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">2</span>])).tolist(),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b2"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">3</span>])).tolist(),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w3"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">4</span>])).tolist(),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b3"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">5</span>])).tolist(),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"w4"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">6</span>])).tolist(),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"b4"</span>: (<span class="op">-</span>np.sign(weights[<span class="dv">7</span>])).tolist()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2f1821e59162ea3" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-20T08:21:21.033987Z&quot;,&quot;start_time&quot;:&quot;2024-05-20T08:21:19.874993Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"challenges/2"</span>, json<span class="op">=</span>d).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>{'message': 'Bravo ! Voici le drapeau : 404CTF{p3rF0rm4nc3_Ou_s3cUR1T3_FaUt_iL_Ch01s1r?} (score : 0.261)'}</code></pre>
+</div>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -758,13 +922,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../404ctf/artificial-intelligence/solutions/poison-3/index.html" class="pagination-link" aria-label="Poison [3/2]">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Poison [3/2]</span>
+      <a href="../../../../404ctf/artificial-intelligence/solutions/poison-1/index.html" class="pagination-link" aria-label="Poison [1/2]">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Poison [1/2]</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html" class="pagination-link" aria-label="Introduction to rail encoding">
-        <span class="nav-page-text">Introduction to rail encoding</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../../404ctf/artificial-intelligence/solutions/backdoor/index.html" class="pagination-link" aria-label="Backdoor">
+        <span class="nav-page-text">Backdoor</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -782,7 +946,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/404ctf/quantum-challenges/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/quantum-challenges/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/artificial-intelligence/solutions/poison-2/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/artificial-intelligence/solutions/poison-2/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">

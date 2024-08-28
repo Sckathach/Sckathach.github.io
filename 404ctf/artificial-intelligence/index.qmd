@@ -1,0 +1,6 @@
+# Welcome to the AI Challenges of the 404 CTF!
+
+There are 4 challenges:
+
+- [Challenge 1](challenges/poison-1/)
+- [Challenge 2](challenges/poison-2/index.ipynb)
