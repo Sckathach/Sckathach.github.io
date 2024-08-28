@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="837.5" height="656.25" viewBox="-25 0 670.0 525.0">
+<defs>
+</defs>
+<path d="M10,25 L25,25" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M10,75 L25,75" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M10,125 L25,125" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M10,175 L25,175" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M37.9442,25.0002 C51.653800000000004,25.0002,51.5923,50.0,65.3019,50.0 M65.3038,50.0 C51.59219999999999,50.0,51.6538,74.9998,37.94409999999999,74.9998 M65.3038,49.99999999999999 L87.1884,49.99999999999999 M87.1884,49.99999999999999 C100.9,49.99999999999999,100.83840000000001,25.000199999999992,114.5481,25.000199999999992 M87.1884,49.99999999999999 C100.9,49.99999999999999,100.83840000000001,74.9998,114.5481,74.9998 M25.0,24.999999999999993 L38.0,24.999999999999993 M38.0019,74.9998 L25.0,74.9998 M112.6453,74.9998 L125.0,74.9998 M112.1944,24.999799999999993 L125.0,24.999799999999993" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<text x="75" y="38" font-size="7" text-anchor="middle"></text>
+<path d="M97,53 L107,53 L107,63 L97,63 Z" stroke="black" fill="aquamarine" stroke-linejoin="miter" />
+<text x="102" y="60" font-size="6" text-anchor="middle">H</text>
+<path d="M25,125 L75,125" stroke="black" stroke-width="1" fill="none" />
+<path d="M25,175 L75,175" stroke="black" stroke-width="1" fill="none" />
+<path d="M27.5,102.5 L72.5,102.5 L72.5,197.5 L27.5,197.5 Z" stroke="black" fill="white" stroke-linejoin="miter" />
+<text x="35" y="116" font-size="8" text-anchor="start" font-weight="bold">S1</text>
+<path d="M87.9442,125.0002 C101.65379999999999,125.0002,101.5923,150.0,115.30189999999999,150.0 M115.3038,150.0 C101.59219999999999,150.0,101.65379999999999,174.9998,87.94409999999999,174.9998 M115.3038,150.0 L137.1884,150.0 M137.1884,150.0 C150.9,150.0,150.8384,125.0002,164.5481,125.0002 M137.1884,150.0 C150.9,150.0,150.8384,174.9998,164.5481,174.9998 M75.0,125.0 L88.0,125.0 M88.0019,174.9998 L75.0,174.9998 M162.64530000000002,174.9998 L175.0,174.9998 M162.1944,124.9998 L175.0,124.9998" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<text x="125" y="138" font-size="7" text-anchor="middle">Θ=19*pi/5</text>
+<path d="M147,153 L157,153 L157,163 L147,163 Z" stroke="black" fill="thistle" stroke-linejoin="miter" />
+<text x="152" y="160" font-size="6" text-anchor="middle">Rx</text>
+<path d="M125,25 L175,25" stroke="black" stroke-width="1" fill="none" />
+<path d="M125,75 L175,75" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,25 L225,25" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,75 L225,75" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,125 L225,125" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,175 L225,175" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,225 L225,225" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,275 L225,275" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,325 L225,325" stroke="black" stroke-width="1" fill="none" />
+<path d="M175,375 L225,375" stroke="black" stroke-width="1" fill="none" />
+<path d="M177.5,2.5 L222.5,2.5 L222.5,397.5 L177.5,397.5 Z" stroke="black" fill="white" stroke-linejoin="miter" />
+<text x="185" y="24" font-size="8" text-anchor="start" font-weight="bold"><tspan x="185" dy="0em">HERALDED</tspan><tspan x="185" dy="1em">CNOT</tspan></text>
+<path d="M225,125 L245,125 M255,125 L275,125" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M240,135 L260,135 L260,115 L240,115 L240,135" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="lightgray" />
+<text x="250" y="144" font-size="7" text-anchor="middle">Φ=pi/3</text>
+<path d="M225,25 L275,25" stroke="black" stroke-width="1" fill="none" />
+<path d="M225,75 L275,75" stroke="black" stroke-width="1" fill="none" />
+<path d="M225,175 L275,175" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,25 L325,25" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,75 L325,75" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,125 L325,125" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,175 L325,175" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,225 L325,225" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,275 L325,275" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,325 L325,325" stroke="black" stroke-width="1" fill="none" />
+<path d="M275,375 L325,375" stroke="black" stroke-width="1" fill="none" />
+<path d="M277.5,2.5 L322.5,2.5 L322.5,397.5 L277.5,397.5 Z" stroke="black" fill="white" stroke-linejoin="miter" />
+<text x="285" y="24" font-size="8" text-anchor="start" font-weight="bold"><tspan x="285" dy="0em">HERALDED</tspan><tspan x="285" dy="1em">CNOT</tspan></text>
+<path d="M325,25 L375,25" stroke="black" stroke-width="1" fill="none" />
+<path d="M325,75 L375,75" stroke="black" stroke-width="1" fill="none" />
+<path d="M325,125 L375,125" stroke="black" stroke-width="1" fill="none" />
+<path d="M325,175 L375,175" stroke="black" stroke-width="1" fill="none" />
+<path d="M387.9442,25.0002 C401.65380000000005,25.0002,401.5923,50.0,415.30190000000005,50.0 M415.3038,50.0 C401.59220000000005,50.0,401.65380000000005,74.9998,387.94410000000005,74.9998 M415.3038,49.99999999999999 L437.1884,49.99999999999999 M437.1884,49.99999999999999 C450.9,49.99999999999999,450.8384,25.000199999999992,464.5481,25.000199999999992 M437.1884,49.99999999999999 C450.9,49.99999999999999,450.8384,74.9998,464.5481,74.9998 M375.0,24.999999999999993 L388.0,24.999999999999993 M388.0019,74.9998 L375.0,74.9998 M462.6453,74.9998 L475.0,74.9998 M462.1944,24.999799999999993 L475.0,24.999799999999993" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<text x="425" y="38" font-size="7" text-anchor="middle"></text>
+<path d="M447,53 L457,53 L457,63 L447,63 Z" stroke="black" fill="aquamarine" stroke-linejoin="miter" />
+<text x="452" y="60" font-size="6" text-anchor="middle">H</text>
+<path d="M487.9442,25.0002 C501.65380000000005,25.0002,501.5923,50.0,515.3019,50.0 M515.3038,50.0 C501.59220000000005,50.0,501.65380000000005,74.9998,487.94410000000005,74.9998 M515.3038,49.99999999999999 L537.1884,49.99999999999999 M537.1884,49.99999999999999 C550.9,49.99999999999999,550.8384,25.000199999999992,564.5481,25.000199999999992 M537.1884,49.99999999999999 C550.9,49.99999999999999,550.8384,74.9998,564.5481,74.9998 M475.0,24.999999999999993 L488.0,24.999999999999993 M488.0019,74.9998 L475.0,74.9998 M562.6453,74.9998 L575.0,74.9998 M562.1944,24.999799999999993 L575.0,24.999799999999993" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<text x="525" y="38" font-size="7" text-anchor="middle">Θ=pi/3</text>
+<path d="M547,53 L557,53 L557,63 L547,63 Z" stroke="black" fill="thistle" stroke-linejoin="miter" />
+<text x="552" y="60" font-size="6" text-anchor="middle">Rx</text>
+<path d="M375,125 L575,125" stroke="black" stroke-width="1" fill="none" />
+<path d="M375,175 L575,175" stroke="black" stroke-width="1" fill="none" />
+<path d="M575,25 L590,25" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M575,75 L590,75" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M575,125 L590,125" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M575,175 L590,175" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="none" />
+<path d="M157,225 C157,225,157,215,167,215 L175,215 L175,235 L167,235 C157,235,157,225,157,225 L157,225" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="163" y="241" font-size="6" text-anchor="middle" font-style="italic">[herald0]</text>
+<text x="167" y="228" font-size="7" text-anchor="middle">0</text>
+<path d="M157,275 C157,275,157,265,167,265 L175,265 L175,285 L167,285 C157,285,157,275,157,275 L157,275" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="163" y="291" font-size="6" text-anchor="middle" font-style="italic">[herald1]</text>
+<text x="167" y="278" font-size="7" text-anchor="middle">1</text>
+<path d="M157,325 C157,325,157,315,167,315 L175,315 L175,335 L167,335 C157,335,157,325,157,325 L157,325" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="163" y="341" font-size="6" text-anchor="middle" font-style="italic">[herald2]</text>
+<text x="167" y="328" font-size="7" text-anchor="middle">0</text>
+<path d="M157,375 C157,375,157,365,167,365 L175,365 L175,385 L167,385 C157,385,157,375,157,375 L157,375" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="163" y="391" font-size="6" text-anchor="middle" font-style="italic">[herald3]</text>
+<text x="167" y="378" font-size="7" text-anchor="middle">1</text>
+<path d="M257,225 C257,225,257,215,267,215 L275,215 L275,235 L267,235 C257,235,257,225,257,225 L257,225" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="263" y="241" font-size="6" text-anchor="middle" font-style="italic">[herald4]</text>
+<text x="267" y="228" font-size="7" text-anchor="middle">0</text>
+<path d="M257,275 C257,275,257,265,267,265 L275,265 L275,285 L267,285 C257,285,257,275,257,275 L257,275" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="263" y="291" font-size="6" text-anchor="middle" font-style="italic">[herald5]</text>
+<text x="267" y="278" font-size="7" text-anchor="middle">1</text>
+<path d="M257,325 C257,325,257,315,267,315 L275,315 L275,335 L267,335 C257,335,257,325,257,325 L257,325" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="263" y="341" font-size="6" text-anchor="middle" font-style="italic">[herald6]</text>
+<text x="267" y="328" font-size="7" text-anchor="middle">0</text>
+<path d="M257,375 C257,375,257,365,267,365 L275,365 L275,385 L267,385 C257,385,257,375,257,375 L257,375" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="263" y="391" font-size="6" text-anchor="middle" font-style="italic">[herald7]</text>
+<text x="267" y="378" font-size="7" text-anchor="middle">1</text>
+<path d="M590,15 L602,15 L602,85 L590,85 Z" stroke="black" fill="white" stroke-linejoin="miter" />
+<text x="596" y="27" font-size="7" text-anchor="middle">0</text>
+<text x="596" y="77" font-size="7" text-anchor="middle">1</text>
+<text x="602" y="91" font-size="6" text-anchor="end" font-style="italic">[ctrl]</text>
+<path d="M590,115 L602,115 L602,185 L590,185 Z" stroke="black" fill="white" stroke-linejoin="miter" />
+<text x="596" y="127" font-size="7" text-anchor="middle">2</text>
+<text x="596" y="177" font-size="7" text-anchor="middle">3</text>
+<text x="602" y="191" font-size="6" text-anchor="end" font-style="italic">[data]</text>
+<path d="M233,235 L225,235 L225,215 L233,215 C233,215,243,215,243,225 C243,235,233,235,233,235 L233,235" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="241" font-size="6" text-anchor="middle" font-style="italic">[herald0]</text>
+<text x="233" y="228" font-size="7" text-anchor="middle">0</text>
+<path d="M233,285 L225,285 L225,265 L233,265 C233,265,243,265,243,275 C243,285,233,285,233,285 L233,285" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="291" font-size="6" text-anchor="middle" font-style="italic">[herald1]</text>
+<text x="233" y="278" font-size="7" text-anchor="middle">1</text>
+<path d="M233,335 L225,335 L225,315 L233,315 C233,315,243,315,243,325 C243,335,233,335,233,335 L233,335" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="341" font-size="6" text-anchor="middle" font-style="italic">[herald2]</text>
+<text x="233" y="328" font-size="7" text-anchor="middle">0</text>
+<path d="M233,385 L225,385 L225,365 L233,365 C233,365,243,365,243,375 C243,385,233,385,233,385 L233,385" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="391" font-size="6" text-anchor="middle" font-style="italic">[herald3]</text>
+<text x="233" y="378" font-size="7" text-anchor="middle">1</text>
+<path d="M333,235 L325,235 L325,215 L333,215 C333,215,343,215,343,225 C343,235,333,235,333,235 L333,235" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="338" y="241" font-size="6" text-anchor="middle" font-style="italic">[herald4]</text>
+<text x="333" y="228" font-size="7" text-anchor="middle">0</text>
+<path d="M333,285 L325,285 L325,265 L333,265 C333,265,343,265,343,275 C343,285,333,285,333,285 L333,285" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="338" y="291" font-size="6" text-anchor="middle" font-style="italic">[herald5]</text>
+<text x="333" y="278" font-size="7" text-anchor="middle">1</text>
+<path d="M333,335 L325,335 L325,315 L333,315 C333,315,343,315,343,325 C343,335,333,335,333,335 L333,335" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="338" y="341" font-size="6" text-anchor="middle" font-style="italic">[herald6]</text>
+<text x="333" y="328" font-size="7" text-anchor="middle">0</text>
+<path d="M333,385 L325,385 L325,365 L333,365 C333,365,343,365,343,375 C343,385,333,385,333,385 L333,385" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="338" y="391" font-size="6" text-anchor="middle" font-style="italic">[herald7]</text>
+<text x="333" y="378" font-size="7" text-anchor="middle">1</text>
+</svg>
