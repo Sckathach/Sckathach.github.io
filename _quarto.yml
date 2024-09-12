@@ -36,6 +36,8 @@ website:
     left:
       - text: "404 CTF"
         href: "404ctf/index.qmd"
+      - text: "Graphs"
+        href: "graphs.ipynb"
 
   search:
     show-item-context: true
