@@ -3,5 +3,6 @@ title: "docs"
 ---
 
 
+_Site under construction :)_
 
-{{< react Test >}}
+But you can already checkout my first [MI project](mech-interp/exploring-adversarial-mi/index.qmd), or some [quantum stuff](404ctf/quantum-challenges/solutions/reverse-engineering/index.ipynb). 

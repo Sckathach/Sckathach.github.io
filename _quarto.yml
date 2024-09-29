@@ -36,8 +36,8 @@ website:
     left:
       - text: "404 CTF"
         href: "404ctf/index.qmd"
-      - text: "Graphs"
-        href: "graphs.ipynb"
+      - text: "Mechanistic Interpretability"
+        href: "mech-interp/exploring-adversarial-mi/index.qmd"
 
   search:
     show-item-context: true

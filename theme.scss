@@ -35,3 +35,8 @@ $navbar-link-hover-color: #d35400; // Slightly darker orange on hover
   border-color: #e67e22;
   color: #333333;
 }
+
+::selection {
+  background: #e67e22;
+  color: #fafaf8;
+}

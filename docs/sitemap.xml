@@ -1,87 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sckathach.github.io/graphs.html</loc>
-    <lastmod>2024-09-12T20:44:46.299Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/about.html</loc>
-    <lastmod>2024-08-28T17:53:22.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/index.html</loc>
-    <lastmod>2024-08-28T21:09:54.948Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-3/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/backdoor/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-3/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/backdoor/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/reverse-engineering/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.435Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.926Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/multiple-systems/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.435Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/reverse-engineering/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/multiple-systems/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/quantum-woman-in-the-middle/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.435Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.435Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/quantum-woman-in-the-middle/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.431Z</lastmod>
+    <lastmod>2024-09-29T21:57:24.949Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.425Z</lastmod>
+    <lastmod>2024-09-29T21:57:24.948Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-2/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/multiple-systems/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.942Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-1/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.927Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-2/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.926Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-1/index.html</loc>
-    <lastmod>2024-08-28T17:53:22.411Z</lastmod>
+    <lastmod>2024-09-29T21:57:24.926Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/index.html</loc>
-    <lastmod>2024-08-28T19:49:40.095Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/backdoor/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.926Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-1/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.924Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/backdoor/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.922Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/about.html</loc>
+    <lastmod>2024-09-29T21:57:24.969Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/graphs.html</loc>
+    <lastmod>2024-09-29T21:57:25.021Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/mech-interp/exploring-adversarial-mi/index.html</loc>
+    <lastmod>2024-09-29T22:00:36.591Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/index.html</loc>
-    <lastmod>2024-09-12T20:51:56.006Z</lastmod>
+    <lastmod>2024-09-29T22:08:31.483Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-2/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.925Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-3/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.926Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-2/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.926Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-3/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.926Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/quantum-woman-in-the-middle/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/reverse-engineering/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.946Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/quantum-woman-in-the-middle/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.950Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/reverse-engineering/index.html</loc>
+    <lastmod>2024-09-29T21:57:24.951Z</lastmod>
   </url>
 </urlset>
