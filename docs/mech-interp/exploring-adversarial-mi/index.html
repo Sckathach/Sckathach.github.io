@@ -369,7 +369,7 @@ W'_{\text{out}} \leftarrow W_{\text{out}} - \hat{r} \hat{r}^{\top} W_{\text{out}
 </section>
 <section id="interpretation-limitations-and-future-work" class="level2">
 <h2 class="anchored" data-anchor-id="interpretation-limitations-and-future-work">Interpretation, Limitations and Future Work</h2>
-<p>The first two limitations of this project are time and computational power. I was only able to test my method on the Qwen model and with a limited number of examples, so drawing firm conclusions seems rather bold. I can only say that it is not as straightforward as it seems, and that <strong>being orthogonal to the refusal space doesn’t appear to be sufficient for the suffix to be adversarial.</strong></p>
+<p>The first two limitations of this project are time and computational power. I was only able to test my method on the Qwen model and with a limited number of examples, so drawing firm conclusions seems rather bold. I can only say that it is not as straightforward as it seems, and that <strong>being orthogonal to the refusal space doesn’t appear to be sufficient for the suffix to be adversarial.</strong> In fact, this may be a simple example of the <a href="https://en.wikipedia.org/wiki/Curse_of_dimensionality">curse of dimensionality</a>. As mentioned by <span class="citation" data-cites="peng_interpreting_2024">Peng, Gui, and Wu (<a href="#ref-peng_interpreting_2024" role="doc-biblioref">2024</a>)</span>, interpretations of cosine similarity may be invalid in high-dimensional spaces, since <strong>any two vectors will be almost orthogonal with high probability, without their having to fulfill any specific condition.</strong></p>
 <p>Another limitation is simply my limited knowledge of interpretability at this stage. While I successfully replicated the results of the refusal paper, and the modified nanoGCG output seems coherent, I am not <span class="math inline">\(100\%\)</span> confident in my code.</p>
 <p>I believe the next step is not to merely optimise further or test with every possible model in the hope that the method will eventually work, but rather to pause and <strong>review the entire process</strong>. Further work is required to better understand the role of the refusal subspace and how adversarial sentence information flows through the transformer layers. In section 5 of the refusal paper, the authors not only found that adversarial sentences reduce the similarity with the refusal direction, but they also discovered that <strong>the adversarial suffixes hijack the attention of important heads</strong>, which could explain why the model accepts the prompt. This is an area I plan to investigate in the coming weeks.</p>
 </section>
@@ -410,6 +410,9 @@ Javid Ebrahimi, Daniel Lowd, Anyi Rao. 2017. <span>“HotFlip: White-Box Adversa
 </div>
 <div id="ref-nanda_transformerlens_2022" class="csl-entry" role="listitem">
 Nanda, Neel, and Joseph Bloom. 2022. <span>“TransformerLens.”</span>
+</div>
+<div id="ref-peng_interpreting_2024" class="csl-entry" role="listitem">
+Peng, Dehua, Zhipeng Gui, and Huayi Wu. 2024. <span>“Interpreting the Curse of Dimensionality from Distance Concentration and Manifold Effect.”</span> <a href="https://arxiv.org/abs/2401.00422">https://arxiv.org/abs/2401.00422</a>.
 </div>
 <div id="ref-alpaca" class="csl-entry" role="listitem">
 Taori, Rohan, Ishaan Gulrajani, Tianyi Zhang, Yann Dubois, Xuechen Li, Carlos Guestrin, Percy Liang, and Tatsunori B. Hashimoto. 2023. <span>“Stanford Alpaca: An Instruction-Following LLaMA Model.”</span> <em>GitHub Repository</em>. <a href="https://github.com/tatsu-lab/stanford_alpaca" class="uri">https://github.com/tatsu-lab/stanford_alpaca</a>; GitHub.
