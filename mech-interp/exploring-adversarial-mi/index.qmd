@@ -9,7 +9,7 @@ reference-location: margin
 date: 2024-09-29
 ---
 
-Code available here: <https://github.com/Sckathach/mechanistic-lab>
+Code available here: <https://github.com/Sckathach/mi-gcg/>
 
 This work is my capstone project for the [AISF Alignment course](https://aisafetyfundamentals.com/alignment/) that I followed over the past 12 weeks. It consists of an adaptation of the Greedy Coordinate Gradient (GCG) attack to exploit the refusal subspace in large language models. Rather than targeting output space gradients, it optimises prompts to evade the refusal subspace identified in LLM activations, showcasing the potential use of mechanistic interpretability (MI) to craft adversarial attacks. However, the results show that evading the refusal subspace **is not sufficient to craft an adversarial string**. If you're only interested in the core of the work, feel free to skip ahead to @sec-method or @sec-results.
 
