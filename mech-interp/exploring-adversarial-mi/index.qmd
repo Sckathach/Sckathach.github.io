@@ -147,7 +147,7 @@ _All results are available with the provided code. While I fixed the parameters,
 
 ## Interpretation, Limitations and Future Work
 
-The first two limitations of this project are time and computational power. I was only able to test my method on the Qwen model and with a limited number of examples, so drawing firm conclusions seems rather bold. I can only say that it is not as straightforward as it seems, and that **being orthogonal to the refusal space doesn't appear to be sufficient for the suffix to be adversarial.**
+The first two limitations of this project are time and computational power. I was only able to test my method on the Qwen model and with a limited number of examples, so drawing firm conclusions seems rather bold. I can only say that it is not as straightforward as it seems, and that **being orthogonal to the refusal space doesn't appear to be sufficient for the suffix to be adversarial.** In fact, this may be a simple example of the [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality). As mentioned by @peng_interpreting_2024, interpretations of cosine similarity may be invalid in high-dimensional spaces, since **any two vectors will be almost orthogonal with high probability, without their having to fulfill any specific condition.**
 
 Another limitation is simply my limited knowledge of interpretability at this stage. While I successfully replicated the results of the refusal paper, and the modified nanoGCG output seems coherent, I am not $100\%$ confident in my code.
 
