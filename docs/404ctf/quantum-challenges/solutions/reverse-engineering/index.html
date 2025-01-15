@@ -2,12 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Le magicien quantique">
+<meta name="dcterms.date" content="2024-05-12">
 
-<title>Before we begin… – Sckathach's docs</title>
+<title>Solution Challenge 4: Inversion – Sckathach’s docs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -71,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-a188bb6a9808be26086ad679e85f4684.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-2258256424b72fa07fdb121ad098af17.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -134,12 +136,14 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../../../styles.css">
-<meta property="og:title" content="Before we begin… – Sckathach’s docs">
+<meta property="og:title" content="Solution Challenge 4: Inversion – Sckathach’s docs">
 <meta property="og:description" content="The very super website of the super Sckathach!">
+<meta property="og:image" content="https://sckathach.github.io/404ctf/quantum-challenges/solutions/reverse-engineering/index_files/figure-html/cell-4-output-1.svg">
 <meta property="og:site_name" content="Sckathach's docs">
-<meta name="twitter:title" content="Before we begin… – Sckathach’s docs">
+<meta name="twitter:title" content="Solution Challenge 4: Inversion – Sckathach’s docs">
 <meta name="twitter:description" content="">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sckathach.github.io/404ctf/quantum-challenges/solutions/reverse-engineering/index_files/figure-html/cell-4-output-1.svg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -184,7 +188,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/index.html">Quantum Challenges</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.html">Solutions</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/solutions/reverse-engineering/index.html">Reverse Engineering</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html">Quantum Challenges</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/solutions/reverse-engineering/index.html">Reverse Engineering - Solution</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -199,7 +203,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Yoyoyo</span></a>
+ <span class="menu-text">404 CTF - Edition 2024</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -211,21 +215,6 @@ window.Quarto = {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../../404ctf/artificial-intelligence/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome to the AI Challenges of the 404 CTF!</span></a>
-  </div>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">Challenges</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/artificial-intelligence/challenges/poison-1/index.html" class="sidebar-item-text sidebar-link">
@@ -250,69 +239,41 @@ window.Quarto = {
  <span class="menu-text">Poison [3/2]</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Solutions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/artificial-intelligence/solutions/poison-1/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Poison [1/2]</span></a>
+ <span class="menu-text">Poison [1/2] - Solution</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/artificial-intelligence/solutions/poison-2/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Poison [2/2]</span></a>
+ <span class="menu-text">Poison [2/2] - Solution</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/artificial-intelligence/solutions/backdoor/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Backdoor</span></a>
+ <span class="menu-text">Backdoor - Solution</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/artificial-intelligence/solutions/poison-3/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Poison [3/2]</span></a>
+ <span class="menu-text">Poison [3/2] - Solution</span></a>
   </div>
 </li>
-      </ul>
-  </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Quantum Challenges</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../../404ctf/quantum-challenges/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome to the Quantum Challenges of the 404 CTF!</span></a>
-  </div>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Challenges</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html" class="sidebar-item-text sidebar-link">
@@ -337,43 +298,30 @@ window.Quarto = {
  <span class="menu-text">Reverse Engineering</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Solutions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to rail encoding</span></a>
+ <span class="menu-text">Introduction to rail encoding - Solution</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/quantum-challenges/solutions/quantum-woman-in-the-middle/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quantum Woman in the Middle</span></a>
+ <span class="menu-text">Quantum Woman in the Middle - Solution</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/quantum-challenges/solutions/multiple-systems/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Systems</span></a>
+ <span class="menu-text">Multiple Systems - Solution</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../../404ctf/quantum-challenges/solutions/reverse-engineering/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Reverse Engineering</span></a>
+ <span class="menu-text">Reverse Engineering - Solution</span></a>
   </div>
 </li>
-      </ul>
-  </li>
       </ul>
   </li>
     </ul>
@@ -386,26 +334,37 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#inversion" id="toc-inversion" class="nav-link active" data-scroll-target="#inversion">Inversion?</a>
-  <ul class="collapse">
-  <li><a href="#flag-recovery" id="toc-flag-recovery" class="nav-link" data-scroll-target="#flag-recovery">Flag recovery</a></li>
-  </ul></li>
+  <li><a href="#before-we-begin" id="toc-before-we-begin" class="nav-link active" data-scroll-target="#before-we-begin"><span class="header-section-number">1</span> Before we begin…</a></li>
+  <li><a href="#inversion" id="toc-inversion" class="nav-link" data-scroll-target="#inversion"><span class="header-section-number">2</span> Inversion?</a></li>
+  <li><a href="#flag-recovery" id="toc-flag-recovery" class="nav-link" data-scroll-target="#flag-recovery"><span class="header-section-number">3</span> Flag recovery</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/quantum-challenges/solutions/reverse-engineering/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/quantum-challenges/solutions/reverse-engineering/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/index.html">Quantum Challenges</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.html">Solutions</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/solutions/reverse-engineering/index.html">Reverse Engineering</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html">Quantum Challenges</a></li><li class="breadcrumb-item"><a href="../../../../404ctf/quantum-challenges/solutions/reverse-engineering/index.html">Reverse Engineering - Solution</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Before we begin…</h1>
+<h1 class="title">Solution Challenge 4: Inversion</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Le magicien quantique </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 12, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -415,8 +374,6 @@ window.Quarto = {
 </header>
 
 
-<p>title: “Solution Challenge 4: Inversion” author: “Le magicien quantique” format: html toc: true number-sections: true date: “05/12/2024” date-format: long</p>
-<hr>
 <div id="initial_id" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-22T08:19:58.410114Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T08:19:56.955364Z&quot;}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> perceval <span class="im">as</span> pcvl</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval <span class="im">import</span> BS, catalog, PERM, Circuit, Processor, pdisplay, PS, BasicState, BackendFactory</span>
@@ -429,6 +386,8 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>DisplayConfig.select_skin(SymbSkin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="before-we-begin" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Before we begin…</h1>
 <div id="cbcfd3b9dffa619d" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-21T08:10:52.989653Z&quot;,&quot;start_time&quot;:&quot;2024-05-21T08:10:52.971660Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qubits <span class="op">=</span> {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"00"</span>: BasicState([<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]),</span>
@@ -460,8 +419,9 @@ window.Quarto = {
 <span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> pi<span class="op">/</span><span class="dv">3</span></span>
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>gamma <span class="op">=</span> pi<span class="op">/</span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="inversion" class="level1">
-<h1>Inversion?</h1>
+</section>
+<section id="inversion" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Inversion?</h1>
 <p>It’s time to finish this dreadful series of challenges. This time, no new concepts. Just two circuits and one goal: add the two missing parts to get the expected results. Good luck… may the odds be in your favor…</p>
 <div id="6b44615dc556b30" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-21T08:10:53.126641Z&quot;,&quot;start_time&quot;:&quot;2024-05-21T08:10:52.991488Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>step_one <span class="op">=</span> Circuit(<span class="dv">2</span>, <span class="st">"S1"</span>) </span>
@@ -688,8 +648,9 @@ General Solution for Steps 1 and 2
 <span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>eq3 <span class="op">=</span> C[<span class="dv">1</span>][<span class="dv">0</span>].norm() <span class="op">==</span> <span class="dv">1</span></span>
 <span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>solutions <span class="op">=</span> solve([eq1, eq2, eq3], [a, c])</span>
 <span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>show(solutions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="flag-recovery" class="level2">
-<h2 class="anchored" data-anchor-id="flag-recovery">Flag recovery</h2>
+</section>
+<section id="flag-recovery" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Flag recovery</h1>
 <div id="5f1cc6424b1cd27" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-05-05T18:35:20.003428Z&quot;,&quot;start_time&quot;:&quot;2024-05-05T18:35:19.991667Z&quot;}" data-jupyter="{&quot;outputs_hidden&quot;:false}">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> rq</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -712,7 +673,6 @@ General Solution for Steps 1 and 2
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -798,8 +758,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -910,7 +868,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1138,8 +1095,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../../404ctf/quantum-challenges/solutions/multiple-systems/index.html" class="pagination-link" aria-label="Multiple Systems">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Multiple Systems</span>
+      <a href="../../../../404ctf/quantum-challenges/solutions/multiple-systems/index.html" class="pagination-link" aria-label="Multiple Systems - Solution">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Multiple Systems - Solution</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

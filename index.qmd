@@ -1,7 +1,7 @@
 ---
-title: "docs"
+title: "Docs"
 ---
 
 _Site under construction :)_
 
-But you can already checkout my first [MI project](mech-interp/exploring-adversarial-mi/index.qmd), or some [quantum stuff](404ctf/quantum-challenges/solutions/reverse-engineering/index.ipynb).
+But you can already checkout my first [MI project](mech-interp/exploring-adversarial-mi/index.qmd), or the solution of my last 404 challenge for some [quantum stuff](404ctf/quantum-challenges/solutions/reverse-engineering/index.ipynb).
