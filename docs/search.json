@@ -2,12 +2,12 @@
   {
     "objectID": "404ctf/index.html",
     "href": "404ctf/index.html",
-    "title": "Yoyoyo",
+    "title": "404 CTF - Edition 2024",
     "section": "",
-    "text": "Yoyoyo",
+    "text": "The 404 CTF is France’s largest cybersecurity competition. It is organized jointly by the DGSE, Télécom SudParis, HackademINT, OVHcloud and Viva Technology. The 2024 edition took place from April 20 to May 12 2024 and gathered about 3800 competitors around 72 challenges designed by HackademINT. Learn more on the 404 CTF’s website or on the repository.\n\n\nPrevious editions  2022 | 2023",
     "crumbs": [
       "404 CTF",
-      "Yoyoyo"
+      "404 CTF - Edition 2024"
     ]
   },
   {
@@ -405,7 +405,7 @@
     "href": "404ctf/artificial-intelligence/index.html",
     "title": "Welcome to the AI Challenges of the 404 CTF!",
     "section": "",
-    "text": "Welcome to the AI Challenges of the 404 CTF!\nThere are 4 challenges:\n\nChallenge 1\nChallenge 2",
+    "text": "Welcome to the AI Challenges of the 404 CTF!\nThere are 5 challenges:\n\nChallenge 1\nChallenge 2",
     "crumbs": [
       "404 CTF",
       "Artificial Intelligence",
@@ -561,7 +561,7 @@
     "href": "mech-interp/exploring-adversarial-mi/index.html",
     "title": "Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks",
     "section": "",
-    "text": "Code available here: https://github.com/Sckathach/mi-gcg/\nThis work is my capstone project for the AISF Alignment course that I followed over the past 12 weeks. It consists of an adaptation of the Greedy Coordinate Gradient (GCG) attack to exploit the refusal subspace in large language models. Rather than targeting output space gradients, it optimises prompts to evade the refusal subspace identified in LLM activations, showcasing the potential use of mechanistic interpretability (MI) to craft adversarial attacks. However, the results show that evading the refusal subspace is not sufficient to craft an adversarial string. If you’re only interested in the core of the work, feel free to skip ahead to Section 3 or Section 4.\nDuring this course, I discovered the fascinating world of MI, which will undoubtedly be my focus in the coming years. To learn more about this emerging field and its tools, I chose to undertake a project in this area. Inspired by Conmy et al. (2023), my initial idea was to delve into transformers to see if I could modify the circuits to achieve a specific goal, such as jailbreaking the model. After a week of reading, I found that Arditi et al. (2024) had already accomplished what I intended to do, so I decided to build upon their work, exploring transformers and their refusal direction to determine whether I could use this understanding to craft adversarial attacks.\nThis work can be divided into three parts:"
+    "text": "Code available here: https://github.com/Sckathach/mi-gcg/\nThis work is my capstone project for the AISF Alignment course that I followed over the past 12 weeks. It consists of an adaptation of the Greedy Coordinate Gradient (GCG) attack to exploit the refusal subspace in large language models. Rather than targeting output space gradients, it optimises prompts to evade the refusal subspace identified in LLM activations, showcasing the potential use of mechanistic interpretability (MI) to craft adversarial attacks. However, the results show that evading the refusal subspace is not sufficient to craft an adversarial string. If you’re only interested in the core of the work, feel free to skip ahead to Section 3 or Section 4.\nThe initial idea, inspired by Conmy et al. (2023), was to delve into transformers to see if I could modify the circuits to achieve a specific goal, such as jailbreaking the model. After a week of reading, I found that Arditi et al. (2024) had already accomplished what I intended to do, so I decided to build upon their work, exploring transformers and their refusal direction to determine whether I could use this understanding to craft adversarial attacks.\nThis work can be divided into three parts:"
   },
   {
     "objectID": "mech-interp/exploring-adversarial-mi/index.html#sec-introduction",
@@ -596,7 +596,7 @@
     "href": "mech-interp/exploring-adversarial-mi/index.html#interpretation-limitations-and-future-work",
     "title": "Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks",
     "section": "Interpretation, Limitations and Future Work",
-    "text": "Interpretation, Limitations and Future Work\nThe first two limitations of this project are time and computational power. I was only able to test my method on the Qwen model and with a limited number of examples, so drawing firm conclusions seems rather bold. I can only say that it is not as straightforward as it seems, and that being orthogonal to the refusal space doesn’t appear to be sufficient for the suffix to be adversarial. In fact, this may be a simple example of the curse of dimensionality. As mentioned by Peng, Gui, and Wu (2024), interpretations of cosine similarity may be invalid in high-dimensional spaces, since any two vectors will be almost orthogonal with high probability, without their having to fulfill any specific condition.\nAnother limitation is simply my limited knowledge of interpretability at this stage. While I successfully replicated the results of the refusal paper, and the modified nanoGCG output seems coherent, I am not \\(100\\%\\) confident in my code.\nI believe the next step is not to merely optimise further or test with every possible model in the hope that the method will eventually work, but rather to pause and review the entire process. Further work is required to better understand the role of the refusal subspace and how adversarial sentence information flows through the transformer layers. In section 5 of the refusal paper, the authors not only found that adversarial sentences reduce the similarity with the refusal direction, but they also discovered that the adversarial suffixes hijack the attention of important heads, which could explain why the model accepts the prompt. This is an area I plan to investigate in the coming weeks."
+    "text": "Interpretation, Limitations and Future Work\nThe first two limitations of this project are time and computational power. I was only able to test my method on the Qwen model and with a limited number of examples, so drawing firm conclusions seems rather bold. I can only say that it is not as straightforward as it seems, and that being orthogonal to the refusal space doesn’t appear to be sufficient for the suffix to be adversarial. In fact, this may be a simple example of the curse of dimensionality. As mentioned by Peng, Gui, and Wu (2024), interpretations of cosine similarity may be invalid in high-dimensional spaces, since any two vectors will be almost orthogonal with high probability, without their having to fulfill any specific condition.\nFurther work is required to better understand the role of the refusal subspace and how adversarial sentence information flows through the transformer layers. In section 5 of the refusal paper, the authors not only found that adversarial sentences reduce the similarity with the refusal direction, but they also discovered that the adversarial suffixes hijack the attention of important heads, which could explain why the model accepts the prompt."
   },
   {
     "objectID": "mech-interp/exploring-adversarial-mi/index.html#conclusion",
@@ -947,6 +947,17 @@
       "404 CTF",
       "Quantum Challenges",
       "Welcome to the Quantum Challenges of the 404 CTF!"
+    ]
+  },
+  {
+    "objectID": "404ctf/index.html#ai-and-quantum-challenges",
+    "href": "404ctf/index.html#ai-and-quantum-challenges",
+    "title": "404 CTF - Edition 2024",
+    "section": "AI and Quantum Challenges",
+    "text": "AI and Quantum Challenges\nFor the 2024 edition, I’ve created Quantum and AI challenges to introduce participants to these two fantastic worlds!\nI started with an introduction to quantum algorithms based on the framework of the French start-up Quandela, which uses photonics. This was particularly well suited to talking about Quantum Key Distribution, a quantum communication protocol that is very interesting from a cyber security point of view. I also took the opportunity to show them that you can also have fun reverse engineering quantum circuits, and this time no assembly involved I swear :).\nI then took a specific area of AI attacks, model poisoning, and decided to turn it into a suite of challenges. Unfortunately I didn’t have time to release my two difficult challenges, which were really nice :(, but there’s still an introduction followed by two small beginner challenges.",
+    "crumbs": [
+      "404 CTF",
+      "404 CTF - Edition 2024"
     ]
   }
 ]

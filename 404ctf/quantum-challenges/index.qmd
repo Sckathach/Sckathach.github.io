@@ -1,2 +1,0 @@
-# Welcome to the Quantum Challenges of the 404 CTF!
-
