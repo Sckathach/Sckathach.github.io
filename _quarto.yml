@@ -7,6 +7,7 @@ format:
     css: styles.css
     theme: theme.scss
     toc: true
+    bibliography: "references.bib"
 
 website:
   title: "Sckathach's docs"
@@ -36,8 +37,10 @@ website:
     left:
       - text: "404 CTF"
         href: "404ctf/index.qmd"
-      - text: "Mechanistic Interpretability"
+      - text: "Exploring"
         href: "mech-interp/exploring-adversarial-mi/index.qmd"
+      - text: "SSR"
+        href: "mech-interp/ssr/index.qmd"
 
   search:
     show-item-context: true
