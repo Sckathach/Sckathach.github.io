@@ -10,7 +10,7 @@ format:
     bibliography: "references.bib"
 
 website:
-  title: "Sckathach's docs"
+  title: "Sckathach's posts"
   favicon: "assets/favicon.png"
   site-url: "https://sckathach.github.io"
   repo-url: "https://github.com/Sckathach/Sckathach.github.io"
@@ -22,8 +22,7 @@ website:
     description: "The very super website of the super Sckathach!"
   page-footer:
     left:
-      - text: "This website is made by the fabulous quarto engine!"
-        href: "https://quarto.org/"
+      - text: "Sckathach's post - Content that's both brilliant and terrible until observed"
     right:
       - text: "Home"
         href: "https://sckathach.github.io"
@@ -40,7 +39,7 @@ website:
       - text: "Exploring"
         href: "mech-interp/exploring-adversarial-mi/index.qmd"
       - text: "SSR"
-        href: "mech-interp/ssr/index.qmd"
+        href: "mech-interp/subspace-rerouting/index.qmd"
 
   search:
     show-item-context: true

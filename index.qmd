@@ -1,7 +1,22 @@
 ---
-title: "Docs"
+title: "Wormhole Wanderings - Connecting distant ideas through *brain*-time shortcuts"
 ---
 
-_Site under construction :)_
+- *Can mechanistic interpretability help us jailbreak black box models?* (kinda)
 
-But you can already checkout my first [MI project](mech-interp/exploring-adversarial-mi/index.qmd), or the solution of my last 404 challenge for some [quantum stuff](404ctf/quantum-challenges/solutions/reverse-engineering/index.ipynb).
+- *Can a general HotFlip solve adversarial attacks against IDS issues?* (on it, seems possible)
+
+- *Is unlearning un-unlearnable using circuit identification?* (soon)
+
+- *Can we detect backdoors in NN using thermodynamics (and mech interp)?*
+
+- *Can Coq & graphs help us train a "reasoning" model?*
+
+This website (or should I say, this quantum foam where pages appear out of nowhere, and bubble out without warning) brings together a few snippets of my research, on questions that no-one has asked, linking fields that no-one would go near. But since that's what I like - reading papers all day long and thinking, well, what if I put this idea somewhere else? - and sometimes it works, I've decided to build public it anyway. 
+
+It is still in construction, as I'm waiting to know a bit about Manim before decorating it :eyes:. But you can already checkout: 
+
+- [Not so incredible first failed MI project](mech-interp/exploring-adversarial-mi/index.qmd)
+- [Solutions of the last 404 CTF (tremble before the next... mech interp challenges on their way)](404ctf/index.qmd)
+- **PAPER:** <https://arxiv.org/abs/2503.06269> **!!!!!!**
+
