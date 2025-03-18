@@ -8,15 +8,16 @@ title: "Wormhole Wanderings - Connecting distant ideas through *brain*-time shor
 
 - *Is unlearning un-unlearnable using circuit identification?* (soon)
 
-- *Can we detect backdoors in NN using thermodynamics (and mech interp)?*
+- *Can we detect backdoors in neural networks using thermodynamics (and mech interp)?*
 
 - *Can Coq & graphs help us train a "reasoning" model?*
 
-This website (or should I say, this quantum foam where pages appear out of nowhere, and bubble out without warning) brings together a few snippets of my research, on questions that no-one has asked, linking fields that no-one would go near. But since that's what I like - reading papers all day long and thinking, well, what if I put this idea somewhere else? - and sometimes it works, I've decided to build public it anyway. 
+This website (or should I say, this quantum foam where pages appear out of nowhere and bubble out without warning) brings together snippets of my research on questions that no one has asked, linking fields that few would venture to connect (this sentence is cool tho). But since that's what I enjoy — reading papers all day long and thinking, "what if I put this idea somewhere else?" — and that sometimes it works, I've decided to make it public anyway.
 
-It is still in construction, as I'm waiting to know a bit about Manim before decorating it :eyes:. But you can already checkout: 
+It's still under construction, as I'm waiting to learn more about Manim before decorating it :eyes:. But you can already check out:
 
-- [Not so incredible first failed MI project](mech-interp/exploring-adversarial-mi/index.qmd)
-- [Solutions of the last 404 CTF (tremble before the next... mech interp challenges on their way)](404ctf/index.qmd)
+- [Not-so-incredible first failed MI project](mech-interp/exploring-adversarial-mi/index.qmd)
+
+- [Solutions from the last 404 CTF (tremble before the next... mech interp challenges on their way)](404ctf/index.qmd)
+
 - **PAPER:** <https://arxiv.org/abs/2503.06269> **!!!!!!**
-
