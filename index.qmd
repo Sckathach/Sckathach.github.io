@@ -1,18 +1,4 @@
----
-title: "Wormhole Wanderings - Connecting distant ideas through *brain*-time shortcuts"
----
-
-- *Can mechanistic interpretability help us jailbreak black box models?* (kinda)
-
-- *Can a general HotFlip solve adversarial attacks against IDS issues?* (on it, seems possible)
-
-- *Is unlearning un-unlearnable using circuit identification?* (soon)
-
-- *Can we detect backdoors in neural networks using thermodynamics (and mech interp)?*
-
-- *Can Coq & graphs help us train a "reasoning" model?*
-
-This website (or should I say, this quantum foam where pages appear out of nowhere and bubble out without warning) brings together snippets of my research on questions that no one has asked, linking fields that few would venture to connect (this sentence is cool tho). But since that's what I enjoy — reading papers all day long and thinking, "what if I put this idea somewhere else?" — and that sometimes it works, I've decided to make it public anyway.
+# Sckathach's post 
 
 It's still under construction, as I'm waiting to learn more about Manim before decorating it :eyes:. But you can already check out:
 
@@ -21,3 +7,5 @@ It's still under construction, as I'm waiting to learn more about Manim before d
 - [Solutions from the last 404 CTF (tremble before the next... mech interp challenges on their way)](404ctf/index.qmd)
 
 - **PAPER:** <https://arxiv.org/abs/2503.06269> **!!!!!!**
+
+- Subspace rerouting's post: [here](mech-interp/subspace-rerouting/index.qmd) / [on LW](https://www.lesswrong.com/posts/mG7jioaAsBasnuD4b/subspace-rerouting-using-mechanistic-interpretability-to-2)
