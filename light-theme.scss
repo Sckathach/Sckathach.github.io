@@ -1,0 +1,35 @@
+/*-- scss:defaults --*/
+// Sass variables for websites, books, manuscripts, revealjs presentations
+
+// Fonts
+@import url("https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap");
+
+// Custom Theme Variables
+$body-bg: #FAFAF8;
+$navbar-bg: #FAFAF8;
+
+$body-color: #333333;
+$code-color: #d35400; 
+$navbar-text-color: #333333;
+
+$link-color: #d35400; 
+$navbar-link-color: #d35400; 
+$navbar-link-hover-color: #d35400; 
+
+$font-family-sans-serif: "Inria Sans", sans-serif !default;
+$font-family-monospace: "Source Code Pro", monospace !default;
+
+$code-block-bg: #f9f9f9;
+$code-block-border-color: #e67e22; 
+$code-block-font-size: 16px;
+
+/*-- scss:rules --*/
+
+::selection {
+  background: #e67e22;
+  color: #fafaf8;
+}
+
+body {
+  text-align: justify;
+}

@@ -2,10 +2,6 @@
 
 It's still under construction, as I'm waiting to learn more about Manim before decorating it :eyes:. But you can already check out:
 
-- [Not-so-incredible first failed MI project](mech-interp/exploring-adversarial-mi/index.qmd)
+- [Subspace Rerouting](/mech-interp/subspace-rerouting/)
 
 - [Solutions from the last 404 CTF (tremble before the next... mech interp challenges on their way)](404ctf/index.qmd)
-
-- **PAPER:** <https://arxiv.org/abs/2503.06269> **!!!!!!**
-
-- Subspace rerouting's post: [here](mech-interp/subspace-rerouting/index.qmd) / [on LW](https://www.lesswrong.com/posts/mG7jioaAsBasnuD4b/subspace-rerouting-using-mechanistic-interpretability-to-2)

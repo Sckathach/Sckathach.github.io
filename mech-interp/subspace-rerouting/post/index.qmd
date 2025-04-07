@@ -1,0 +1,306 @@
+---
+title: "Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models"
+author: 
+  - name: Le magicien quantique
+toc: true
+code-fold: true
+date: 2025-03-18
+---
+::: {#fig-wanted}
+
+![wanted](assets/wanted.png)
+
+*Warning, this head is easily distracted by adversarial perturbations and should not be relied on to ensure safety*
+:::
+
+_Code and notebooks available here: <https://github.com/Sckathach/subspace-rerouting>._
+
+This work follows the interpretability analysis of jailbreaks on LLM made by @arditi_refusal_2024, @he_jailbreaklens_2024, and [my previous failed attempt](https://sckathach.github.io/mech-interp/exploring-adversarial-mi/) on the subject. It adapts the Greedy Coordinate Gradient (GCG) attack to target virtually any subspace in the model, which not only enables quick jailbreaks but also allows runtime interventions like vector steering or direction ablations to be converted into adversarial perturbations in the input. Perturbations that trigger desired behaviors without further intervention.
+
+And sometimes, the perturbation is interpretable!
+
+![](assets/af_conversation_violet.png)
+
+Removing the word "gracefully" makes the jailbreak fail, as expected from a "slightly robust" model: 
+
+![](assets/af_conversation_orange.png)
+
+This run also yielded perturbations like: "gently ensuring safety", and more general incitations to perform the task in a "safe" manner. 
+
+I've published a paper with the technical details: <https://arxiv.org/abs/2503.06269>. 
+
+The goal of this post is to present the mechanistic interpretability component of the work, along with some findings I didn't include in the paper. It's organized into several sections:
+
+- **Preliminaries** that briefly introduce "classical" gradient-based attacks against LLMs (@sec-prelim)
+- A presentation of **interpretability techniques used to study jailbreaks** (@sec-replication)
+- An introduction to the **Subspace Rerouting (SSR) algorithm** (@sec-method)
+- Some first **interpretations of generated jailbreaks** (@sec-interp)
+- **SAE ???** (@sec-lens)
+
+**TLDR:** If steering the model during inference modifies its behavior, it's possible (sometimes) [^1] to modify the input prompt into "prompt + something" such that the resulting activations will be close to those achieved with the intervention. This leads to a similar change in behavior without requiring intervention during inference. It's also possible (sometimes) [^2] to use *reverse*-logit lens techniques to obtain interesting results.
+
+## Gradient-based jailbreaks {#sec-prelim}
+Among the thousand ways to jailbreak a model - that is, making it behave contrary to its alignment - there are white-box algorithms that use the model's weights to compute adversarial perturbations. These perturbations can make the LLM output harmful content like bomb-making instructions. One notable algorithm in this domain is the Greedy Coordinate Gradient (GCG) attack, which takes as input a harmful instruction $x$, a target $t$, and computes an adversarial suffix $s$, such that $LLM(x + s)$ is likely to output $t$.
+
+For those unfamiliar with GCG, it works like this, given a harmful instruction:
+
+![](assets/af_gcg1.png)
+
+It adds a dummy suffix: 
+
+![](assets/af_gcg2.png)
+
+Prepares a target: 
+
+![](assets/af_gcg3.png)
+
+And optimizes the suffix (via backpropagation and HotFlip to generate new tokens): 
+
+![](assets/af_gcg4.png)
+
+The goal is for the full adversarial input to bypass security filters.
+
+While effective on some older models, the GCG attack can require hours of computation and often fails on newer models: 
+
+::: {#fig-gcgfail}
+
+![](assets/af_gcg5.png)
+
+This attack was performed on Gemma 2 2b using the nanoGCG algorithm from Gray Swan. It took ~1h30 and failed. The algorithm achieved its objective - the model begins with the target - but as it quickly reverts toward a harmless response, it ultimately refuses to answer.
+:::
+
+This led to an obvious question: Why optimize end-to-end while treating the model as a "black box"? Is it possible to use mechanistic interpretability insights to enhance the attack?
+
+<details>
+<summary>Spoiler</summary>
+
+*Yes*
+
+</details>
+
+## Understanding jailbreaks {#sec-replication}
+For those who haven't read the excellent papers: *Refusal is Mediated in a single direction* (@arditi_refusal_2024), *Jailbreak Lens* (@he_jailbreaklens_2024), or *On the role of safety heads* (@zhou_role_2024), safety mechanisms can be located inside the model, even in very early layers! For instance, scanning a dataset of harmful sentences - "How to create a bomb?", and their harmless counterparts - "How to create a website?",  reveals interesting patterns as early as ~1/3 of the way through the model:
+
+::: {#fig-pca layout-ncol=2}
+
+![](assets/pca_layer5_llama321.png)
+
+![](assets/pca_layer10_llama321.png)
+
+PCA on the activations of the two datasets using last token representation. The model used is Llama 3.2 1b.
+:::
+
+As visible in @fig-pca, it's possible to distinguish between harmful and harmless sentences using only one direction. This direction was termed the "refusal direction" by @arditi_refusal_2024 and can be defined as the normalized difference in means between the activations of the two datasets.
+
+<!-- ::: {.column-margin}
+
+$$
+  \hat{r}^l = \frac{\mu^l_+ - \mu^l_-}{\|\mu^l_+ - \mu^l_-\|}  \in \mathbb{R}^d
+$$
+
+::: -->
+
+This direction is impressive, as a simple cosine similarity between the activations and this direction provides insight into the model's behavior—whether it will refuse to answer or not. Using the Logit lens (@logit_lens_2020), we can even attempt to interpret it:
+
+::: {#fig-logitlenscolor}
+
+![](assets/logitlens_color.png)
+
+Logit lens applied on the refusal direction found using Llama 3.2 1b. "Tôi" means "I" in Vietnamese, and "không" means "neither".
+:::
+
+@he_jailbreaklens_2024 went a step further, and instead of using a single dimension, employed probes to capture arbitrarily large subspaces. These probes—linear layers with a sigmoid activation—classify activations with over 95% accuracy as early as the third layer in most models!
+
+Moreover, @zhou_role_2024 found that safety mechanisms are not only localized semantically but can also be found in individual components, like attention heads. For instance, in Qwen 2.5 1.5b, a single head (I won't specify which one :eyes:) can completely undermine the *slight* alignment of the model. More on that later.
+
+With all these advances, couldn't we improve adversarial attacks?
+
+<details>
+<summary>Hint</summary> 
+
+*In classical adversarial attacks on image classifiers—you know, the panda transformed into a gibbon (@liu_privacy_2020)—the target is the classifier, and the goal is to transition from one class to another. Isn't that **exactly** our setup?*
+
+*input &rarr; first layers &rarr; classifier &rarr; "harmful", that we would like to flip to "harmless"?* 
+
+</details>
+
+<details>
+<summary>Spoiler</summary>
+
+*Yes*
+
+</details>
+
+## Introducing Subspace Rerouting (SSR) {#sec-method}
+As its name suggests, subspace rerouting is about redirecting activations from one subspace to another. For instance, from the harmful subspace identified with our linear probes into the harmless subspace. The excellent Transformer Lens library makes the implementation *nearly* trivial.
+
+1. Take an input with dummy perturbations: "Super \[MASK\] input! \[MASK\]\[MASK\]\[MASK\]\[MASK\]".
+2. Perform a forward pass until the desired layer.
+3. Cache the needed activations with hooks.
+4. Perform backpropagation to update the perturbation, defining the loss as the distance between the current activations and the subspace you wish to target.
+5. Use the HotFlip method to find better tokens for your perturbation.
+6. Loop until satisfied.
+<!-- 
+::: {.column-margin}
+
+$$
+  \mathcal{L}(s) = \sum_k \alpha_k d_k(e_k, E_k)
+$$
+
+::: -->
+
+This is a very general algorithm, not restricted to jailbreaks, as it can be applied (with the current implementation) using any hook available in Transformer Lens, targeting any number of different subspaces across different layers, placing perturbations anywhere in the input, and working with any kind of subspace.
+
+The most straightforward subspaces to target are those defined by linear probes. The loss is simply the probe's loss function, and SSR will handle the rest, finding a perturbation to reroute your activations:
+
+<!-- ::: {.column-margin}
+
+$$
+  \mathcal{L}(s) = - \log(1 - p(\mathcal{R}^{l}(x+s)))
+$$
+
+::: -->
+
+::: {#fig-probes}
+
+![Rerouting visualization](assets/rerouting_llama_probe.png)
+
+Rerouting activations using probes, again, on Llama 3.2 1b.
+:::
+
+As the targeted layer is the 5th, and the targeted subspace has a dimension of ~2, the optimization takes literally 16 seconds.
+
+The question we can now ask is: Is this perturbation sufficient to jailbreak the model?
+
+<details>
+<summary>Spoiler</summary>
+
+*Yes*
+
+*You can examine the hundreds of jailbreaks I published on Hugging Face: <https://huggingface.co/datasets?other=arxiv:2503.06269>*.
+
+</details>
+
+Moreover, it works with probes, but as mentioned, you can define subspaces however you want. For instance, using the refusal direction defined earlier, we can define the refusal subspace as the set of activations with a high cosine similarity to the refusal direction. Conversely, the acceptance subspace can be defined as the set of vectors having a high *negative* cosine similarity with the refusal direction.
+
+<!-- ::: {.column-margin}
+
+The loss function combines steering and orthogonal stability objectives:
+
+$$
+  \mathcal{L}(s) = \mathcal{L}_{\text{steering}}(s) + \mathcal{L}_{\text{orthogonal stability}}(s)
+$$
+
+$$
+  \mathcal{L}_{\text{steering}}(s) = |(1 - a)\langle\hat{r}, e_*\rangle - \langle e, \hat{r}\rangle|^2 
+$$
+
+$$
+  \mathcal{L}_{\text{orthogonal stability}}(s) = \Vert \langle\hat{r}, e_*\rangle^T - \langle\hat{r}, e\rangle^T \Vert ^2
+$$
+
+::: -->
+
+This represents the second use of SSR that I propose, and here are the results:
+
+::: {#fig-steering}
+
+![](assets/cosim_short.png)
+
+Mean cosine similarities between four activation sets and the refusal directions computed at each layer on Llama 3.2 1b. The four runs are: a forward pass on vanilla harmful sentences (**Normal**), a forward pass with random suffixes of length 5 (**Random**), a forward pass with steering intervention at layers 5, 8, 10, 14 using $a = −2$ (**Intervention**), and a forward pass with successful suffixes - of length 5 - generated by SSR, with layers 5, 8, 10, 14 as targets, and $a = −3$ (**SSR**).
+:::
+
+Disregarding my *slight* cheating (choosing a higher coefficient for my algorithm than for the intervention baseline), the results are much more impressive than I expected. SSR found suffixes that reproduced the same activation patterns as the runtime steering, but without requiring any intervention during the forward pass.
+
+Beyond being sufficient to jailbreak the model, these results also reveal an interesting phenomenon: activations steered at runtime to be considered harmless quickly revert to their "harmful state". Meanwhile, SSR generated inputs that consistently maintain a negative cosine similarity with the refusal direction, following a more "natural" path.
+
+My hypothesis is that steering at runtime produces activations that are impossible to achieve under normal conditions—i.e., no input can naturally produce these activations, so these perturbations are brought back toward normality by the following layers. Computing the KL divergence between the normal run and the three other runs partially supports this hypothesis:
+
+::: {#fig-steering}
+
+![](assets/kl_divs.png)
+
+KL divergence between the normal run and the three other runs.
+:::
+
+Unfortunately, I'll stop this analysis here to avoid overreaching in my interpretations.
+
+Lastly, I must discuss attention heads. As found by @arditi_refusal_2024, successful jailbreak suffixes tend to "hijack" the attention of safety heads, such that these heads focus only on the gibberish suffix rather than the actual harmful content in the instruction. The example presented in @fig-wanted is as follows: the suffix ":: Short YAML" is successful—the model (Qwen 2.5 1.5b) agrees to answer—while the suffix ":: Long YAML" is unsuccessful, with the model responding "I can't".
+
+::: {#fig-hijack}
+
+![](assets/hijacking_attention_shorter.png)
+
+Visualization of the attention patterns of L25H4 at the last token's position. In the unsuccessful attempt (top), the attention of the last token focuses on the harmful word "exploit", while in the successful attempt (bottom), attention is redirected to the seemingly harmless token "YAML" in the suffix.
+:::
+
+Like refusal directions and probes, this phenomenon can be exploited to generate attacks by "rerouting the attention" from harmful tokens to harmless ones. In practice, I reproduced the effects of jailbreaks artificially by defining my loss as the negative sum of the rectangular slice of the attention pattern corresponding to my perturbation (taken after the softmax). Hence, if the sum is large, it means the head is paying significant attention to my perturbations.
+
+<!-- ::: {.column-margin}
+
+$$
+  \mathcal{L}(s) = -\sum_k \alpha_k \mathcal{H}_{l_k,h_k}(x+s)
+$$
+
+::: -->
+
+This approach didn't produce particularly impressive jailbreaks, but it still performed slightly better than the non-mechanistic baseline. What I found most striking is that the success rate is $\gt 0$ on every model, even though my optimization only targets one particular attention pattern of one particular head...
+
+Before you ask, I tried targeting randomly selected heads to verify whether success is due merely to input perturbation or if the objective makes sense. For Qwen 2.5 1.5b, nearly any head chosen in the last layers can be targeted to produce jailbreaks. The model is poorly aligned; almost any perturbation seems to break it. However, this isn't the case for other models. This method only works on Llama 3.2 3B and Gemma 2 2b if the targeted heads are safety heads, identified either through direct logit attribution or activation patching.
+
+Although I haven't conducted extensive experiments, and there's still much work to be done on the optimization formulation, I'm fairly confident about the approach. In any case, it demonstrates that targeting specific components is possible, or at least conceivable. 
+
+## Interpretable jailbreaks? {#sec-interp}
+Success rates and attack durations are interesting, but what's even more fascinating is that some jailbreaks are semantically coherent and interpretable! Despite being optimized through gradient methods with a substantial dose of randomness—when continuous gradients are converted into token flips, candidate tokens are chosen using a random distribution over possible tokens—not only are some tokens coherent in a safety sense, like "safely" or "respectfully," but some perturbations even form small meaningful phrases, like "**ask natural Dumbledore**" or "**portrayed As Goku**", and are answered accordingly! 
+
+![](assets/af_ssr2.png)
+
+![](assets/af_ssr1.png)
+
+I'll let you test these yourself. My only recommendation is to stick with short perturbations (until I find a way to properly incorporate perplexity into my loss function). For instance, 6 tokens are already difficult to interpret: "**...), theme Krzysz hero SoliinSlope overarching**. 
+
+By the way, this suffix was generated for Gemma 2 2b, and *kinda* also works on Gemma 3 1b as well:
+
+![](assets/af_ssr3.png)
+
+I didn't count this as a jailbreak since the model successfully rerouted my rerouting toward a *mostly* harmless conversation, but I still found it noteworthy.
+
+## SAE ??? {#sec-lens}
+Yes, I had to talk about SAE, otherwise it's not mechanistic isn't it? :eyes:. Jokes apart, I obviously wanted to try my method using Sparse Autoencoders, but I was stuck at the first - and most important - step: finding good SAE latents to steer my model toward acceptance behavior, so unfortunately, I don't have results on this front yet. *However*, I wanted to try something I find much more interesting than jailbreaking models: using SSR to *reverse*-logit lens stuff. The idea is simple: given a subspace, component, or whatever, use the SSR algorithm on an empty input - something like "\[MASK\]\[MASK\]\[MASK\]\[MASK\]\[MASK\]\[MASK\]" - and observe what happens.
+
+I first started with "How to create a \[MASK\]", targeting Llama 3.2 1b's layer 10's refusal direction, expecting to see something like "bomb" — and I wasn't far off!
+
+![](assets/af_lens1.png){width=50% fig-align="center"}
+
+As my algorithm keeps promising candidates, I receive a batch of answers that are closely related every run. During another run, I got a *slightly* different set of words:
+
+![](assets/af_lens2.png){width=50% fig-align="center"}
+
+I'll stop here for obvious reasons. But the result is remarkable! Taking the refusal direction and projecting it to the vocabulary at the end of the model gives refusal words like "I can't", but taking the same refusal direction and "projecting" it to the input vocabulary gives slurs! In other words, the logit lens gives tokens that are directly caused by the direction, while the *reversed*-logit lens gives tokens that *cause* the direction! It's not deterministic like its counterpart, but it achieves approximately one good run out of three, with each run converging in seconds, so it is usable. Plus, I didn't specifically design my algorithm for this purpose, I see many potential easy optimizations.
+
+But where do SAEs fit into all this? Well, I can't put it off any longer. As I didn't have much time (and, to be honest, because I'm bad at SAEing), I used examples from the excellent ARENA course on gpt2-small. Given the attention SAE at layer 9 and latent 20668, I adapted SSR to optimize for the following objective: finding tokens that maximize the activation of this particular latent. I thought it would hopelessly get stuck at 0, as being "sparse" is literally the goal of SAEs, but after a few runs (~5), it worked!
+
+First, let's look at our latent [^3]:
+
+![](assets/af_sae.png)
+
+
+For those reading on smartphones, I'm interested in the positive logits. For our latent, they are: " firearm", " firearms", " handguns", " Firearms", " handgun", " gun", " guns", "Gun", " Guns", and " NRA". And exactly as in the experiments with refusal directions, I obtained similar tokens with my *reversed*-logit lens:
+
+![](assets/af_lens3.png){width=65% fig-align="center"}
+
+Just with the model plus the trained SAE, SSR is able to discover what this latent represents. Of course, this might only work for a small number of latents, and I may have been fortunate (though not entirely, as I specifically chose a token-level feature latent). I'm currently working to improve the algorithm to better fit this new task, so it might be a lot better in a few weeks. For instance, I'm trying to incorporate perplexity when sampling candidate tokens or directly into the loss function, to hopefully, make SSR generate more coherent perturbations.
+
+## Conclusion
+
+It's been enjoyable jailbreaking LLMs, but I feel there's so much more to explore other than jailbreaks. Not just optimizing inputs to trigger interesting behaviors (I found a head in Qwen that, when targeted, causes Qwen to struggle with stopping, and another where it perfectly repeats the input without the perturbation...), but more generally to investigate models and their mechanisms from the input side. Though it worth noting that this approach may not work on larger models, I'm limited to my personal computer, so I stopped at 3B parameters.
+
+Moreover, I briefly mentioned in the paper that SSR successfully jailbreaks all four tested models with _very_ high success rates ($\gt 80\%$): Qwen 2.5 1.5b, Llama 3.2 1b & 3b, and Gemma 2 2b, regardless of their different alignment processes — even though Gemma I have to admit, often reroutes my rerouting into a harmless conversations. This suggests that studying subspaces and their evolution might prove very useful for enhancing alignment techniques. You can also look the paper for the layer comparisons. 
+
+You can check the code here: <https://github.com/Sckathach/subspace-rerouting>, and find parts of my roadmap for the coming days in the TODO file. However, I'll move the *reversed*-logit lens project elsewhere to keep the paper repository relatively clean.
+
+[^1]: It worked really well on the refusal direction, but I haven't performed extensive experiments on other tasks yet. 
+
+[^2]: Same.
+
+[^3]: Yes, it's a static image... You can check the animated version here: <https://www.neuronpedia.org/gpt2-small/9-att-kk/20668>

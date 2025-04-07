@@ -5,7 +5,9 @@ project:
 format:
   html:
     css: styles.css
-    theme: theme.scss
+    theme: 
+      light: light-theme.scss
+      dark: dark-theme.scss
     toc: true
     bibliography: "references.bib"
 
@@ -36,8 +38,6 @@ website:
     left:
       - text: "404 CTF"
         href: "404ctf/index.qmd"
-      - text: "Exploring"
-        href: "mech-interp/exploring-adversarial-mi/index.qmd"
       - text: "SSR"
         href: "mech-interp/subspace-rerouting/index.qmd"
 
