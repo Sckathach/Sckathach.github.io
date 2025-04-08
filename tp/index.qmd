@@ -1,0 +1,32 @@
+## TP _Causapscal des Vents_
+
+- [Le chat orange de Hermione](./le-chat/)
+
+- [Têtes Qwen](./qwen-heads-short-long/)
+
+- Neuronpedia : <https://www.neuronpedia.org/gpt2-small>
+
+- Repo : <https://github.com/Sckathach/tp-causapscal-des-vents>
+
+## Slides 
+
+- [Main](./assets/main.pdf) 
+
+- [Condensé](./assets/condense.pdf)
+
+## Sites 
+
+- Forum technique à suivre : <https://www.alignmentforum.org/>
+- Liste de papiers en sécurité de l'IA (pas que LLM) : <https://nicholas.carlini.com/writing/2019/all-adversarial-example-papers.html>
+- Excellent cours sur la rétro-ingénierie de LLM : <https://arena-chapter1-transformer-interp.streamlit.app/>
+- Cours général sur la sûreté de l'IA (surtout LLM) : <https://aisafetyfundamentals.com/>
+
+## Papiers 
+
+- Papier de fou sur les circuits : <https://transformer-circuits.pub/2025/attribution-graphs/biology.html>
+- Meilleur papier de l'univers, sur l'interprétabilité de l'IA au niveau _très_ fondamental : <https://transformer-circuits.pub/2022/toy_model/index.html>
+- Suite de papiers de fou : <https://transformer-circuits.pub/>
+
+## Quelques idées de challz
+
+- _Me demander_ :)

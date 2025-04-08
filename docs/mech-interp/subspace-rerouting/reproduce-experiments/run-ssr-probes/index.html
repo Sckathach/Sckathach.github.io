@@ -198,7 +198,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This notebook’s purpose is to quickly explain the general pipeline to craft adversarial inputs with Probe SSR.</p>
-<p>Requirements: - Model’s information in <code>models.toml</code> - Probes configuration in <code>probes_config.json</code></p>
+<p>Requirements:</p>
+<ul>
+<li>Model’s information in <code>models.toml</code></li>
+<li>Probes configuration in <code>probes_config.json</code></li>
+</ul>
 <p>To generate a large number of jailbreaks, I recommend using a Judge, as verifying 162 (buffer_size) attacks per minute by hand can be <em>slightly</em> difficult, especially when attacking Gemma2, which always answers with long sentences. However, for the this notebook, I’ll skip it. You can reduce the buffer size to 1 to check the answers manually if necessary, the attack should be powerful enough to work anyway.</p>
 <section id="create-the-masked-instruction" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-masked-instruction">1. Create the masked instruction</h2>
@@ -210,11 +214,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>In this version, you also have to add the chat template yourself. For this you can use the <code>Lens</code> utilities <em>(more information in <code>reproduce_experiments/using_lens.ipynb</code>)</em>.</p>
-<div id="cell-4" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssr <span class="im">import</span> pprint</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssr.lens <span class="im">import</span> Lens </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssr.lens <span class="im">import</span> Lens</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>MODEL_NAME <span class="op">=</span> <span class="st">"llama3.2_1b"</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>lens <span class="op">=</span> Lens.from_preset(MODEL_NAME)</span>
@@ -242,39 +246,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="instantiate-the-ssr-class" class="level2">
 <h2 class="anchored" data-anchor-id="instantiate-the-ssr-class">2. Instantiate the SSR class</h2>
 <p>As previously said, I’ll use the Probe SSR implementation, as it is the fastest and most powerful one.</p>
-<div id="cell-6" class="cell" data-execution_count="3">
+<div id="cell-6" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssr.probes <span class="im">import</span> ProbeSSR, ProbeSSRConfig</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>MODEL_NAME <span class="op">=</span> <span class="st">"llama3.2_1b"</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ssr_config <span class="op">=</span> ProbeSSRConfig(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span>MODEL_NAME,      <span class="co"># Used to fetch the config from `probes_config.json` or to fetch the </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># precomputed weights from `ssr/probes/weights/`</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    max_iterations<span class="op">=</span><span class="dv">60</span>,          <span class="co"># Max number of iterations</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    early_stop_loss<span class="op">=</span><span class="fl">0.05</span>,       <span class="co"># Stop if loss &lt; early_stop_loss</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    replace_coefficient<span class="op">=</span><span class="fl">1.3</span>,    <span class="co"># n_replace = (current_loss / init_loss) ^ (1 / replace_coefficient)</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    buffer_size<span class="op">=</span><span class="dv">32</span>,             <span class="co"># Number of active candidate cached in the buffer</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    layers<span class="op">=</span>[<span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">14</span>],      <span class="co"># Targeted layers</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    alphas<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],        <span class="co"># Hyperparameters </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span>MODEL_NAME,  <span class="co"># Used to fetch the config from `probes_config.json` or to fetch the</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># precomputed weights from `ssr/probes/weights/`</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    max_iterations<span class="op">=</span><span class="dv">60</span>,  <span class="co"># Max number of iterations</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    early_stop_loss<span class="op">=</span><span class="fl">0.05</span>,  <span class="co"># Stop if loss &lt; early_stop_loss</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    replace_coefficient<span class="op">=</span><span class="fl">1.3</span>,  <span class="co"># n_replace = (current_loss / init_loss) ^ (1 / replace_coefficient)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    buffer_size<span class="op">=</span><span class="dv">32</span>,  <span class="co"># Number of active candidate cached in the buffer</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    layers<span class="op">=</span>[<span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">14</span>],  <span class="co"># Targeted layers</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    alphas<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>],  <span class="co"># Hyperparameters</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    search_width<span class="op">=</span><span class="dv">512</span>,  <span class="co"># At each step, try 512 candidates</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    patience<span class="op">=</span><span class="dv">15</span>,  <span class="co"># If the loss didn't decrease for the past 15 steps, discard the</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># candidate with the lowest loss, and pick another one. Discarded</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># candidates are stored in the archive_buffer</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    search_width<span class="op">=</span><span class="dv">512</span>,           <span class="co"># At each step, try 512 candidates</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    patience<span class="op">=</span><span class="dv">15</span>,                <span class="co"># If the loss didn't decrease for the past 15 steps, discard the </span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># candidate with the lowest loss, and pick another one. Discarded </span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># candidates are stored in the archive_buffer</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>ssr <span class="op">=</span> ProbeSSR(lens, ssr_config)    <span class="co"># The probes will be initialized with the default values present </span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                                    <span class="co"># in `lens.defaults`, more information in </span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                                    <span class="co"># `reproduce_experiments/using_lens.ipynb`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>ssr <span class="op">=</span> ProbeSSR(</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    lens, ssr_config</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>)  <span class="co"># The probes will be initialized with the default values present</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># in `lens.defaults`, more information in</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># `reproduce_experiments/using_lens.ipynb`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>4it [00:00, 1358.04it/s]</code></pre>
@@ -486,37 +484,39 @@ Mask positions: <span style="color: #800080; text-decoration-color: #800080; fon
 <h2 class="anchored" data-anchor-id="extract-the-buffers">5. Extract the buffers</h2>
 <p>The <code>generate</code> method doesn’t return anything. The results are stored in the buffers.</p>
 <p>As this version of SSR does not handle chat template automatically - this version sees the input as fixed part + optim part and does not care if the chat template is present or not - we will have to extract the adversarial part by hand:</p>
-<div id="cell-13" class="cell" data-execution_count="6">
+<div id="cell-13" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch <span class="im">as</span> t</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>chat_template_before, chat_template_after <span class="op">=</span> lens.apply_chat_template(<span class="st">"[CROISSANT]"</span>).split(<span class="st">"[CROISSANT]"</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_instruction(instruction_with_chat_template: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> instruction_with_chat_template.split(chat_template_before)[</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    ].split(chat_template_after)[<span class="dv">0</span>]</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>extracted_candidates <span class="op">=</span> []</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>extracted_losses <span class="op">=</span> []</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>chat_template_before, chat_template_after <span class="op">=</span> lens.apply_chat_template(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"[CROISSANT]"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>).split(<span class="st">"[CROISSANT]"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_instruction(instruction_with_chat_template: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> instruction_with_chat_template.split(chat_template_before)[<span class="dv">1</span>].split(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        chat_template_after</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    )[<span class="dv">0</span>]</span>
 <span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ids, loss <span class="kw">in</span> <span class="bu">zip</span>(</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    t.cat([ssr.candidate_ids.cpu(), ssr.archive_ids], dim<span class="op">=</span><span class="dv">0</span>),</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>    ssr.candidate_losses.tolist() <span class="op">+</span> ssr.archive_losses.tolist(),</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    extracted_candidates.append(</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        extract_instruction(</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>            lens.model.to_string(ssr.get_tokens(ids.unsqueeze(<span class="dv">0</span>)))[<span class="dv">0</span>]</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    extracted_losses.append(loss)</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>pprint(<span class="ss">f""" </span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="ss">First candidate: </span><span class="sc">{</span>extracted_candidates[<span class="dv">0</span>]<span class="sc">}</span></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="ss">With loss: </span><span class="sc">{</span>extracted_losses[<span class="dv">0</span>]<span class="sc">}</span></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>extracted_candidates <span class="op">=</span> []</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>extracted_losses <span class="op">=</span> []</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ids, loss <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    t.cat([ssr.candidate_ids.cpu(), ssr.archive_ids], dim<span class="op">=</span><span class="dv">0</span>),</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    ssr.candidate_losses.tolist() <span class="op">+</span> ssr.archive_losses.tolist(),</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    extracted_candidates.append(</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>        extract_instruction(lens.model.to_string(ssr.get_tokens(ids.unsqueeze(<span class="dv">0</span>)))[<span class="dv">0</span>])</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    extracted_losses.append(loss)</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>pprint(<span class="ss">f""" </span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="ss">First candidate: </span><span class="sc">{</span>extracted_candidates[<span class="dv">0</span>]<span class="sc">}</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="ss">With loss: </span><span class="sc">{</span>extracted_losses[<span class="dv">0</span>]<span class="sc">}</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"> 
@@ -534,7 +534,7 @@ With loss: <span style="color: #008080; text-decoration-color: #008080; font-wei
 <h2 class="anchored" data-anchor-id="did-it-work-well-see">6. Did it work? We’ll see…</h2>
 <p><em>There is also a <code>call_ollama</code> method in <code>ssr.evaluate.api</code>.</em></p>
 <p>To run the following cell, you will need a running LM Studio with MODEL_NAME loaded.</p>
-<div id="cell-15" class="cell" data-execution_count="7">
+<div id="cell-15" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssr.evaluation <span class="im">import</span> call_lmstudio</span>
@@ -542,7 +542,7 @@ With loss: <span style="color: #008080; text-decoration-color: #008080; font-wei
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> call_lmstudio(</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    MODEL_NAME,</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    extracted_candidates[<span class="dv">0</span>],</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    system_message<span class="op">=</span>lens.defaults.system_message,       <span class="co"># Don't forget the system message</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    system_message<span class="op">=</span>lens.defaults.system_message,  <span class="co"># Don't forget the system message</span></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>pprint(response)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -590,7 +590,7 @@ def <span style="color: #800080; text-decoration-color: #800080; font-weight: bo
 </section>
 <section id="eval-and-log" class="level2">
 <h2 class="anchored" data-anchor-id="eval-and-log">7. Eval and log</h2>
-<div id="cell-17" class="cell" data-execution_count="8">
+<div id="cell-17" class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssr.files <span class="im">import</span> log_jsonl</span>
@@ -598,53 +598,53 @@ def <span style="color: #800080; text-decoration-color: #800080; font-weight: bo
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>nb_success <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>MAX_SUCCESS <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>LOG_FILENAME <span class="op">=</span> <span class="st">"reproduce_experiments/run_ssr/run_ssr_probes_output.jsonl"</span>  </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>LOG_FILENAME <span class="op">=</span> <span class="st">"reproduce_experiments/run_ssr/run_ssr_probes_output.jsonl"</span></span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> candidate, loss <span class="kw">in</span> <span class="bu">zip</span>(extracted_candidates, extracted_losses):</span>
 <span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> nb_success <span class="op">&lt;</span> MAX_SUCCESS:</span>
 <span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> call_lmstudio(</span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>            MODEL_NAME,</span>
 <span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>            candidate,</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>            system_message<span class="op">=</span>lens.defaults.system_message,       </span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>            system_message<span class="op">=</span>lens.defaults.system_message,</span>
 <span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>        bow <span class="op">=</span> harmful_bow(response)     <span class="co"># Compute the harmful bag-of-word to discard obvious fails </span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>                                        <span class="co"># like "I cannot..."</span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> bow <span class="op">&gt;</span> <span class="dv">0</span>:                                         </span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>        bow <span class="op">=</span> harmful_bow(</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>            response</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>        )  <span class="co"># Compute the harmful bag-of-word to discard obvious fails</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># like "I cannot..."</span></span>
 <span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>            <span class="co"># You can use better filtering, ie: </span></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>            <span class="co"># guard = call_guard(response)</span></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if guard: </span></span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>            <span class="co">#   judge = call_judge(vanilla_instruction, response)</span></span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>            <span class="co">#   if judge.score &gt;= 8: </span></span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>            <span class="co">#       ...</span></span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>            nb_success <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>            log_jsonl(</span>
-<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>                LOG_FILENAME,</span>
-<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>                Attempt(</span>
-<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>                    model_name<span class="op">=</span>MODEL_NAME,</span>
-<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>                    vanilla_input<span class="op">=</span>vanilla_instruction,</span>
-<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>                    adversarial_input<span class="op">=</span>candidate,</span>
-<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>                    ssr_implementation<span class="op">=</span><span class="st">"probe"</span>, </span>
-<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>                    inital_loss<span class="op">=</span>ssr.initial_loss,</span>
-<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>                    final_loss<span class="op">=</span>loss,</span>
-<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>                    duration<span class="op">=</span><span class="bu">int</span>(duration),</span>
-<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>                    config<span class="op">=</span>ssr.config,</span>
-<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>                    responses<span class="op">=</span>[</span>
-<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>                        Response(</span>
-<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>                            model_name<span class="op">=</span>MODEL_NAME,</span>
-<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>                            response<span class="op">=</span>response,</span>
-<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>                            system_message<span class="op">=</span>lens.defaults.system_message,</span>
-<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>                            bow<span class="op">=</span>bow,</span>
-<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>                            guard<span class="op">=</span><span class="va">None</span>,                     </span>
-<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>                            judge<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>                        )</span>
-<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>                    ],</span>
-<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>                ).model_dump(),</span>
-<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> bow <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>            <span class="co"># You can use better filtering, ie:</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>            <span class="co"># guard = call_guard(response)</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># if guard:</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>            <span class="co">#   judge = call_judge(vanilla_instruction, response)</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>            <span class="co">#   if judge.score &gt;= 8:</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>            <span class="co">#       ...</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>            nb_success <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>            log_jsonl(</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>                LOG_FILENAME,</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>                Attempt(</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>                    model_name<span class="op">=</span>MODEL_NAME,</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>                    vanilla_input<span class="op">=</span>vanilla_instruction,</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>                    adversarial_input<span class="op">=</span>candidate,</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>                    ssr_implementation<span class="op">=</span><span class="st">"probe"</span>,</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>                    inital_loss<span class="op">=</span>ssr.initial_loss,</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>                    final_loss<span class="op">=</span>loss,</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>                    duration<span class="op">=</span><span class="bu">int</span>(duration),</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>                    config<span class="op">=</span>ssr.config,</span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>                    responses<span class="op">=</span>[</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>                        Response(</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>                            model_name<span class="op">=</span>MODEL_NAME,</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>                            response<span class="op">=</span>response,</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>                            system_message<span class="op">=</span>lens.defaults.system_message,</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>                            bow<span class="op">=</span>bow,</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>                            guard<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>                            judge<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>                        )</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>                    ],</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>                ).model_dump(),</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
