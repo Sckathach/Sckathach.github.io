@@ -40,6 +40,8 @@ website:
         href: "404ctf/index.qmd"
       - text: "SSR"
         href: "mech-interp/subspace-rerouting/index.qmd"
+      - text: "Talks"
+        href: "talks/index.qmd"
 
   search:
     show-item-context: true
