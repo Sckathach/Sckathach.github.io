@@ -1,5 +1,5 @@
 --- 
-title: Page Not Found :'(
+title: 404 Page Not Found :'(
 ---
 
 The 404 CTF is over, see you in 2025!

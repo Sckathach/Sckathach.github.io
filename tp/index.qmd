@@ -23,6 +23,8 @@
 
 ## Papiers 
 
+- L'effet "Hydre" : <https://arxiv.org/pdf/2307.15771>
+- Survey de la MI pour la sûreté : <https://arxiv.org/pdf/2404.14082>
 - Papier de fou sur les circuits : <https://transformer-circuits.pub/2025/attribution-graphs/biology.html>
 - Meilleur papier de l'univers, sur l'interprétabilité de l'IA au niveau _très_ fondamental : <https://transformer-circuits.pub/2022/toy_model/index.html>
 - Suite de papiers de fou : <https://transformer-circuits.pub/>

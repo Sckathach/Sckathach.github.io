@@ -7,5 +7,5 @@ render:
 	quarto render 
 
 run: 
-	firefox _site/index.html
+	firefox docs/index.html
 

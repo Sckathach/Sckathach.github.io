@@ -1,0 +1,9 @@
+# Talks
+
+- Mechanistic interpretability for LLM attack and defense, _École Polytechnique, CeSIA, Apr 25_. [Slides](./cesia-ssr/main.pdf)
+
+- Introduction to AI security, _HackademINT, Apr 25_. [Slides](./hackademint-causapscal/assets/main.pdf) / [Webpage](./hackademint-causapscal/index.qmd)
+
+- Model Poisoning, _Station F, CeSIA, Jun 24_. [Slides](./cesia-poison/main.pdf)
+
+- Cheating Detection in the 404 CTF, _Rendez-vous de la Recherche et de l'Enseignement de la Sécurité des Systèmes d'Information (RESSI), May 24_.
