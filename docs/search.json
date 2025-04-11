@@ -1214,7 +1214,7 @@
     "href": "talks/index.html",
     "title": "Talks",
     "section": "",
-    "text": "Talks\n\nMechanistic interpretability for LLM attack and defense, École Polytechnique, CeSIA, Apr 25. Slides\nIntroduction to AI security, HackademINT, Apr 25. Slides / Webpage\nModel Poisoning, Station F, CeSIA, Jun 24. Slides\nCheating Detection in the 404 CTF, Rendez-vous de la Recherche et de l’Enseignement de la Sécurité des Systèmes d’Information (RESSI), May 24."
+    "text": "Talks\n\nMechanistic interpretability for LLM attack and defense, École Polytechnique, CeSIA, Apr 25. Slides\nIntroduction to AI security and reverse engineering, HackademINT, Apr 25. Slides / Webpage\nModel Poisoning, Station F, CeSIA, Jun 24. Slides\nCheating Detection in the 404 CTF, Rendez-vous de la Recherche et de l’Enseignement de la Sécurité des Systèmes d’Information (RESSI), May 24.\nIntroduction to prompt hacking, HackademINT, Nov 23. Slides\nHow to backdoor federated learning, HackademINT, May 23. Slides\nIntroduction to AI & cyber security, HackademINT, May 23. Slides"
   },
   {
     "objectID": "talks/index.html#cesia---mechanistic-interpretability-for-llm-attack-and-defense",
