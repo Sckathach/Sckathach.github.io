@@ -31,7 +31,7 @@ website:
       - text: "About"
         href: "about.qmd"
   navbar:
-    collapse-below: lg
+    # collapse-below: lg
     tools:
       - icon: github
         href: "https://github.com/sckathach"
