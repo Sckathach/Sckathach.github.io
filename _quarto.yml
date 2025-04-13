@@ -29,7 +29,7 @@ website:
       - text: "Home"
         href: "https://sckathach.github.io"
       - text: "About"
-        href: "https://le-magicien-quantique.github.io"
+        href: "about.qmd"
   navbar:
     collapse-below: lg
     tools:
@@ -40,8 +40,11 @@ website:
         href: "404ctf/index.qmd"
       - text: "SSR"
         href: "mech-interp/subspace-rerouting/index.qmd"
-      - text: "Talks"
-        href: "talks/index.qmd"
+    right: 
+      - text: "About"
+        href: "about.qmd"
+      - text: "Research"
+        href: "research.qmd"
 
   search:
     show-item-context: true
