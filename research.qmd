@@ -1,5 +1,5 @@
 ## Papers
-- Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - _Winninger T., Addad B., Kapusta K. Mar 25_. [ArXiv](https://arxiv.org/abs/2503.06269)
+- Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - _Winninger T., Addad B., Kapusta K. Mar 25_. [ArXiv](https://arxiv.org/abs/2503.06269) / [Webpage](./mech-interp/subspace-rerouting/)
 
 ## Talks
 

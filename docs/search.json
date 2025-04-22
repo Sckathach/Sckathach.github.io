@@ -682,14 +682,14 @@
     "href": "about.html",
     "title": "$ Whoami",
     "section": "",
-    "text": "Aka the quantum warlock, the masked camel, the fanOfThermodynamics, the pipe and clouds engineer, the whale orchestra conductor, or just Sckathach. I’m a french student at Télécom SudParis, and soon, a ML(4SEC) researcher!\nI love mathematics, physics, graphs theory, AI, cybersecurity, graphs, geopolitics, thermodynamics (yes, I swear), programming, and especially graphs.\nI’m currently fan of mechanistic interpretability, but there is a high risk I become fan of SLT instead.\nMy favorite paper (asof December 2024) : Toy Models of Superposition.\nSocial media I use arranged in descending exponential order:\n\nhttps://github.com/Sckathach\nhttps://discordapp.com/users/245269795539255296\nhttps://www.linkedin.com/in/thomas-winninger/\nhttps://x.com/sckathach\n\nMails I use arranged in descending exponential order:\n\nthomas.winninger@telecom-sudparis.eu\nthomas.winninger@ens.psl.eu\nthomas.winninger@inria.fr\nthomas.winninger68@gmail.com\n\nDownload PDF resume: en français, in English.\n\n\n\n2024 - 2026 - Master of Science in Cybersecurity - Institut polytechnique de Paris (IPP), May magically transform into a master of mathematics.\n2022 - 2026 - Engineering Degree - Télécom SudParis, Telecommunications, cyber security, cloud, information theory, graph theory.\n\n\n\n\n\nMar - May 2025 - Research internship in AI explanability - INRIA, Verified robust explanation for language models.\nJul - Dec 2024 - Research internship in AI security - Thales, Implementations and improvements of state-of-the-art attacks on LLMs.\n2022 - 2024 - Training and infrastructure manager - HackademINT, Creation of challenges (AI & quantum physics) and organisation of the 404CTF 2023 & 2024.\n\n\n\n\n\nLanguages: Python, French, OCaml, English, Typst, TypeScript, Lua, Rust, C, Bash\nTools/ Frameworks: PyTorch, PyG, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :)\nOther interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game development, meditation"
+    "text": "Aka the quantum warlock, the masked camel, the fanOfThermodynamics, the pipe and clouds engineer, the whale orchestra conductor, or just Sckathach. I’m a french student at Télécom SudParis, and soon, a ML(4SEC) researcher!\nI love mathematics, physics, graphs theory, AI, cybersecurity, graphs, geopolitics, thermodynamics (yes, I swear), programming, and especially graphs.\nI’m currently fan of mechanistic interpretability, but there is a high risk I become fan of SLT instead.\nMy favorite paper (asof December 2024) : Toy Models of Superposition.\nSocial media I use arranged in descending exponential order:\n\nGitHub / Sckathach\nDiscord\nLinkedIN / thomas-winninger\nX / sckathach\n\nYou can contact me using: thomas [dot] winninger [at] telecom-sudparis.eu\nDownload PDF resume: en français, in English.\nResearch work\n\n\n\n2024 - 2026 - Master of Science in ? - Institut polytechnique de Paris (IPP)\n2022 - 2026 - Engineering Degree - Télécom SudParis, Telecommunications, cyber security, cloud, information theory, graph theory.\n\n\n\n\n\nMar - May 2025 - Research internship in AI explanability - INRIA, Verified robust explanation for language models.\nJul - Dec 2024 - Research internship in AI security - Thales, Implementations and improvements of state-of-the-art attacks on LLMs.\n2022 - 2024 - Training and infrastructure manager - HackademINT, Creation of challenges (AI & quantum physics) and organisation of the 404CTF 2023 & 2024.\n\n\n\n\n\nLanguages: Python, French, OCaml, English, Typst, TypeScript, Lua, Rust, C, Bash\nTools/ Frameworks: PyTorch, PyG, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :)\nOther interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game development, meditation\nOther followed courses: AISF, ARENA, Coursera 1, online Stanford 2, or"
   },
   {
     "objectID": "about.html#education",
     "href": "about.html#education",
     "title": "$ Whoami",
     "section": "",
-    "text": "2024 - 2026 - Master of Science in Cybersecurity - Institut polytechnique de Paris (IPP), May magically transform into a master of mathematics.\n2022 - 2026 - Engineering Degree - Télécom SudParis, Telecommunications, cyber security, cloud, information theory, graph theory."
+    "text": "2024 - 2026 - Master of Science in ? - Institut polytechnique de Paris (IPP)\n2022 - 2026 - Engineering Degree - Télécom SudParis, Telecommunications, cyber security, cloud, information theory, graph theory."
   },
   {
     "objectID": "about.html#experience",
@@ -703,7 +703,14 @@
     "href": "about.html#misc",
     "title": "$ Whoami",
     "section": "",
-    "text": "Languages: Python, French, OCaml, English, Typst, TypeScript, Lua, Rust, C, Bash\nTools/ Frameworks: PyTorch, PyG, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :)\nOther interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game development, meditation"
+    "text": "Languages: Python, French, OCaml, English, Typst, TypeScript, Lua, Rust, C, Bash\nTools/ Frameworks: PyTorch, PyG, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :)\nOther interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game development, meditation\nOther followed courses: AISF, ARENA, Coursera 1, online Stanford 2, or"
+  },
+  {
+    "objectID": "about.html#footnotes",
+    "href": "about.html#footnotes",
+    "title": "$ Whoami",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nMachine Learning Specialization, Deep Learning Specialization↩︎\nGraphs, excerices of CS221↩︎"
   },
   {
     "objectID": "404ctf/artificial-intelligence/solutions/poison-2/index.html",
@@ -1130,14 +1137,14 @@
     "href": "research.html",
     "title": "Sckathach's posts",
     "section": "",
-    "text": "Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - Winninger T., Addad B., Kapusta K. Mar 25. ArXiv"
+    "text": "Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - Winninger T., Addad B., Kapusta K. Mar 25. ArXiv / Webpage"
   },
   {
     "objectID": "research.html#papers",
     "href": "research.html#papers",
     "title": "Sckathach's posts",
     "section": "",
-    "text": "Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - Winninger T., Addad B., Kapusta K. Mar 25. ArXiv"
+    "text": "Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - Winninger T., Addad B., Kapusta K. Mar 25. ArXiv / Webpage"
   },
   {
     "objectID": "research.html#talks",

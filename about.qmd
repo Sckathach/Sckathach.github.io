@@ -10,22 +10,19 @@ My favorite paper (asof December 2024) : [Toy Models of Superposition](https://t
 
 Social media I use arranged in descending exponential order:
 
-- <https://github.com/Sckathach>
-- <https://discordapp.com/users/245269795539255296>
-- <https://www.linkedin.com/in/thomas-winninger/>
-- <https://x.com/sckathach>
+- GitHub / Sckathach
+- Discord 
+- LinkedIN / thomas-winninger
+- X / sckathach
 
-Mails I use arranged in descending exponential order: 
-
-- thomas.winninger@telecom-sudparis.eu
-- thomas.winninger@ens.psl.eu
-- thomas.winninger@inria.fr
-- thomas.winninger68@gmail.com
+You can contact me using: thomas [dot] winninger [at] telecom-sudparis.eu
 
 **Download PDF resume**: [en français](./assets/cv.fr.pdf), [in English](./assets/cv.en.pdf).
 
+[Research work](./research.qmd)
+
 ## Education 
-- 2024 - 2026 - **Master of Science in Cybersecurity - Institut polytechnique de Paris (IPP)**, May magically transform into a master of mathematics.
+- 2024 - 2026 - **Master of Science in ? - Institut polytechnique de Paris (IPP)**
 
 - 2022 - 2026 - **Engineering Degree - Télécom SudParis**, Telecommunications, cyber security, cloud, information theory, graph theory.
 
@@ -38,6 +35,7 @@ Mails I use arranged in descending exponential order:
 
 ## Misc 
 
-- Languages: **Python, French, OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash
+- Languages: **Python, [French](https://fr.wikipedia.org/wiki/Baguette_(pain)), OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash
 - Tools/ Frameworks: **PyTorch**, PyG, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :)
 - Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game development, meditation 
+- Other followed courses: [AISF](https://aisafetyfundamentals.com/), [ARENA](https://www.arena.education/), Coursera ^[Machine Learning Specialization, Deep Learning Specialization], online Stanford ^[Graphs, excerices of CS221], or 
