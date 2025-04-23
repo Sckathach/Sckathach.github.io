@@ -5,6 +5,7 @@ clear:
 
 render: 
 	quarto render 
+	cp -r static/* docs/
 
 run: 
 	firefox docs/index.html
