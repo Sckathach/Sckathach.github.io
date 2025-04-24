@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Reference &mdash; Zonotope 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Usage Guide" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Zonotope
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#zonotope-class">Zonotope Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#zonotope.zonotope.Zonotope"><code class="docutils literal notranslate"><span class="pre">Zonotope</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__init__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.E"><code class="docutils literal notranslate"><span class="pre">Zonotope.E</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.Es"><code class="docutils literal notranslate"><span class="pre">Zonotope.Es</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.Ei"><code class="docutils literal notranslate"><span class="pre">Zonotope.Ei</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.N"><code class="docutils literal notranslate"><span class="pre">Zonotope.N</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.shape"><code class="docutils literal notranslate"><span class="pre">Zonotope.shape</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.device"><code class="docutils literal notranslate"><span class="pre">Zonotope.device</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.dtype"><code class="docutils literal notranslate"><span class="pre">Zonotope.dtype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.from_values"><code class="docutils literal notranslate"><span class="pre">Zonotope.from_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.from_bounds"><code class="docutils literal notranslate"><span class="pre">Zonotope.from_bounds()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.concretize"><code class="docutils literal notranslate"><span class="pre">Zonotope.concretize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.expand_infinity_error_terms"><code class="docutils literal notranslate"><span class="pre">Zonotope.expand_infinity_error_terms()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.clone"><code class="docutils literal notranslate"><span class="pre">Zonotope.clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.add"><code class="docutils literal notranslate"><span class="pre">Zonotope.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.mul"><code class="docutils literal notranslate"><span class="pre">Zonotope.mul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.div"><code class="docutils literal notranslate"><span class="pre">Zonotope.div()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.sub"><code class="docutils literal notranslate"><span class="pre">Zonotope.sub()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.rsub"><code class="docutils literal notranslate"><span class="pre">Zonotope.rsub()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.sample_point"><code class="docutils literal notranslate"><span class="pre">Zonotope.sample_point()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.rearrange"><code class="docutils literal notranslate"><span class="pre">Zonotope.rearrange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.repeat"><code class="docutils literal notranslate"><span class="pre">Zonotope.repeat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.einsum"><code class="docutils literal notranslate"><span class="pre">Zonotope.einsum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.sum"><code class="docutils literal notranslate"><span class="pre">Zonotope.sum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.to"><code class="docutils literal notranslate"><span class="pre">Zonotope.to()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.contiguous"><code class="docutils literal notranslate"><span class="pre">Zonotope.contiguous()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__getitem__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__repr__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__len__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__len__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__add__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__add__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__radd__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__radd__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__mul__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__mul__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#zonotope.zonotope.Zonotope.__rmul__"><code class="docutils literal notranslate"><span class="pre">Zonotope.__rmul__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Zonotope</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
+<section id="zonotope-class">
+<h2>Zonotope Class<a class="headerlink" href="#zonotope-class" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">zonotope.zonotope.</span></span><span class="sig-name descname"><span class="pre">Zonotope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infinity_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.13)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Implementation of the multi-norm Zonotope base object with N variables.</p>
+<p>The special norm is p, its dual counterpart is q. The number of special error terms is Es, and the number of infinity terms is Ei.</p>
+<p>Weights are stored in three matrices:
+- W_C: center (bias), shape: (N)
+- W_Ei: infinity terms, shape: (N Ei)
+- W_Es: special terms, shape: (N Es)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em>'</em><em>]</em>)</p></li>
+<li><p><strong>infinity_terms</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em> Ei'</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>special_terms</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em> Es'</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>special_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>)</p></li>
+<li><p><strong>clone</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infinity_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize a zonotope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em>'</em><em>]</em>) – Center point of the zonotope (bias)</p></li>
+<li><p><strong>infinity_terms</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em> Ei'</em><em>] </em><em>| </em><em>None</em>) – Coefficient matrix for infinity-norm error terms</p></li>
+<li><p><strong>special_terms</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em> Es'</em><em>] </em><em>| </em><em>None</em>) – Coefficient matrix for special (p-norm) error terms</p></li>
+<li><p><strong>special_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The p value for the special error terms (default: 2)</p></li>
+<li><p><strong>clone</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to clone the input tensors (default: True)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.E">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">E</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></em><a class="headerlink" href="#zonotope.zonotope.Zonotope.E" title="Link to this definition"></a></dt>
+<dd><p>Total number of error terms (special + infinity).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.Es">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Es</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></em><a class="headerlink" href="#zonotope.zonotope.Zonotope.Es" title="Link to this definition"></a></dt>
+<dd><p>Number of special (p-norm) error terms.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.Ei">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Ei</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></em><a class="headerlink" href="#zonotope.zonotope.Zonotope.Ei" title="Link to this definition"></a></dt>
+<dd><p>Number of infinity-norm error terms.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.N">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></em><a class="headerlink" href="#zonotope.zonotope.Zonotope.N" title="Link to this definition"></a></dt>
+<dd><p>Total number of variables in the zonotope.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.shape">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://pytorch.org/docs/stable/size.html#torch.Size" title="(in PyTorch v2.6)"><span class="pre">Size</span></a></em><a class="headerlink" href="#zonotope.zonotope.Zonotope.shape" title="Link to this definition"></a></dt>
+<dd><p>Shape of the center tensor.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.device">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">device</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://pytorch.org/docs/stable/tensor_attributes.html#torch.device" title="(in PyTorch v2.6)"><span class="pre">device</span></a></em><a class="headerlink" href="#zonotope.zonotope.Zonotope.device" title="Link to this definition"></a></dt>
+<dd><p>Device of the tensors.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.dtype">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dtype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://pytorch.org/docs/stable/tensor_attributes.html#torch.dtype" title="(in PyTorch v2.6)"><span class="pre">dtype</span></a></em><a class="headerlink" href="#zonotope.zonotope.Zonotope.dtype" title="Link to this definition"></a></dt>
+<dd><p>Data type of the tensors.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.from_values">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infinity_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.from_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.from_values" title="Link to this definition"></a></dt>
+<dd><p>Create a zonotope from various input types, converting to tensors as needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Center point values (will be converted to tensor)</p></li>
+<li><p><strong>infinity_terms</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Values for infinity-norm error terms</p></li>
+<li><p><strong>special_terms</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Values for special p-norm error terms</p></li>
+<li><p><strong>special_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The p value for special error terms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Zonotope instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.from_bounds">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_bounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.from_bounds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.from_bounds" title="Link to this definition"></a></dt>
+<dd><p>Create a zonotope from lower and upper bounds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lower</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Lower bounds</p></li>
+<li><p><strong>upper</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.13)"><em>Any</em></a>) – Upper bounds</p></li>
+<li><p><strong>special_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The p value for special error terms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Zonotope instance</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.concretize">
+<span class="sig-name descname"><span class="pre">concretize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.concretize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.concretize" title="Link to this definition"></a></dt>
+<dd><p>Computer lower and upper bounds of the zonotope (Section 4.1)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><em>Tuple</em></a>[<em>Float</em>[Tensor, ‘…’], <em>Float</em>[Tensor, ‘…’]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.expand_infinity_error_terms">
+<span class="sig-name descname"><span class="pre">expand_infinity_error_terms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_infinity_terms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.expand_infinity_error_terms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.expand_infinity_error_terms" title="Link to this definition"></a></dt>
+<dd><p>Expand the number of infinity error terms to the specified value.</p>
+<p>! Will be updated with a better strategy soon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n_infinity_terms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infinity_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.clone" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em>'</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>infinity_terms</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em> Ei'</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>special_terms</strong> (<em>Float</em><em>[</em><em>Tensor</em><em>, </em><em>'</em><em>...</em><em> Es'</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>special_norm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.add" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.mul">
+<span class="sig-name descname"><span class="pre">mul</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.mul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.mul" title="Link to this definition"></a></dt>
+<dd><p>Multiply this zonotope by a scalar in-place</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.div">
+<span class="sig-name descname"><span class="pre">div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.div"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.div" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.sub">
+<span class="sig-name descname"><span class="pre">sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.sub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.sub" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.rsub">
+<span class="sig-name descname"><span class="pre">rsub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.rsub"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.rsub" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.sample_point">
+<span class="sig-name descname"><span class="pre">sample_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_binary_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_special_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_infinity_terms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.sample_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.sample_point" title="Link to this definition"></a></dt>
+<dd><p>Sample points from within the zonotope.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – Number of points to sample</p></li>
+<li><p><strong>use_binary_weights</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to use binary weights (corners of the zonotope)</p></li>
+<li><p><strong>include_special_terms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to include special error terms</p></li>
+<li><p><strong>include_infinity_terms</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) – Whether to include infinity error terms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tensor of sampled points with shape (n_samples, <a href="#id1"><span class="problematic" id="id2">*</span></a>self.shape)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Float</em>[Tensor, ‘S …’]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.rearrange">
+<span class="sig-name descname"><span class="pre">rearrange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.rearrange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.rearrange" title="Link to this definition"></a></dt>
+<dd><p>Einops rearrange</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.repeat">
+<span class="sig-name descname"><span class="pre">repeat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.repeat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.repeat" title="Link to this definition"></a></dt>
+<dd><p>Einops repeat</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.einsum">
+<span class="sig-name descname"><span class="pre">einsum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pattern</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.einsum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.einsum" title="Link to this definition"></a></dt>
+<dd><p>Einops einsum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>other</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p></li>
+<li><p><strong>pattern</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.sum">
+<span class="sig-name descname"><span class="pre">sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.sum" title="Link to this definition"></a></dt>
+<dd><p>Torch sum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.to">
+<span class="sig-name descname"><span class="pre">to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.to"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.to" title="Link to this definition"></a></dt>
+<dd><p>Torch to</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensor_attributes.html#torch.device" title="(in PyTorch v2.6)"><em>device</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://pytorch.org/docs/stable/tensor_attributes.html#torch.dtype" title="(in PyTorch v2.6)"><em>dtype</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.contiguous">
+<span class="sig-name descname"><span class="pre">contiguous</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.contiguous"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.contiguous" title="Link to this definition"></a></dt>
+<dd><p>Torch contiguous</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.__getitem__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.__repr__" title="Link to this definition"></a></dt>
+<dd><p>Return repr(self).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/zonotope/zonotope.html#Zonotope.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#zonotope.zonotope.Zonotope.__len__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__add__">
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonotope.zonotope.Zonotope.__add__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__radd__">
+<span class="sig-name descname"><span class="pre">__radd__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonotope.zonotope.Zonotope.__radd__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__mul__">
+<span class="sig-name descname"><span class="pre">__mul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonotope.zonotope.Zonotope.__mul__" title="Link to this definition"></a></dt>
+<dd><p>Multiply this zonotope by a scalar in-place</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="zonotope.zonotope.Zonotope.__rmul__">
+<span class="sig-name descname"><span class="pre">__rmul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#zonotope.zonotope.Zonotope.__rmul__" title="Link to this definition"></a></dt>
+<dd><p>Multiply this zonotope by a scalar in-place</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> | </em><a class="reference external" href="https://pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.6)"><em>Tensor</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#zonotope.zonotope.Zonotope" title="zonotope.zonotope.Zonotope"><em>Zonotope</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Your Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

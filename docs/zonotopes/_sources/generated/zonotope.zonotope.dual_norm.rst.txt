@@ -1,0 +1,6 @@
+﻿zonotope.zonotope.dual\_norm
+============================
+
+.. currentmodule:: zonotope.zonotope
+
+.. autofunction:: dual_norm

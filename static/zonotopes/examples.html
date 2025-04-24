@@ -1,0 +1,629 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Examples &mdash; Zonotope 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="zonotope.zonotope.split_einops_pattern_simple" href="generated/zonotope.zonotope.split_einops_pattern_simple.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Zonotope
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-uncertainty-propagation">Basic Uncertainty Propagation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#batch-processing-of-multiple-zonotopes">Batch Processing of Multiple Zonotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#neural-network-verification">Neural Network Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-sensors-and-measurement-uncertainty">Working with Sensors and Measurement Uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-zonotope-operations">Custom Zonotope Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#combining-multiple-error-types">Combining Multiple Error Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-large-batch-dimensions">Working with Large Batch Dimensions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Zonotope</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading"></a></h1>
+<p>This section provides complete, practical examples of using the Zonotope package for different applications.</p>
+<section id="basic-uncertainty-propagation">
+<h2>Basic Uncertainty Propagation<a class="headerlink" href="#basic-uncertainty-propagation" title="Link to this heading"></a></h2>
+<p>This example demonstrates how to use zonotopes for basic uncertainty propagation through a linear system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonotope</span>
+
+<span class="c1"># Define a 2D system with uncertainty</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+              <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]])</span>
+
+<span class="c1"># Initial state with uncertainty</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="o">.</span><span class="n">from_values</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>  <span class="c1"># Initial mean state</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]],</span>  <span class="c1"># Initial uncertainty</span>
+<span class="p">)</span>
+
+<span class="c1"># Propagate the system for 10 steps</span>
+<span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">x0</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="c1"># Linear state update: x_next = A * x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;d, d e -&gt; e&quot;</span><span class="p">)</span>
+    <span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">())</span>
+
+<span class="c1"># Print the bounds of the final state</span>
+<span class="n">final_lower</span><span class="p">,</span> <span class="n">final_upper</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Final state bounds: [</span><span class="si">{</span><span class="n">final_lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">final_upper</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+
+<span class="c1"># We can sample trajectories from these zonotopes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Sample 10 trajectories</span>
+<span class="n">n_trajectories</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">trajectories</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trajectories</span><span class="p">):</span>
+    <span class="n">trajectory</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="c1"># Sample a single point from each state zonotope</span>
+        <span class="n">point</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">sample_point</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">trajectory</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+    <span class="n">trajectories</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">trajectory</span><span class="p">))</span>
+
+<span class="c1"># Plot the trajectories</span>
+<span class="k">for</span> <span class="n">traj</span> <span class="ow">in</span> <span class="n">trajectories</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">traj</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">traj</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Plot the initial and final state bounds</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">states</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]):</span>
+    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;g&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;r&#39;</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Initial&#39;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;Final&#39;</span>
+    
+    <span class="c1"># Plot a rectangle representing the bounds</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+             <span class="p">[</span><span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+             <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Uncertainty Propagation with Zonotopes&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="batch-processing-of-multiple-zonotopes">
+<h2>Batch Processing of Multiple Zonotopes<a class="headerlink" href="#batch-processing-of-multiple-zonotopes" title="Link to this heading"></a></h2>
+<p>This example shows how to efficiently work with batches of zonotopes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonotope</span>
+
+<span class="c1"># Create a batch of 100 zonotopes representing different initial conditions</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">dim</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># 5-dimensional zonotopes</span>
+
+<span class="c1"># Batch of centers</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+
+<span class="c1"># Batch of error terms (same structure for all zonotopes in the batch)</span>
+<span class="n">infinity_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">infinity_terms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># First error term</span>
+<span class="n">infinity_terms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c1"># Second error term</span>
+
+<span class="c1"># Create the batch zonotope</span>
+<span class="n">batch_z</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="n">centers</span><span class="p">,</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="n">infinity_terms</span><span class="p">,</span>
+    <span class="n">special_norm</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="c1"># We can process the whole batch at once</span>
+<span class="c1"># For example, scaling all zonotopes</span>
+<span class="n">scaled_batch</span> <span class="o">=</span> <span class="n">batch_z</span> <span class="o">*</span> <span class="mf">2.0</span>
+
+<span class="c1"># Or we can extract individual zonotopes</span>
+<span class="n">first_z</span> <span class="o">=</span> <span class="n">batch_z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">subset_z</span> <span class="o">=</span> <span class="n">batch_z</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+
+<span class="c1"># Compute bounds for all zonotopes at once</span>
+<span class="n">all_lower</span><span class="p">,</span> <span class="n">all_upper</span> <span class="o">=</span> <span class="n">batch_z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape of bounds: </span><span class="si">{</span><span class="n">all_lower</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># [batch_size, dim]</span>
+
+<span class="c1"># Calculate the average volume of all zonotopes</span>
+<span class="n">volumes</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">all_upper</span> <span class="o">-</span> <span class="n">all_lower</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">avg_volume</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">volumes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average volume: </span><span class="si">{</span><span class="n">avg_volume</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="neural-network-verification">
+<h2>Neural Network Verification<a class="headerlink" href="#neural-network-verification" title="Link to this heading"></a></h2>
+<p>This example shows a simplified version of how zonotopes can be used for neural network verification:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonotope</span>
+
+<span class="c1"># Define a simple feedforward neural network</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="c1"># Create and initialize the network</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">SimpleNN</span><span class="p">()</span>
+
+<span class="c1"># Define an input region as a zonotope</span>
+<span class="n">input_region</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="o">.</span><span class="n">from_bounds</span><span class="p">(</span>
+    <span class="n">lower</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">]),</span>
+    <span class="n">upper</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="c1"># To propagate through the linear layer, we use the weight matrix directly</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">propagate_linear</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">bias</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span>
+    
+    <span class="c1"># Apply the linear transformation</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;d, o d -&gt; o&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">bias</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="c1"># A simple (but imprecise) ReLU approximation using concretization</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">propagate_relu</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+    
+    <span class="c1"># Case 1: If upper &lt;= 0, output is zero</span>
+    <span class="c1"># Case 2: If lower &gt;= 0, ReLU is identity</span>
+    <span class="c1"># Case 3: Otherwise, we need to approximate</span>
+    
+    <span class="n">new_center</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">W_C</span><span class="p">)</span>
+    <span class="n">new_infinity_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">)</span>
+    <span class="n">new_special_terms</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">Es</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">W_Es</span><span class="p">)</span>
+    
+    <span class="c1"># Process each dimension separately</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">upper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Output is zero</span>
+            <span class="n">new_center</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">new_infinity_terms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">Es</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">new_special_terms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">lower</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># ReLU is identity</span>
+            <span class="n">new_center</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">W_C</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">new_infinity_terms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">Es</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">new_special_terms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">W_Es</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Approximate with a new zonotope</span>
+            <span class="c1"># Center at (upper/2)</span>
+            <span class="c1"># One error term with radius (upper/2)</span>
+            <span class="n">new_center</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">upper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="c1"># Add a new error term</span>
+            <span class="n">new_infinity_terms</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">upper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="c1"># Zero out other error terms in this dimension</span>
+            <span class="n">new_infinity_terms</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">z</span><span class="o">.</span><span class="n">Es</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">new_special_terms</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+        <span class="n">center</span><span class="o">=</span><span class="n">new_center</span><span class="p">,</span>
+        <span class="n">infinity_terms</span><span class="o">=</span><span class="n">new_infinity_terms</span><span class="p">,</span>
+        <span class="n">special_terms</span><span class="o">=</span><span class="n">new_special_terms</span><span class="p">,</span>
+        <span class="n">special_norm</span><span class="o">=</span><span class="n">z</span><span class="o">.</span><span class="n">p</span>
+    <span class="p">)</span>
+
+<span class="c1"># Propagate through the network</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">input_region</span>
+
+<span class="c1"># First layer</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">propagate_linear</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">fc1</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">propagate_relu</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+
+<span class="c1"># Second layer</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">propagate_linear</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">net</span><span class="o">.</span><span class="n">fc2</span><span class="p">)</span>
+
+<span class="c1"># Get the output bounds</span>
+<span class="n">output_lower</span><span class="p">,</span> <span class="n">output_upper</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output bounds: [</span><span class="si">{</span><span class="n">output_lower</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">output_upper</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+
+<span class="c1"># This is a simplified example. A real implementation would use more</span>
+<span class="c1"># precise approximations of ReLU and handle other activation functions.</span>
+</pre></div>
+</div>
+</section>
+<section id="working-with-sensors-and-measurement-uncertainty">
+<h2>Working with Sensors and Measurement Uncertainty<a class="headerlink" href="#working-with-sensors-and-measurement-uncertainty" title="Link to this heading"></a></h2>
+<p>This example demonstrates how to use zonotopes to model and propagate sensor measurement uncertainty:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonotope</span>
+
+<span class="c1"># Consider a robot position with measurement uncertainty</span>
+<span class="c1"># Let&#39;s say we have measurements from two sensors, each with their own uncertainty</span>
+
+<span class="c1"># Sensor 1 measurement (position in 2D)</span>
+<span class="n">sensor1_mean</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
+<span class="n">sensor1_uncertainty</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]])</span>  <span class="c1"># Uncorrelated uncertainty</span>
+
+<span class="c1"># Sensor 2 measurement</span>
+<span class="n">sensor2_mean</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">])</span>
+<span class="n">sensor2_uncertainty</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">]])</span>  <span class="c1"># Correlated uncertainty</span>
+
+<span class="c1"># Convert to zonotopes</span>
+<span class="n">z1</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="n">sensor1_mean</span><span class="p">,</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="n">sensor1_uncertainty</span>
+<span class="p">)</span>
+
+<span class="c1"># For the correlated uncertainty, we need to decompose the covariance</span>
+<span class="c1"># In a real application, you might use SVD or other decomposition</span>
+<span class="c1"># For simplicity, we&#39;ll just use the covariance directly as error terms</span>
+<span class="n">z2</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="n">sensor2_mean</span><span class="p">,</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="n">sensor2_uncertainty</span>
+<span class="p">)</span>
+
+<span class="c1"># Sensor fusion - a simple weighted average</span>
+<span class="c1"># In a real application, you might use a more sophisticated approach</span>
+<span class="n">fusion_weight</span> <span class="o">=</span> <span class="mf">0.6</span>  <span class="c1"># Weight for sensor 1</span>
+<span class="n">fused_z</span> <span class="o">=</span> <span class="n">z1</span> <span class="o">*</span> <span class="n">fusion_weight</span> <span class="o">+</span> <span class="n">z2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">fusion_weight</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s visualize the measurements and the fused estimate</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Function to plot a zonotope as an ellipse (approximation)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_zonotope_approx</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="c1"># Sample points from the zonotope</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">sample_point</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    
+    <span class="c1"># Plot the samples</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    
+    <span class="c1"># Plot the center</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">z</span><span class="o">.</span><span class="n">W_C</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">W_C</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    
+    <span class="c1"># Plot a convex hull or ellipse approximation</span>
+    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    
+    <span class="c1"># Plot a rectangle representing the bounds</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+             <span class="p">[</span><span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+             <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+<span class="c1"># Plot the measurements and fused estimate</span>
+<span class="n">plot_zonotope_approx</span><span class="p">(</span><span class="n">z1</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor 1&#39;</span><span class="p">)</span>
+<span class="n">plot_zonotope_approx</span><span class="p">(</span><span class="n">z2</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensor 2&#39;</span><span class="p">)</span>
+<span class="n">plot_zonotope_approx</span><span class="p">(</span><span class="n">fused_z</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;Fused Estimate&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sensor Fusion with Zonotopes&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-zonotope-operations">
+<h2>Custom Zonotope Operations<a class="headerlink" href="#custom-zonotope-operations" title="Link to this heading"></a></h2>
+<p>This example shows how to implement custom operations on zonotopes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonotope</span>
+
+<span class="c1"># Define a custom operation - quadratic transform</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">quadratic_transform</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply a quadratic transform f(x) = x^2 to a zonotope.</span>
+<span class="sd">    This is a simplified approximation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get the bounds of the zonotope</span>
+    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+    
+    <span class="c1"># For a quadratic function, we need to consider different cases</span>
+    <span class="c1"># Case 1: Both lower and upper are non-negative or both non-positive</span>
+    <span class="c1"># Case 2: lower &lt; 0 &lt; upper (interval contains zero)</span>
+    
+    <span class="n">new_center</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">W_C</span><span class="p">)</span>
+    <span class="n">new_infinity_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">W_C</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">lower</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">upper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Case 1: Interval doesn&#39;t contain zero</span>
+            <span class="c1"># For x^2, the new bounds are [min(lower^2, upper^2), max(lower^2, upper^2)]</span>
+            <span class="n">l_squared</span> <span class="o">=</span> <span class="n">lower</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">u_squared</span> <span class="o">=</span> <span class="n">upper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">new_min</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">l_squared</span><span class="p">,</span> <span class="n">u_squared</span><span class="p">)</span>
+            <span class="n">new_max</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">l_squared</span><span class="p">,</span> <span class="n">u_squared</span><span class="p">)</span>
+            
+            <span class="c1"># Set center to midpoint of new bounds</span>
+            <span class="n">new_center</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_min</span> <span class="o">+</span> <span class="n">new_max</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="c1"># Set radius to half the range</span>
+            <span class="n">new_infinity_terms</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_max</span> <span class="o">-</span> <span class="n">new_min</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Case 2: Interval contains zero, so lower &lt; 0 &lt; upper</span>
+            <span class="c1"># For x^2, the new bounds are [0, max(lower^2, upper^2)]</span>
+            <span class="n">new_max</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lower</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">upper</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            
+            <span class="c1"># Set center to midpoint of new bounds</span>
+            <span class="n">new_center</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_max</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="c1"># Set radius to half the range</span>
+            <span class="n">new_infinity_terms</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_max</span> <span class="o">/</span> <span class="mi">2</span>
+    
+    <span class="c1"># Return a new zonotope with the transformed bounds</span>
+    <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+        <span class="n">center</span><span class="o">=</span><span class="n">new_center</span><span class="p">,</span>
+        <span class="n">infinity_terms</span><span class="o">=</span><span class="n">new_infinity_terms</span><span class="p">,</span>
+        <span class="n">special_norm</span><span class="o">=</span><span class="n">z</span><span class="o">.</span><span class="n">p</span>
+    <span class="p">)</span>
+
+<span class="c1"># Let&#39;s test our custom operation</span>
+<span class="c1"># Create a zonotope with center at origin and extending to both positive and negative</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="o">.</span><span class="n">from_values</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>  <span class="c1"># One dimension crosses zero, one doesn&#39;t</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="p">[[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">]]</span>  <span class="c1"># Range is [-1,1] for first dim, [1.5,2.5] for second</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Original zonotope:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center: </span><span class="si">{</span><span class="n">z</span><span class="o">.</span><span class="n">W_C</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bounds: </span><span class="si">{</span><span class="n">z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Apply our custom quadratic transform</span>
+<span class="n">z_squared</span> <span class="o">=</span> <span class="n">quadratic_transform</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">After quadratic transform:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center: </span><span class="si">{</span><span class="n">z_squared</span><span class="o">.</span><span class="n">W_C</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bounds: </span><span class="si">{</span><span class="n">z_squared</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># We can verify with sampling</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">original_samples</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">sample_point</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+<span class="n">transformed_samples</span> <span class="o">=</span> <span class="n">original_samples</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="c1"># Calculate min and max of transformed samples</span>
+<span class="n">transformed_min</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">transformed_samples</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">transformed_max</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">transformed_samples</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Verification with sampling:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Min of transformed samples: </span><span class="si">{</span><span class="n">transformed_min</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Max of transformed samples: </span><span class="si">{</span><span class="n">transformed_max</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bounds from zonotope: </span><span class="si">{</span><span class="n">z_squared</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="combining-multiple-error-types">
+<h2>Combining Multiple Error Types<a class="headerlink" href="#combining-multiple-error-types" title="Link to this heading"></a></h2>
+<p>This example demonstrates the use of both infinity-norm and p-norm error terms:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonotope</span>
+
+<span class="c1"># Create zonotopes with different error term configurations</span>
+<span class="c1"># 1. Only infinity-norm errors (box)</span>
+<span class="n">box_z</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="o">.</span><span class="n">from_values</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]]</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Only 2-norm errors (ball)</span>
+<span class="n">ball_z</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="o">.</span><span class="n">from_values</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">special_terms</span><span class="o">=</span><span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]],</span>
+    <span class="n">special_norm</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Only 1-norm errors (diamond)</span>
+<span class="n">diamond_z</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="o">.</span><span class="n">from_values</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">special_terms</span><span class="o">=</span><span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]],</span>
+    <span class="n">special_norm</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. Combination of infinity-norm and 2-norm errors</span>
+<span class="n">combo_z</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="o">.</span><span class="n">from_values</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]],</span>
+    <span class="n">special_terms</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]],</span>
+    <span class="n">special_norm</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="c1"># Function to plot samples from a zonotope</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_zonotope_samples</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">sample_point</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">n_samples</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    
+    <span class="c1"># Plot bounds</span>
+    <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">lower</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">upper</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    
+    <span class="c1"># Plot a rectangle representing the bounds</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill</span><span class="p">([</span><span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="p">[</span><span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upper</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lower</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Plot all zonotopes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">plot_zonotope_samples</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box_z</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;Box (∞-norm)&#39;</span><span class="p">)</span>
+<span class="n">plot_zonotope_samples</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ball_z</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;Ball (2-norm)&#39;</span><span class="p">)</span>
+<span class="n">plot_zonotope_samples</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">diamond_z</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;Diamond (1-norm)&#39;</span><span class="p">)</span>
+<span class="n">plot_zonotope_samples</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">combo_z</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;Combined&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;Box (∞-norm)&#39;</span><span class="p">,</span> <span class="s1">&#39;Ball (2-norm)&#39;</span><span class="p">,</span> <span class="s1">&#39;Diamond (1-norm)&#39;</span><span class="p">,</span> <span class="s1">&#39;Combined&#39;</span><span class="p">]):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;zonotope_types.png&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="working-with-large-batch-dimensions">
+<h2>Working with Large Batch Dimensions<a class="headerlink" href="#working-with-large-batch-dimensions" title="Link to this heading"></a></h2>
+<p>This example demonstrates handling zonotopes with multiple batch dimensions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zonotope</span>
+
+<span class="c1"># Create a zonotope with multiple batch dimensions</span>
+<span class="c1"># For example, batch_dim1 x batch_dim2 x feature_dim</span>
+<span class="n">batch_dim1</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">batch_dim2</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">feature_dim</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Create center tensor with shape [batch_dim1, batch_dim2, feature_dim]</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_dim1</span><span class="p">,</span> <span class="n">batch_dim2</span><span class="p">,</span> <span class="n">feature_dim</span><span class="p">)</span>
+
+<span class="c1"># Create error terms</span>
+<span class="n">infinity_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_dim1</span><span class="p">,</span> <span class="n">batch_dim2</span><span class="p">,</span> <span class="n">feature_dim</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.1</span>
+<span class="n">special_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">batch_dim1</span><span class="p">,</span> <span class="n">batch_dim2</span><span class="p">,</span> <span class="n">feature_dim</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.05</span>
+
+<span class="c1"># Create the multi-batch zonotope</span>
+<span class="n">multi_batch_z</span> <span class="o">=</span> <span class="n">Zonotope</span><span class="p">(</span>
+    <span class="n">center</span><span class="o">=</span><span class="n">centers</span><span class="p">,</span>
+    <span class="n">infinity_terms</span><span class="o">=</span><span class="n">infinity_terms</span><span class="p">,</span>
+    <span class="n">special_terms</span><span class="o">=</span><span class="n">special_terms</span><span class="p">,</span>
+    <span class="n">special_norm</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Zonotope shape: </span><span class="si">{</span><span class="n">multi_batch_z</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total elements: </span><span class="si">{</span><span class="n">multi_batch_z</span><span class="o">.</span><span class="n">N</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error terms: Ei=</span><span class="si">{</span><span class="n">multi_batch_z</span><span class="o">.</span><span class="n">Ei</span><span class="si">}</span><span class="s2">, Es=</span><span class="si">{</span><span class="n">multi_batch_z</span><span class="o">.</span><span class="n">Es</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># We can slice this zonotope along batch dimensions</span>
+<span class="n">first_batch</span> <span class="o">=</span> <span class="n">multi_batch_z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First batch shape: </span><span class="si">{</span><span class="n">first_batch</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">sub_batch</span> <span class="o">=</span> <span class="n">multi_batch_z</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sub-batch shape: </span><span class="si">{</span><span class="n">sub_batch</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Reshape using rearrange</span>
+<span class="n">flattened_batch</span> <span class="o">=</span> <span class="n">multi_batch_z</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="s2">&quot;b1 b2 d -&gt; (b1 b2) d&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Flattened batch shape: </span><span class="si">{</span><span class="n">flattened_batch</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Split using rearrange</span>
+<span class="n">split_batch</span> <span class="o">=</span> <span class="n">multi_batch_z</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="s2">&quot;(b1 b2) d -&gt; b1 b2 d&quot;</span><span class="p">,</span> <span class="n">b1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">b2</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Split batch shape: </span><span class="si">{</span><span class="n">split_batch</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Compute bounds for the entire batch at once</span>
+<span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="n">multi_batch_z</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bounds shape: </span><span class="si">{</span><span class="n">lower</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These examples demonstrate the versatility and power of the Zonotope package for handling uncertainty in various scenarios and across different domains.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="generated/zonotope.zonotope.split_einops_pattern_simple.html" class="btn btn-neutral float-left" title="zonotope.zonotope.split_einops_pattern_simple" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Your Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

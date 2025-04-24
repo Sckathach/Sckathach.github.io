@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>zonotope.zonotope &mdash; Zonotope 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Zonotope
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples.html">Examples</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Zonotope</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">zonotope.zonotope</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for zonotope.zonotope</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">einops</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">t</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jaxtyping</span><span class="w"> </span><span class="kn">import</span> <span class="n">Float</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tensor</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">zonotope.utils</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">dual_norm</span><span class="p">,</span>
+    <span class="n">get_dim_for_error_terms</span><span class="p">,</span>
+    <span class="n">get_einops_pattern_for_error_terms</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Zonotope">
+<a class="viewcode-back" href="../../generated/zonotope.zonotope.Zonotope.html#zonotope.zonotope.Zonotope">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Zonotope</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implementation of the multi-norm Zonotope base object with N variables.</span>
+
+<span class="sd">    The special norm is p, its dual counterpart is q. The number of special error terms is Es, and the number of infinity terms is Ei.</span>
+
+<span class="sd">    Weights are stored in three matrices:</span>
+<span class="sd">    - W_C: center (bias), shape: (N)</span>
+<span class="sd">    - W_Ei: infinity terms, shape: (N Ei)</span>
+<span class="sd">    - W_Es: special terms, shape: (N Es)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Zonotope.__init__">
+<a class="viewcode-back" href="../../generated/zonotope.zonotope.Zonotope.html#zonotope.zonotope.Zonotope.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">center</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">],</span>
+        <span class="n">infinity_terms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;... Ei&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">special_terms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;... Es&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">special_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">clone</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a zonotope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            center: Center point of the zonotope (bias)</span>
+<span class="sd">            infinity_terms: Coefficient matrix for infinity-norm error terms</span>
+<span class="sd">            special_terms: Coefficient matrix for special (p-norm) error terms</span>
+<span class="sd">            special_norm: The p value for the special error terms (default: 2)</span>
+<span class="sd">            clone: Whether to clone the input tensors (default: True)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">special_norm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">dual_norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">center</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="n">clone</span> <span class="k">else</span> <span class="n">center</span>
+
+        <span class="k">if</span> <span class="n">infinity_terms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;... Ei&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span> <span class="o">=</span> <span class="n">infinity_terms</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="n">clone</span> <span class="k">else</span> <span class="n">infinity_terms</span>
+        <span class="k">if</span> <span class="n">special_terms</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">:</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;... Es&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span> <span class="o">=</span> <span class="n">special_terms</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span> <span class="k">if</span> <span class="n">clone</span> <span class="k">else</span> <span class="n">special_terms</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">E</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of error terms (special + infinity).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Es</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Es</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of special (p-norm) error terms.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Ei</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of infinity-norm error terms.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">N</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of variables in the zonotope.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">Size</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Shape of the center tensor.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">device</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">device</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Device of the tensors.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">device</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">t</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Data type of the tensors.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">dtype</span>
+
+<div class="viewcode-block" id="Zonotope.from_values">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.from_values">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_values</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span>
+        <span class="n">center</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">infinity_terms</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">special_terms</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">special_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a zonotope from various input types, converting to tensors as needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            center: Center point values (will be converted to tensor)</span>
+<span class="sd">            infinity_terms: Values for infinity-norm error terms</span>
+<span class="sd">            special_terms: Values for special p-norm error terms</span>
+<span class="sd">            special_norm: The p value for special error terms</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new Zonotope instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+        <span class="n">infinity_tensor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">infinity_terms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">infinity_tensor</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">infinity_terms</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+        <span class="n">special_tensor</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">special_terms</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">special_tensor</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">special_terms</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="n">infinity_tensor</span><span class="p">,</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="n">special_tensor</span><span class="p">,</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="n">special_norm</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.from_bounds">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.from_bounds">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_bounds</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lower</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">upper</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">special_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a zonotope from lower and upper bounds.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lower: Lower bounds</span>
+<span class="sd">            upper: Upper bounds</span>
+<span class="sd">            special_norm: The p value for special error terms</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new Zonotope instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">lower</span> <span class="o">+</span> <span class="n">upper</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="p">(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">lower</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_values</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">center</span><span class="p">,</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="n">radius</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="n">special_norm</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.concretize">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.concretize">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">concretize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">],</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computer lower and upper bounds of the zonotope (Section 4.1)&quot;&quot;&quot;</span>
+        <span class="n">norm_infinity_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">norm_special_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">lower</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span> <span class="o">-</span> <span class="n">norm_infinity_terms</span> <span class="o">-</span> <span class="n">norm_special_terms</span>
+        <span class="n">upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span> <span class="o">+</span> <span class="n">norm_infinity_terms</span> <span class="o">+</span> <span class="n">norm_special_terms</span>
+
+        <span class="k">return</span> <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.expand_infinity_error_terms">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.expand_infinity_error_terms">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">expand_infinity_error_terms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_infinity_terms</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Expand the number of infinity error terms to the specified value.</span>
+
+<span class="sd">        ! Will be updated with a better strategy soon</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span> <span class="o">&lt;</span> <span class="n">n_infinity_terms</span><span class="p">:</span>
+            <span class="n">new_terms</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="n">n_infinity_terms</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+                <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">,</span> <span class="n">new_terms</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.clone">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.clone">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">center</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;...&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">infinity_terms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;... Ei&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">special_terms</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;... Es&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">special_norm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span> <span class="k">if</span> <span class="n">center</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">center</span><span class="p">,</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span> <span class="k">if</span> <span class="n">infinity_terms</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">infinity_terms</span><span class="p">,</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span> <span class="k">if</span> <span class="n">special_terms</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">special_terms</span><span class="p">,</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="k">if</span> <span class="n">special_norm</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">special_norm</span><span class="p">,</span>
+            <span class="n">clone</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.add">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.add">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Zonotope&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Zonotope</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">Es</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">Es</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">shape</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">Ei</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;[!] Warning: zonotopes have different infinity error terms: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">Ei</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">other</span><span class="o">.</span><span class="n">Ei</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">expand_infinity_error_terms</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">Ei</span><span class="p">)</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">expand_infinity_error_terms</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ei</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span>
+                <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">W_C</span><span class="p">,</span>
+                <span class="n">infinity_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">,</span>
+                <span class="n">special_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">W_Es</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span> <span class="o">+</span> <span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.mul">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.mul">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Multiply this zonotope by a scalar in-place&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span>
+                <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span> <span class="o">*</span> <span class="n">other</span><span class="p">,</span>
+                <span class="n">infinity_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">special_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span>
+                <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span> <span class="o">*</span> <span class="n">other</span><span class="p">,</span>
+                <span class="n">infinity_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span> <span class="o">*</span> <span class="n">other</span><span class="p">,</span>
+                <span class="n">special_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span> <span class="o">*</span> <span class="n">other</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.div">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.div">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">div</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.sub">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.sub">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Zonotope&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.rsub">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.rsub">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rsub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Zonotope&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Tensor</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">other</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.sample_point">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.sample_point">[docs]</a>
+    <span class="nd">@t</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sample_point</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">n_samples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">use_binary_weights</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">include_special_terms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">include_infinity_terms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Float</span><span class="p">[</span><span class="n">Tensor</span><span class="p">,</span> <span class="s2">&quot;S ...&quot;</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sample points from within the zonotope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n_samples: Number of points to sample</span>
+<span class="sd">            use_binary_weights: Whether to use binary weights (corners of the zonotope)</span>
+<span class="sd">            include_special_terms: Whether to include special error terms</span>
+<span class="sd">            include_infinity_terms: Whether to include infinity error terms</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tensor of sampled points with shape (n_samples, *self.shape)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Es</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">include_special_terms</span><span class="p">:</span>
+            <span class="n">special_weights</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Es</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="p">)</span>
+            <span class="n">p_norm</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">special_weights</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">special_weights</span> <span class="o">/=</span> <span class="n">p_norm</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">use_binary_weights</span><span class="p">:</span>
+                <span class="n">random_scale</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                <span class="n">special_weights</span> <span class="o">=</span> <span class="n">einops</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span>
+                    <span class="n">special_weights</span><span class="p">,</span> <span class="n">random_scale</span><span class="p">,</span> <span class="s2">&quot;S Ei, S -&gt; S Ei&quot;</span>
+                <span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">+=</span> <span class="n">einops</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">,</span> <span class="n">special_weights</span><span class="p">,</span> <span class="s2">&quot;... Es, S Es -&gt; S ...&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">include_infinity_terms</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">use_binary_weights</span><span class="p">:</span>
+                <span class="n">infinity_weights</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">t</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="mi">2</span><span class="p">,</span>
+                        <span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span><span class="p">),</span>
+                        <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span>
+                        <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="o">*</span> <span class="mi">2</span>
+                    <span class="o">-</span> <span class="mi">1</span>
+                <span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">infinity_weights</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">t</span><span class="o">.</span><span class="n">rand</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span><span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="o">*</span> <span class="mi">2</span>
+                    <span class="o">-</span> <span class="mi">1</span>
+                <span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">+=</span> <span class="n">einops</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">,</span> <span class="n">infinity_weights</span><span class="p">,</span> <span class="s2">&quot;... Ei, S Ei -&gt; S ...&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.rearrange">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.rearrange">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Einops rearrange&quot;&quot;&quot;</span>
+        <span class="n">error_pattern</span> <span class="o">=</span> <span class="n">get_einops_pattern_for_error_terms</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">,</span> <span class="n">error_pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">rearrange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">,</span> <span class="n">error_pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.repeat">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.repeat">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">repeat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Einops repeat&quot;&quot;&quot;</span>
+        <span class="n">error_pattern</span> <span class="o">=</span> <span class="n">get_einops_pattern_for_error_terms</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">,</span> <span class="n">error_pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">,</span> <span class="n">error_pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.einsum">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.einsum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">einsum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Tensor</span><span class="p">,</span> <span class="n">pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Einops einsum&quot;&quot;&quot;</span>
+        <span class="n">error_pattern</span> <span class="o">=</span> <span class="n">get_einops_pattern_for_error_terms</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">error_pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="n">einops</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">error_pattern</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.sum">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.sum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Torch sum&quot;&quot;&quot;</span>
+        <span class="n">error_dim</span> <span class="o">=</span> <span class="n">get_dim_for_error_terms</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">error_dim</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">error_dim</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Es</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.to">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.to">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">device</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">dtype</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Zonotope&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Torch to&quot;&quot;&quot;</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">device</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dtype</span>
+        <span class="k">return</span> <span class="n">Zonotope</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="n">special_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.contiguous">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.contiguous">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">contiguous</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Torch contiguous&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.__getitem__">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.__getitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">error_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">error_key</span> <span class="o">=</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="p">[</span><span class="n">key</span><span class="p">],</span>
+            <span class="n">infinity_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">[</span><span class="n">error_key</span><span class="p">],</span>
+            <span class="n">special_terms</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">[</span><span class="n">error_key</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Tensor</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1">#! not tested</span>
+        <span class="n">error_key</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="p">[</span><span class="n">error_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="p">[</span><span class="n">error_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="Zonotope.__repr__">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">lower</span><span class="p">,</span> <span class="n">upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">concretize</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            ---</span>
+<span class="s2">            Center: </span>
+<span class="s2">                </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">W_C</span><span class="si">}</span>
+<span class="s2">        </span><span class="si">{</span>
+<span class="w">            </span><span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">            Ei: </span>
+<span class="s1">                </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="si">}</span>
+
+<span class="s1">            shape: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Ei</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span>
+<span class="s1">            &#39;&#39;&#39;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">Ei</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="si">}</span>
+<span class="s2">        </span><span class="si">{</span>
+<span class="w">            </span><span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">            Es: </span>
+<span class="s1">                </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="si">}</span>
+
+<span class="s1">            shape: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">W_Es</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span>
+<span class="s1">            &#39;&#39;&#39;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">Es</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">        </span><span class="si">}</span>
+
+<span class="s2">            Lower: </span>
+<span class="s2">                </span><span class="si">{</span><span class="n">lower</span><span class="si">}</span>
+
+<span class="s2">            Upper: </span>
+<span class="s2">                </span><span class="si">{</span><span class="n">upper</span><span class="si">}</span>
+<span class="s2">            ---</span>
+<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Zonotope.__len__">
+<a class="viewcode-back" href="../../api.html#zonotope.zonotope.Zonotope.__len__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span></div>
+
+
+    <span class="fm">__add__</span> <span class="o">=</span> <span class="n">add</span>
+    <span class="fm">__radd__</span> <span class="o">=</span> <span class="n">add</span>
+    <span class="fm">__mul__</span> <span class="o">=</span> <span class="n">mul</span>
+    <span class="fm">__rmul__</span> <span class="o">=</span> <span class="n">mul</span>
+    <span class="fm">__sub__</span> <span class="o">=</span> <span class="n">sub</span>
+    <span class="fm">__rsub__</span> <span class="o">=</span> <span class="n">rsub</span>
+    <span class="n">__div__</span> <span class="o">=</span> <span class="n">div</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Your Name.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+﻿zonotope.zonotope.Zonotope
+==========================
+
+.. currentmodule:: zonotope.zonotope
+
+.. autoclass:: Zonotope
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Zonotope.__init__
+      ~Zonotope.add
+      ~Zonotope.clone
+      ~Zonotope.concretize
+      ~Zonotope.contiguous
+      ~Zonotope.div
+      ~Zonotope.einsum
+      ~Zonotope.expand_infinity_error_terms
+      ~Zonotope.from_bounds
+      ~Zonotope.from_values
+      ~Zonotope.mul
+      ~Zonotope.rearrange
+      ~Zonotope.repeat
+      ~Zonotope.rsub
+      ~Zonotope.sample_point
+      ~Zonotope.sub
+      ~Zonotope.sum
+      ~Zonotope.to
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Zonotope.E
+      ~Zonotope.Ei
+      ~Zonotope.Es
+      ~Zonotope.N
+      ~Zonotope.device
+      ~Zonotope.dtype
+      ~Zonotope.shape
+   
+   
