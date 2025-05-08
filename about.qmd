@@ -38,4 +38,3 @@ You can contact me using: thomas [dot] winninger [at] telecom-sudparis.eu
 - Languages: **Python, [French](https://fr.wikipedia.org/wiki/Baguette_(pain)), OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash
 - Tools/ Frameworks: **PyTorch**, PyG, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :)
 - Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game development, meditation 
-- Other followed courses: [AISF](https://aisafetyfundamentals.com/), [ARENA](https://www.arena.education/), Coursera ^[Machine Learning Specialization, Deep Learning Specialization], online Stanford ^[Graphs, excerices of CS221], or 
