@@ -15,14 +15,14 @@ Social media I use arranged in descending exponential order:
 - LinkedIN / thomas-winninger
 - X / sckathach
 
-You can contact me using: thomas [dot] winninger [at] telecom-sudparis.eu
+You can contact me using: thomas [dot] winninger [at] telecom-sudparis [dot] eu
 
 **Download PDF resume**: [en français](./assets/cv.fr.pdf), [in English](./assets/cv.en.pdf).
 
 [Research work](./research.qmd)
 
 ## Education 
-- 2024 - 2026 - **Master of Science in ? - Institut polytechnique de Paris (IPP)**
+- 2025 - 2026 - **Master MVA - Institut polytechnique de Paris**
 
 - 2022 - 2026 - **Engineering Degree - Télécom SudParis**, Telecommunications, cyber security, cloud, information theory, graph theory.
 
