@@ -31,7 +31,7 @@ You can contact me using: thomas [dot] winninger [at] telecom-sudparis [dot] eu
 
 - Jul - Dec 2024 - **Research internship in AI security - Thales**, Implementations and improvements of state-of-the-art attacks on LLMs.
 
-- 2022 - 2024 - **Training and infrastructure manager - HackademINT**, Creation of challenges (AI & quantum physics) and organisation of the 404CTF 2023 & 2024.
+<!-- - 2022 - 2024 - **Training and infrastructure manager - HackademINT**, Creation of challenges (AI & quantum physics) and organisation of the 404CTF 2023 & 2024. -->
 
 ## Misc 
 

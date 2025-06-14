@@ -3,9 +3,3 @@
 It's still under construction, as I'm waiting to learn more about Manim before decorating it :eyes:. But you can already check out:
 
 - [Subspace Rerouting](/mech-interp/subspace-rerouting/)
-
-- [Solutions from the last 404 CTF (tremble before the next... mech interp challenges on their way)](404ctf/index.qmd)
-
-
-## Current work
-- Trying to make hybrid constrained zonotopes work on transformers: <https://github.com/Sckathach/zonotopes>
