@@ -1,0 +1,6 @@
+﻿zonotope.zonotope.split\_einops\_pattern\_simple
+================================================
+
+.. currentmodule:: zonotope.zonotope
+
+.. autofunction:: split_einops_pattern_simple
