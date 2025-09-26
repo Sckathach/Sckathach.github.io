@@ -2,4 +2,5 @@
 
 It's still under construction, as I'm waiting to learn more about Manim before decorating it :eyes:. But you can already check out:
 
-- [Subspace Rerouting](/mech-interp/subspace-rerouting/)
+- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models [Post](/mech-interp/subspace-rerouting/post/) / [Webpage](/mech-interp/subspace-rerouting/)
+

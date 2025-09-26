@@ -2,35 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sckathach.github.io/mech-interp/exploring-adversarial-mi/index.html</loc>
-    <lastmod>2025-03-10T07:55:11.473Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/post/index.html</loc>
-    <lastmod>2025-03-18T15:46:25.670Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.093Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/using-lens/index.html</loc>
-    <lastmod>2025-04-07T17:29:01.999Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.102Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/multi-layers/index.html</loc>
-    <lastmod>2025-04-08T07:53:52.296Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.097Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/run-ssr-probes/index.html</loc>
-    <lastmod>2025-04-08T07:53:29.714Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.097Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/index.html</loc>
-    <lastmod>2025-04-08T13:56:16.619Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/talks/hackademint-causapscal/le-chat/index.html</loc>
-    <lastmod>2025-04-10T14:46:35.673Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.386Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/talks/hackademint-causapscal/index.html</loc>
-    <lastmod>2025-04-10T14:46:35.669Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.350Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/reverse-engineering/index.html</loc>
@@ -66,23 +66,23 @@
   </url>
   <url>
     <loc>https://sckathach.github.io/404ctf/index.html</loc>
-    <lastmod>2025-03-10T07:55:11.391Z</lastmod>
+    <lastmod>2025-09-17T18:43:53.374Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/tp/le-chat/index.html</loc>
-    <lastmod>2025-04-08T12:30:57.140Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.517Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/tp/index.html</loc>
-    <lastmod>2025-04-08T13:39:20.833Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.479Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/index.html</loc>
-    <lastmod>2025-06-14T16:34:57.512Z</lastmod>
+    <lastmod>2025-09-26T19:12:25.761Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/about.html</loc>
-    <lastmod>2025-06-14T16:35:49.634Z</lastmod>
+    <lastmod>2025-09-26T19:01:07.173Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-2/index.html</loc>
@@ -118,26 +118,50 @@
   </url>
   <url>
     <loc>https://sckathach.github.io/research.html</loc>
-    <lastmod>2025-04-17T05:15:12.308Z</lastmod>
+    <lastmod>2025-09-26T19:07:04.709Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/layer-diff/index.html</loc>
-    <lastmod>2025-04-07T17:44:25.019Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.095Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/component-attribution/index.html</loc>
-    <lastmod>2025-04-07T17:45:41.471Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.094Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/steering-out-of-distribution/index.html</loc>
-    <lastmod>2025-04-08T07:53:33.971Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.102Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/index.html</loc>
-    <lastmod>2025-04-07T19:30:11.232Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/funny-answers/index.html</loc>
-    <lastmod>2025-04-07T19:03:49.914Z</lastmod>
+    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/genki_study_resources/resources/notes/about-notes.html</loc>
+    <lastmod>2025-09-18T09:24:50.528Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/genki_study_resources/resources/notes/citing-pages.html</loc>
+    <lastmod>2025-09-18T09:24:50.529Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/genki_study_resources/resources/images/about-genkico-lg.html</loc>
+    <lastmod>2025-09-18T09:24:50.506Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/static/genki/resources/images/about-genkico-lg.html</loc>
+    <lastmod>2025-09-18T09:24:50.506Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/static/genki/resources/notes/citing-pages.html</loc>
+    <lastmod>2025-09-18T09:24:50.529Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/static/genki/resources/notes/about-notes.html</loc>
+    <lastmod>2025-09-18T09:24:50.528Z</lastmod>
   </url>
 </urlset>

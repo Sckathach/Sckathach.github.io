@@ -1,12 +1,12 @@
 # \$ Whoami
 
-Aka _the quantum warlock, the masked camel, the fanOfThermodynamics, the pipe and clouds engineer, the whale orchestra conductor_, or just **Sckathach**. I'm a french student at Télécom SudParis, and soon, a ML(4SEC) researcher!
+Aka _the quantum warlock, the masked camel, the fanOfThermodynamics, the whale orchestra conductor_, or just **Sckathach**. I'm a french student at Télécom SudParis, and soon, an AI researcher!
 
 I love mathematics, physics, graphs theory, AI, cybersecurity, graphs, geopolitics, thermodynamics (yes, I swear), programming, and especially graphs.
 
 I'm currently fan of **mechanistic interpretability**, but there is a high risk I become fan of _SLT_ instead.
 
-My favorite paper (asof December 2024) : [Toy Models of Superposition](https://transformer-circuits.pub/2022/toy_model/index.html).
+My favorite paper (asof December 2024, (still true Oct 25)) : [Toy Models of Superposition](https://transformer-circuits.pub/2022/toy_model/index.html).
 
 Social media I use arranged in descending exponential order:
 
@@ -17,24 +17,33 @@ Social media I use arranged in descending exponential order:
 
 You can contact me using: thomas [dot] winninger [at] telecom-sudparis [dot] eu
 
-**Download PDF resume**: [en français](./assets/cv.fr.pdf), [in English](./assets/cv.en.pdf).
+**Download PDF resume**: [en français 🥖](./assets/cv.fr.pdf), [in English](./assets/cv.en.pdf).
 
 [Research work](./research.qmd)
 
 ## Education 
-- 2025 - 2026 - **Master MVA - Institut polytechnique de Paris**
+- 2025 - 2026 - **Master MVA - ENS Paris-Saclay** \
+    Topology, optimal transport, RL, training and deploying large-scale models, LLM, GNN, learning for protein science, convex optimization.
 
-- 2022 - 2026 - **Engineering Degree - Télécom SudParis**, Telecommunications, cyber security, cloud, information theory, graph theory.
+- 2022 - 2026 - **Engineering Degree - Télécom SudParis** \
+    Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, GNN, signal processing.
 
 ## Experience
-- Mar - May 2025 - **Research internship in AI explanability - INRIA**, Verified robust explanation for language models.
+- Jul - Sep 2025 - **Research internship in LLM security - NICT** \
+    Security and jailbreak interpretability on reasoning LLMs.
 
-- Jul - Dec 2024 - **Research internship in AI security - Thales**, Implementations and improvements of state-of-the-art attacks on LLMs.
+- Mar - May 2025 - **Research internship in AI explanability - INRIA** \
+    Verified robust explanation for language models.
 
-<!-- - 2022 - 2024 - **Training and infrastructure manager - HackademINT**, Creation of challenges (AI & quantum physics) and organisation of the 404CTF 2023 & 2024. -->
+- Jul - Dec 2024 - **Research internship in AI security - Thales** \
+    Implementations and improvements of state-of-the-art attacks on LLMs.
+
+- 2022 - 2024 - **Training and infrastructure - HackademINT** \
+    Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024.
 
 ## Misc 
 
-- Languages: **Python, [French](https://fr.wikipedia.org/wiki/Baguette_(pain)), OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash
-- Tools/ Frameworks: **PyTorch**, PyG, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :)
-- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game development, meditation 
+- Languages: **Python, [French](https://fr.wikipedia.org/wiki/Baguette_(pain)), OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash, Japanese (JLPT 4), Lean
+- Tools/ Frameworks: **PyTorch**, **nnsight**, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :), (see my [GitHub](https://github.com/sckathach) for more)
+- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game (playing & development), meditation 
+- Followed ARENA and AISF

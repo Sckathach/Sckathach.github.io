@@ -1,24 +1,40 @@
 ## Papers
-- Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - _Winninger T., Addad B., Kapusta K. Mar 25_. [ArXiv](https://arxiv.org/abs/2503.06269) / [Webpage](./mech-interp/subspace-rerouting/)
+- Scaling Hybrid Constrined Zonotopes with optimisation - _Winninger T., Urban C., Wei G., Jun 25_. [Paper](./assets/papers/winninger_scaling_2025.pdf)
+
+- Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - _Winninger T., Addad B., Kapusta K., Mar 25_. [ArXiv](https://arxiv.org/abs/2503.06269) / [Webpage](./mech-interp/subspace-rerouting/)
 
 ## Talks
 
+- Adversarial attacks against reasoning LLMs, _Tokyo, NICT, Sep 25_. 
+
+- Scaling abstract domains to Large Language Models with Hybrid Constrained Zonotopes, _ENS Ulm, INRIA, Jun 25_. 
+
 - Mechanistic interpretability for LLM attack and defense, _École Polytechnique, CeSIA, Apr 25_. [Slides](./talks/slides/cesia-ssr.pdf)
 
-- Introduction to AI security and reverse engineering, _HackademINT, Apr 25_. [Slides](./talks/hackademint-causapscal/assets/main.pdf) / [Webpage](./talks/hackademint-causapscal/index.qmd)
+- Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. [Slides](./talks/hackademint-causapscal/assets/main.pdf) / [Webpage](./talks/hackademint-causapscal/index.qmd)
 
 - Model Poisoning, _Station F, CeSIA, Jun 24_. [Slides](./talks/slides/cesia-poison.pdf)
 
-- GNN based IDS and its robustness against adversarial attacks, _HackademINT, Jun 24_. [Slides](./talks/slides/hackademint-gnn-based-ids.pdf) 
+- GNN based IDS and its robustness against adversarial attacks, _Télécom SudParis, HackademINT, Jun 24_. [Slides](./talks/slides/hackademint-gnn-based-ids.pdf) 
 
 - Cheating Detection in the 404 CTF, _Rendez-vous de la Recherche et de l'Enseignement de la Sécurité des Systèmes d'Information (RESSI), May 24_.
 
-- Introduction to prompt hacking, _HackademINT, Nov 23_. [Slides](./talks/slides/hackademint-prompt-hacking.pdf)
+- Introduction to prompt hacking, _Télécom SudParis, HackademINT, Nov 23_. [Slides](./talks/slides/hackademint-prompt-hacking.pdf)
 
-- How to backdoor federated learning, _HackademINT, May 23_. [Slides](./talks/slides/hackademint-federated-poison.pdf)
+- How to backdoor federated learning, _Télécom SudParis, HackademINT, May 23_. [Slides](./talks/slides/hackademint-federated-poison.pdf)
 
-- Introduction to AI & cyber security, _HackademINT, May 23_. [Slides](./talks/slides/hackademint-ai-in-cybersecurity.pdf)
+- Introduction to AI & cyber security, _Télécom SudParis, HackademINT, May 23_. [Slides](./talks/slides/hackademint-ai-in-cybersecurity.pdf)
 
-## Misc 
+## Research reports
 
-- ZaMark: Intellectual Property protection with Homomorphic Watermarking, _Privacy Preserving Hackathon, Zama, September 2024, (finished 2nd)_. [Slides](./talks/slides/misc/zamark.pdf)
+- Graph Neural Network based Intrusion Detection and its Robustness against Adversarial Attacks, _Moreau R., Winninger T., Blanc G., Jun 24_. [Paper](./assets/papers/moreau_graph_2024.pdf)
+
+## Posts 
+
+- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models, [Post](./mech-interp/subspace-rerouting/post/)
+
+- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks, [Post](./mech-interp/exploring-adversarial-mi/)
+
+## Hackathons 
+
+- ZaMark: Intellectual Property protection with Homomorphic Watermarking, _Privacy Preserving Hackathon, Zama, Sep 24, (finished 2nd)_. [Slides](./talks/slides/misc/zamark.pdf)

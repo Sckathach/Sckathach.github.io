@@ -40,8 +40,6 @@ website:
         href: "404ctf/index.qmd"
       - text: "SSR"
         href: "mech-interp/subspace-rerouting/index.qmd"
-      - text: "Zonotopes"
-        href: "zonotopes/index.html"
     right: 
       - text: "About"
         href: "about.qmd"

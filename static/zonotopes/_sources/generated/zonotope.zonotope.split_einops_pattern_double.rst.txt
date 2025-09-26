@@ -1,6 +1,0 @@
-﻿zonotope.zonotope.split\_einops\_pattern\_double
-================================================
-
-.. currentmodule:: zonotope.zonotope
-
-.. autofunction:: split_einops_pattern_double
