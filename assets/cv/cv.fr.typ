@@ -1,102 +1,97 @@
-#import "lib.typ": *
+#set text(font: "Inria Sans", size: 10pt)
+#show link: X => underline(text(X, fill: orange))
+#show regex("\[([^\]]*)\]\(([^)]*)\)"): x => x
 
-#show: resume.with(
-  author: (
-    firstname: "Thomas",
-    lastname: "Winninger",
-    email: "thomas.winninger@telecom-sudparis.eu",
-    homepage: "https://le-magicien-quantique.github.io",
-    // phone: "(+33) 695507673",
-    github: "Sckathach",
-    // twitter: "typstapp",
-    // scholar: "",
-    orcid: "0009-0000-2783-3086",
-    linkedin: "thomas-winninger",
-    positions: (
-      "Étudiant à Télécom SudParis en année de césure",
-    ),
-  ),
-  date: datetime.today().display(),
-  language: "en",
-  colored-headers: true,
-  show-footer: false,
+#align(
+  center,
+  text([*Thomas Winninger*], size: 2em),
 )
-//#v(0.7em)
-//$->$ #emph(text(gray)[
-//  English version here: https://le-magicien-quantique.github.io/assets/cv.pdf 
-//])
-
-= Rapidement
-Fan de mathématiques et de physique, j'ai commencé un cursus de cybersécurité à Télécom SudParis et me suis très vite intéressé à la sécurité de l'IA. J'ai donc décidé de prendre une année de césure pour me mettre à niveau sur le sujet : recherche en sécurité de l'IA, interprétabilité, outils, statistiques; et comme c'est ce qui me plaît le plus, je compte continuer avec un master et une thèse, très certainement dans le même domaine.
-
-= Formation
-
-#resume-entry(
-  title: "Master en ?",
-  description: "Télécom SudParis - Institut polytechnique de Paris (IPP)",
-  date: "2024 - 2026",
- title-link: "https://www.ip-paris.fr/education/masters/"
+#align(
+  center,
+  text([Étudiant à Télécom SudParis], size: 1.5em),
 )
-#resume-entry(
-  title: "Diplôme d'ingénieur - Spécialisation Cyber",
-  description: "Télécom SudParis",
-  date: "2022 - 2026",
- title-link: "https://www.telecom-sudparis.eu/", 
-)
-#resume-item[
-  Télécommunications, sécurité des réseaux et applications web, théorie des graphes (application à l'IA et à la 6G). Théorie de l'informatique et bases de données. Traitement du signal et probabilités. 
-]
+#show heading: X => {
+  v(1em)
+  X
+  v(0.7em)
+}
+#emph(text(gray)[$->$ Version française ici:])
 
-= Expériences
-#resume-entry(
-  title: "Stage de recherche en explicabilité des modèles de language",
-  description: "INRIA - ANTIQUE",
-  date: "mars - mai 2025",
-  title-link: "https://www.inria.fr/fr/antique"
-)
-#resume-item[
-  Explicabilité de modèles de langage par interprétation abstraite.
-]
+*Mail:* thomas.winninger\@telecom-sudparis.eu *- Website:* #link("https://le-magicien-quantique.github.io") *- GitHub:* #link("https://github.com/Sckathach", [Sckathach]) *- LinkedIN:* #link("https://linkedin.com/in/thomas-winninger", [thomas-winninger])
 
-#resume-entry(
-  title: "Stage de recherche en sécurité de l'IA",
-  description: "Thales - ThereSIS",
-  date: "juillet - décembre 2024",
-  title-link: "https://www.thalesgroup.com/fr",
-)
-#resume-item[
-  Implémentations et améliorations des attaques état de l'art sur les LLM.
-]
+= Whoami?
+Aka _the quantum warlock, the masked camel, the fanOfThermodynamics, the whale orchestra conductor_, or just *Sckathach*. I'm a french student at Télécom SudParis, and soon, an AI researcher!
 
-#resume-entry(
-  title: "Responsable formation / infrastructure",
-  description: "HackademINT",
-  date: "2023 - 2024",
-  title-link: "https://www.hackademint.org/"
-)
-#resume-item[
-  Création de challenges (IA & physique quantique), et organisation du 404CTF 2023 & 2024.
-]
+Fond of mathematics and physics, I ended up at Télécom SudParis where I focused on cyber security. As I quickly became interested in AI security, I decided to take a gap year to bring myself up to speed on the subject: AI security research, interpretability, tools, statistics; and since that's what I like best, I'm now doing a master's degree in fundamental AI, and I plan to continue with a thesis, most likely in the same field.
 
-= Présentations
-- *Mechanistic interpretability for LLM attack and defense* - _École Polytechnique, CeSIA (avril 2025)_
-- *Introduction to AI security and reverse engineering* - _HackademINT (avril 2025)_
-- *Model Poisoning* - _AI Safety Meetup | Centre pour la sécurité de l'IA (CeSIA) (juin 2024)_
-- *Détection de la triche dans le 404 CTF* - _Rendez-vous de la Recherche et de l'Enseignement de la Sécurité des Systèmes d'Information_ (mai 2024)
+= Education
 
-= Papiers 
-- #link("https://arxiv.org/abs/2503.06269", [*Using Mechanistic Interpretability to craft Adversarial Attacks against Large Language Models*]) - _Winninger T., Addad B., Kapusta K._ (mars 2025)
+- 2025 - 2026 *Master MVA - ENS Paris-Saclay* \
+  Topology, optimal transport, RL, training and deploying large-scale models, LLM, GNN, learning for protein science, convex optimization.
 
-= Compétences
-#resume-skill-item(
-  "Langages",
-  (strong("Python"), strong("Ocaml"), "TypeScript", "Typst", "Rust", "Lua", "C", "Bash"),
-)
-#resume-skill-item("Langages parlés", (strong("Français"), strong("Anglais"), "Coréen", "Japonais"))
-#resume-skill-item(
-  "Outils",
-  (strong("PyTorch"), "PyG", "Docker (Podman)", "Kubernetes", "React", "Qiskit", "Sage", "Archlinux :)"),
-)
+- 2022 - 2026 *Engineering Degree - Télécom SudParis* \
+  Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, GNN, signal processing.
 
-= Autres intérêts
-Piano, guitare, enseignement, lecture, géopolitique, physique des particules :), sport, création de jeux vidéos, méditation.
+
+= Experience
+- Jul - Sep 2025 - *Research internship in LLM security - NICT* \
+  Security and jailbreak interpretability on reasoning LLMs.
+
+- Mar - May 2025 - *Research internship in AI explanability - INRIA* \
+  Verified robust explanation for language models.
+
+- Jul - Dec 2024 - *Research internship in AI security - Thales* \
+  Implementations and improvements of state-of-the-art attacks on LLMs.
+
+- 2022 - 2024 - *Training and infrastructure - HackademINT* \
+  Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024.
+
+= Misc
+
+- Languages: *Python, #link("https://fr.wikipedia.org/wiki/Baguette_(pain)", [French]), OCaml, English*, Typst, TypeScript, Lua, Rust, C, Bash, Japanese (JLPT 4), Lean
+
+- Tools/ Frameworks: *PyTorch, nnsight*, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :), (see my #link("https://github.com/sckathach", [GitHub]) for more)
+- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game (playing & development), meditation
+- Followed ARENA and AISF
+
+= Papers
+- Scaling Hybrid Constrined Zonotopes with optimisation - _Winninger T., Urban C., Wei G., Jun 25_. #link("https://sckathach.github.io/assets/papers/winninger_scaling_2025.pdf", [Paper])
+
+- Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - _Winninger T., Addad B., Kapusta K., Mar 25_. #link("https://arxiv.org/abs/2503.06269", [ArXiv]) / #link("https://sckathach.github.io/mech-interp/subspace-rerouting/", [Webpage])
+
+= Talks
+
+- Adversarial attacks against reasoning LLMs, _Tokyo, NICT, Sep 25_.
+
+- Scaling abstract domains to Large Language Models with Hybrid Constrained Zonotopes, _ENS Ulm, INRIA, Jun 25_.
+
+- Mechanistic interpretability for LLM attack and defense, _École Polytechnique, CeSIA, Apr 25_. #link("https://sckathach.github.io/talks/slides/cesia-ssr.pdf", [Slides])
+
+- Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. #link("https://sckathach.github.io/talks/hackademint-causapscal/assets/main.pdf", [Slides]) / #link("https://sckathach.github.io/talks/hackademint-causapscal/index.qmd", [Webpage])
+
+- Model Poisoning, _Station F, CeSIA, Jun 24_. #link("https://sckathach.github.io/talks/slides/cesia-poison.pdf", [Slides])
+
+- GNN based IDS and its robustness against adversarial attacks, _Télécom SudParis, HackademINT, Jun 24_. #link("https://sckathach.github.io/talks/slides/hackademint-gnn-based-ids.pdf", [Slides])
+
+- Cheating Detection in the 404 CTF, _Rendez-vous de la Recherche et de l'Enseignement de la Sécurité des Systèmes d'Information (RESSI), May 24_.
+
+- Introduction to prompt hacking, _Télécom SudParis, HackademINT, Nov 23_. #link("https://sckathach.github.io/talks/slides/hackademint-prompt-hacking.pdf", [Slides])
+
+- How to backdoor federated learning, _Télécom SudParis, HackademINT, May 23_. #link("https://sckathach.github.io/talks/slides/hackademint-federated-poison.pdf", [Slides])
+
+- Introduction to AI & cyber security, _Télécom SudParis, HackademINT, May 23_. #link("https://sckathach.github.io/talks/slides/hackademint-ai-in-cybersecurity.pdf", [Slides])
+
+= Research reports
+
+- Graph Neural Network based Intrusion Detection and its Robustness against Adversarial Attacks, _Moreau R., Winninger T., Blanc G., Jun 24_. #link("https://sckathach.github.io/assets/papers/moreau_graph_2024.pdf", [Paper])
+
+= Posts
+
+- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models. #link("https://sckathach.github.io/mech-interp/subspace-rerouting/post/", [Post])
+
+- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks. #link("https://sckathach.github.io/mech-interp/exploring-adversarial-mi/", [Post])
+
+= Hackathons
+
+- ZaMark: Intellectual Property protection with Homomorphic Watermarking, _Privacy Preserving Hackathon, Zama, Sep 24, (finished 2nd)_. #link("https://sckathach.github.io/talks/slides/misc/zamark.pdf", [Slides])
+

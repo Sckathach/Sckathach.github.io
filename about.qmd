@@ -17,7 +17,7 @@ Social media I use arranged in descending exponential order:
 
 You can contact me using: thomas [dot] winninger [at] telecom-sudparis [dot] eu
 
-**Download PDF resume**: [en français 🥖](./assets/cv.fr.pdf), [in English](./assets/cv.en.pdf).
+**Download PDF resume**: [in English](./assets/cv/cv.en.pdf).
 
 [Research work](./research.qmd)
 
