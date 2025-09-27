@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,18 +72,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../../assets/favicon.png" rel="icon" type="image/png">
 <script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-303f0b4dceb2a814a9bbef461efe1684.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f3bc8ceffb1a1610576970277289f63b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-303f0b4dceb2a814a9bbef461efe1684.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b362027b4577be511fc5d62884eb66ef.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-3241f9c843f74eb606d0deb2b177da44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../../site_libs/bootstrap/bootstrap-dark-5446edbd09388883ec3f1f78610383fb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../../site_libs/bootstrap/bootstrap-3241f9c843f74eb606d0deb2b177da44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -126,7 +127,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -322,6 +323,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">Sckathach’s posts</span>
     </a>
@@ -339,10 +342,6 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="../../../../mech-interp/subspace-rerouting/index.html"> 
 <span class="menu-text">SSR</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../zonotopes/index.html"> 
-<span class="menu-text">Zonotopes</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -382,6 +381,10 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -573,7 +576,7 @@ window.Quarto = {
 <h2 data-number="1" class="anchored" data-anchor-id="before-we-begin"><span class="header-section-number">1</span> Before we begin</h2>
 <p>Here are versions of the utility functions for 1 and 2 qubits.</p>
 <div id="d2ae73a7-84be-49d4-9a81-31f1aa0a3950" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T08:07:44.276633Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T08:07:42.756743Z&quot;}}" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval <span class="im">import</span> pdisplay, PS, BS, Circuit, BasicState, Processor, PERM</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval <span class="im">import</span> pdisplay, PS, BS, Circuit, BasicState, Processor, PERM</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval.components <span class="im">import</span> Unitary</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval.backends <span class="im">import</span> BackendFactory</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval.algorithm <span class="im">import</span> Analyzer, Sampler</span>
@@ -653,7 +656,7 @@ window.Quarto = {
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"&gt; </span><span class="sc">{</span>qubits_[k]<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span><span class="bu">round</span>(v, <span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> roundc(c, decimals: <span class="bu">int</span> <span class="op">=</span> <span class="dv">2</span>):</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(c.real, decimals) <span class="op">+</span> <span class="bu">round</span>(c.imag, decimals) <span class="op">*</span> <span class="ot">1j</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">round</span>(c.real, decimals) <span class="op">+</span> <span class="bu">round</span>(c.imag, decimals) <span class="op">*</span> <span class="ot">1j</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -681,8 +684,8 @@ window.Quarto = {
 <p>It’s the same for logic gates: <strong>if we apply <span class="math inline">\(U_1\)</span> to <span class="math inline">\(A\)</span> and <span class="math inline">\(U_2\)</span> to <span class="math inline">\(B\)</span>, then we apply <span class="math inline">\(U_1 \otimes U_2\)</span> to <span class="math inline">\(A \otimes B\)</span>.</strong></p>
 <p>For example, if we apply <span class="math inline">\(H\)</span> to <span class="math inline">\(|0\rangle\)</span> and nothing (i.e., the identity) to <span class="math inline">\(|1\rangle\)</span>. The matrix of the operation on the system is thus <span class="math inline">\(H \otimes I\)</span>. The circuit is as follows:</p>
 <div id="ed97f7ab-8076-4520-95b0-d4ca2ac73e8b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:14.869705Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:14.860940Z&quot;}}" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Circuit(<span class="dv">4</span>) <span class="op">//</span> (<span class="dv">0</span>, BS.H())</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pdisplay(c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Circuit(<span class="dv">4</span>) <span class="op">//</span> (<span class="dv">0</span>, BS.H())</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pdisplay(c)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 <figure class="figure">
@@ -739,12 +742,12 @@ U = \frac{1}{\sqrt{2}}\begin{pmatrix}1 &amp; 1 \\ 1&amp; -1\end{pmatrix} \otimes
 \]</span></p>
 <p>Its implementation with photons is quite technical, and it hides problems related to our way of encoding qubits. Therefore, we will rely on the definition proposed by Quandela to use this gate in our circuits.</p>
 <div id="0a5ccea5-9e67-40ea-8568-274617c722f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:14.879469Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:14.871285Z&quot;}}" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval.components <span class="im">import</span> catalog</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> perceval.components <span class="im">import</span> catalog</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cnot <span class="op">=</span> catalog[<span class="st">"klm cnot"</span>].build_circuit()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/Quandela/Perceval/blob/main/perceval/components/core_catalog/klm_cnot.py</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://github.com/Quandela/Perceval/blob/main/perceval/components/core_catalog/klm_cnot.py</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="65bb2208-9e10-4ff4-8ae8-1f0730845399" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.212523Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:14.889439Z&quot;}}" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pdisplay(cnot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pdisplay(cnot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 <figure class="figure">
@@ -769,7 +772,7 @@ U = \frac{1}{\sqrt{2}}\begin{pmatrix}1 &amp; 1 \\ 1&amp; -1\end{pmatrix} \otimes
 <p>To manage the heralded gates and ancilla states, we will work directly with processors.</p>
 <p><em>More information here: https://perceval.quandela.net/docs/notebooks/Tutorial.html#3.-Two-qubit-gates</em></p>
 <div id="e671512d-b97a-4767-90b5-51cc1192dda3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.485146Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.214062Z&quot;}}" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Processor(<span class="st">"Naive"</span>, cnot)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Processor(<span class="st">"Naive"</span>, cnot)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p.min_detected_photons_filter(<span class="dv">0</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>p.add_herald(<span class="dv">4</span>, <span class="dv">0</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>p.add_herald(<span class="dv">5</span>, <span class="dv">1</span>)</span>
@@ -777,7 +780,7 @@ U = \frac{1}{\sqrt{2}}\begin{pmatrix}1 &amp; 1 \\ 1&amp; -1\end{pmatrix} \otimes
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>p.add_herald(<span class="dv">7</span>, <span class="dv">1</span>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>p.add_port(<span class="dv">0</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"0"</span>))</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>p.add_port(<span class="dv">2</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"1"</span>))</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>pdisplay(p, recursive<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>pdisplay(p, recursive<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 <figure class="figure">
@@ -787,10 +790,10 @@ U = \frac{1}{\sqrt{2}}\begin{pmatrix}1 &amp; 1 \\ 1&amp; -1\end{pmatrix} \otimes
 </div>
 </div>
 <div id="8e597bc8-ab8f-4c74-8be7-1b18362043f7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.555034Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.486394Z&quot;}}" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>measure2p(p)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>measure2p(p)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>measure2p(p, input_state<span class="op">=</span>qubits[<span class="st">"10"</span>])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>measure2p(p, input_state<span class="op">=</span>qubits[<span class="st">"01"</span>])</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>measure2p(p, input_state<span class="op">=</span>qubits[<span class="st">"11"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>measure2p(p, input_state<span class="op">=</span>qubits[<span class="st">"11"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 00
 &gt; 00: 1.0
@@ -819,7 +822,7 @@ Avec l'entrée : 11
 \]</span></p>
 <p>Let’s try to prepare the state <span class="math inline">\(|\Phi^+\rangle\)</span>. A possible approach is as follows: we seek to have a superposed state, so we will need a Hadamard gate or equivalent, and we also need entangled states, so we will need a <span class="math inline">\(\CNOT\)</span> gate. In practice, this results in:</p>
 <div id="75b93a82-87dc-4a7c-9eec-b274c511bd63" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.572949Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.557869Z&quot;}}" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>phi_plus <span class="op">=</span> Circuit(<span class="dv">8</span>).add(<span class="dv">0</span>, BS.H()).add(<span class="dv">0</span>, cnot)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>phi_plus <span class="op">=</span> Circuit(<span class="dv">8</span>).add(<span class="dv">0</span>, BS.H()).add(<span class="dv">0</span>, cnot)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Processor Preparation</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>p_plus <span class="op">=</span> Processor(<span class="st">"Naive"</span>, phi_plus)  <span class="co"># Step 1: Create the processor with the correct circuit</span></span>
@@ -830,7 +833,7 @@ Avec l'entrée : 11
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>p_plus.add_herald(<span class="dv">7</span>, <span class="dv">1</span>)                     </span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>p_plus.add_port(<span class="dv">0</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"0"</span>))  <span class="co"># (Step 4): Optionally specify that we </span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>p_plus.add_port(<span class="dv">2</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"1"</span>))  <span class="co">#      are using rail encoding</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>pdisplay(p_plus, recursive<span class="op">=</span><span class="va">True</span>)            <span class="co"># Final step: Admire the result/ cry if it does not work</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>pdisplay(p_plus, recursive<span class="op">=</span><span class="va">True</span>)            <span class="co"># Final step: Admire the result/ cry if it does not work</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 <figure class="figure">
@@ -840,7 +843,7 @@ Avec l'entrée : 11
 </div>
 </div>
 <div id="a891a5dcb6e7c811" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_plus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_plus)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 00
 &gt; 00: 0.5
@@ -849,9 +852,9 @@ Avec l'entrée : 11
 </div>
 <p>One can also cheat with:</p>
 <div id="91c44c47-0c8f-4e05-a338-2e01a022c530" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.608899Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.598917Z&quot;}}" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>e <span class="op">=</span> pcvl.utils.stategenerator.StateGenerator(encoding<span class="op">=</span>pcvl.Encoding.DUAL_RAIL)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>e <span class="op">=</span> pcvl.utils.stategenerator.StateGenerator(encoding<span class="op">=</span>pcvl.Encoding.DUAL_RAIL)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> e.bell_state(<span class="st">"phi-"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(b)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>-sqrt(2)/2*|0,1,0,1&gt;+sqrt(2)/2*|1,0,1,0&gt;</code></pre>
 </div>
@@ -874,10 +877,10 @@ Solution Step 1:
 |00\rangle \xrightarrow{X \text{qubit 0}} |10\rangle \xrightarrow{X \text{qubit 1}}   |11\rangle
 \]</span></p>
 <div id="e23f397d-3530-4f89-86cd-9ffb1243444a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.616352Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.610639Z&quot;}}" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>step_one <span class="op">=</span> Circuit(<span class="dv">8</span>).add(<span class="dv">0</span>, PERM([<span class="dv">1</span>, <span class="dv">0</span>])).add(<span class="dv">0</span>, cnot)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>step_one <span class="op">=</span> Circuit(<span class="dv">8</span>).add(<span class="dv">0</span>, PERM([<span class="dv">1</span>, <span class="dv">0</span>])).add(<span class="dv">0</span>, cnot)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>step_one_double_not <span class="op">=</span> Circuit(<span class="dv">4</span>).add(<span class="dv">0</span>, PERM([<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>])) </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pdisplay(step_one)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pdisplay(step_one)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 <figure class="figure">
@@ -888,14 +891,14 @@ Solution Step 1:
 </div>
 <p>If you didn’t use a CNOT gate, you can verify with:</p>
 <div id="f72bf82e-1187-4333-9c66-c6a1d2f80142" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.620Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.617328Z&quot;}}" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(step_one.depths()) <span class="op">==</span> <span class="dv">4</span>:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(step_one.depths()) <span class="op">==</span> <span class="dv">4</span>:</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    analyze(step_one)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Result : </span><span class="sc">{</span>amplitudes(step_one)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Solution: {'00': 0j, '01': 0j, '10': 0j, '11': (1+0j)}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Solution: {'00': 0j, '01': 0j, '10': 0j, '11': (1+0j)}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>If you used a CNOT gate, you need to set up a processor:</p>
 <div id="ae871260-3bc2-493d-949f-7ba1b1698ad0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.626202Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.621045Z&quot;}}" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(step_one.depths()) <span class="op">==</span> <span class="dv">8</span>:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(step_one.depths()) <span class="op">==</span> <span class="dv">8</span>:</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    p_step_one <span class="op">=</span> Processor(<span class="st">"Naive"</span>, step_one)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    p_step_one.min_detected_photons_filter(<span class="dv">0</span>)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    p_step_one.add_herald(<span class="dv">4</span>, <span class="dv">0</span>)</span>
@@ -904,11 +907,11 @@ Solution Step 1:
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    p_step_one.add_herald(<span class="dv">7</span>, <span class="dv">1</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    p_step_one.add_port(<span class="dv">0</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"0"</span>))</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    p_step_one.add_port(<span class="dv">2</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"1"</span>))</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    pdisplay(p_step_one, recursive<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    pdisplay(p_step_one, recursive<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="4e518e26-93b2-453e-bf96-0542414050ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.652148Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.630221Z&quot;}}" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_step_one)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Solution:</span><span class="ch">\n</span><span class="st">&gt; 11: 1.0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_step_one)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Solution:</span><span class="ch">\n</span><span class="st">&gt; 11: 1.0"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 00
 &gt; 11: 1.0
@@ -929,7 +932,7 @@ Solution Step 1 bis:
 -\cos\frac{\pi}{6}|00\rangle-\sin\frac{\pi}{6}|10\rangle\xrightarrow{CNOT}-\cos\frac{\pi}{6}|00\rangle-\sin\frac{\pi}{6}|11\rangle
 \]</span></p>
 <div id="f2ff4a97-c6ab-4900-aca1-10c703d1d4f0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.874603Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.653296Z&quot;}}" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Be careful with the signs and the factor of 2 related to the implementation of `BS.Ry`:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Be careful with the signs and the factor of 2 related to the implementation of `BS.Ry`:</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>step_one_more <span class="op">=</span> Circuit(<span class="dv">8</span>) <span class="op">//</span> BS.Ry(pi<span class="op">/</span><span class="dv">3</span>) <span class="op">//</span> (<span class="dv">0</span>, PS(pi)) <span class="op">//</span> (<span class="dv">0</span>, cnot)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>p_step_one_more <span class="op">=</span> pcvl.Processor(<span class="st">"Naive"</span>, step_one_more)</span>
@@ -940,7 +943,7 @@ Solution Step 1 bis:
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>p_step_one_more.add_herald(<span class="dv">7</span>, <span class="dv">1</span>)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>p_step_one_more.add_port(<span class="dv">0</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"0"</span>))</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>p_step_one_more.add_port(<span class="dv">2</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"1"</span>))</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>pdisplay(p_step_one_more, recursive<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>pdisplay(p_step_one_more, recursive<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 <figure class="figure">
@@ -950,7 +953,7 @@ Solution Step 1 bis:
 </div>
 </div>
 <div id="5a2c7cf9-e69e-448b-97f4-2aebe2a279d4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:07:15.902703Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:07:15.875772Z&quot;}}" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_step_one_more)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_step_one_more)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 00
 &gt; 00: 0.75
@@ -969,10 +972,10 @@ Solution Step 2:
 |00\rangle \xrightarrow{H ~\text{qubit 0}} \frac{1}{\sqrt{2}} |00\rangle + \frac{1}{\sqrt{2}} |10\rangle \xrightarrow{CNOT} \frac{1}{\sqrt{2}} |00\rangle + \frac{1}{\sqrt{2}} |11\rangle \xrightarrow{CNOT} \frac{1}{\sqrt{2}} |00\rangle + \frac{1}{\sqrt{2}} |10\rangle\xrightarrow{H ~\text{qubit 0}} |00\rangle
 \]</span></p>
 <div id="eaffd889cd95411f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>step_two <span class="op">=</span> Circuit(<span class="dv">8</span>, <span class="st">"Transition Bell -&gt; Canonical"</span>) <span class="op">//</span> (<span class="dv">0</span>, cnot) <span class="op">//</span> (<span class="dv">0</span>, BS.H())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>step_two <span class="op">=</span> Circuit(<span class="dv">8</span>, <span class="st">"Transition Bell -&gt; Canonical"</span>) <span class="op">//</span> (<span class="dv">0</span>, cnot) <span class="op">//</span> (<span class="dv">0</span>, BS.H())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="681042e5595aa1cf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>test_passage <span class="op">=</span> Circuit(<span class="dv">8</span>).add(<span class="dv">0</span>, BS.H()).add(<span class="dv">0</span>, cnot).add(<span class="dv">0</span>, step_two)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>test_passage <span class="op">=</span> Circuit(<span class="dv">8</span>).add(<span class="dv">0</span>, BS.H()).add(<span class="dv">0</span>, cnot).add(<span class="dv">0</span>, step_two)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>p_test_passage <span class="op">=</span> pcvl.Processor(<span class="st">"Naive"</span>, test_passage)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>p_test_passage.min_detected_photons_filter(<span class="dv">0</span>)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>p_test_passage.add_herald(<span class="dv">4</span>, <span class="dv">0</span>)</span>
@@ -981,7 +984,7 @@ Solution Step 2:
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>p_test_passage.add_herald(<span class="dv">7</span>, <span class="dv">1</span>)</span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>p_test_passage.add_port(<span class="dv">0</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"0"</span>))</span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>p_test_passage.add_port(<span class="dv">2</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"1"</span>))</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>pdisplay(p_test_passage, recursive<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>pdisplay(p_test_passage, recursive<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 <figure class="figure">
@@ -993,7 +996,7 @@ Solution Step 2:
 <p>The test circuit transitions to the Bell basis, then returns to the canonical basis. We therefore expect to find the identity (with some rounding errors).</p>
 <p><strong><em>Warning</em></strong>, for the moment the tests require the circuit to have 8 rails.</p>
 <div id="fea7ef60f93aa278" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 00
 &gt; 00: 0.96
@@ -1003,7 +1006,7 @@ Solution Step 2:
 </div>
 </div>
 <div id="94d3cf319484139c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage, qubits[<span class="st">"01"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage, qubits[<span class="st">"01"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 01
 &gt; 00: 0.02
@@ -1013,7 +1016,7 @@ Solution Step 2:
 </div>
 </div>
 <div id="55c96e62355a7bd5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage, qubits[<span class="st">"10"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage, qubits[<span class="st">"10"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 10
 &gt; 00: 0.02
@@ -1023,7 +1026,7 @@ Solution Step 2:
 </div>
 </div>
 <div id="132549d8febbb7d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage, qubits[<span class="st">"11"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_test_passage, qubits[<span class="st">"11"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 11
 &gt; 00: 0.0
@@ -1034,7 +1037,7 @@ Solution Step 2:
 </div>
 <p><em>It was also possible to create the circuit on 12 rails to avoid reusing the heralds and get exact outputs, but this was not required.</em></p>
 <div id="488ade18-608a-4e1c-8137-d60a0bb4924d" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I am using the processor directly to avoid managing the heralds manually:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># I am using the processor directly to avoid managing the heralds manually:</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>CNOT <span class="op">=</span> catalog[<span class="st">'klm cnot'</span>].build_processor()</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>q1, q2 <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">2</span>,<span class="dv">3</span>]</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1043,7 +1046,7 @@ Solution Step 2:
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>p_better.add(q1<span class="op">+</span>q2, CNOT)</span>
 <span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>p_better.add(q1<span class="op">+</span>q2, CNOT)</span>
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>p_better.add(<span class="dv">0</span>, BS.H())</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(p_better, recursive<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(p_better, recursive<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 <figure class="figure">
@@ -1053,28 +1056,28 @@ Solution Step 2:
 </div>
 </div>
 <div id="4533f6b0-c8fc-4564-86fc-370f796cfd84" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"00"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"00"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 00
 &gt; 00: 1.0</code></pre>
 </div>
 </div>
 <div id="03be352f-97b7-4df1-ad1d-32509e162756" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"01"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"01"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 01
 &gt; 01: 1.0</code></pre>
 </div>
 </div>
 <div id="9a1563f1-dd4f-4247-92c6-0424fd25a495" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"10"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"10"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 10
 &gt; 10: 1.0</code></pre>
 </div>
 </div>
 <div id="93476cf9-3b0d-4183-8b91-c5f18ec39f9c" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"11"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_better, qubits[<span class="st">"11"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 11
 &gt; 11: 1.0</code></pre>
@@ -1134,10 +1137,10 @@ R_y(\theta)\PS(\pi)R_y(-\theta) = \begin{pmatrix}
 \]</span></p>
 <p>(For a better explanation, see: https://quantumcomputing.stackexchange.com/questions/15734/how-to-construct-a-controlled-hadamard-gate-using-single-qubit-gates-and-control)</p>
 <div id="6c763c90a834fde2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With a few permutations:</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># With a few permutations:</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>step_three <span class="op">=</span> (Circuit(<span class="dv">8</span>).add(<span class="dv">0</span>, PERM([<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>])).add(<span class="dv">0</span>, BS(BS.r_to_theta(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>))).add(<span class="dv">2</span>, BS.Ry(pi<span class="op">/</span><span class="dv">4</span>)).add(<span class="dv">0</span>, cnot).add(<span class="dv">2</span>, BS.Ry(<span class="op">-</span>pi<span class="op">/</span><span class="dv">4</span>)))</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>pdisplay(step_three)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>pdisplay(step_three)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <div>
 <figure class="figure">
@@ -1147,7 +1150,7 @@ R_y(\theta)\PS(\pi)R_y(-\theta) = \begin{pmatrix}
 </div>
 </div>
 <div id="4b4e2d22-503a-4e28-aa5a-ab7743c68a08" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:09:08.450891Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:09:08.396987Z&quot;}}" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p_step_three <span class="op">=</span> Processor(<span class="st">"Naive"</span>, step_three)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p_step_three <span class="op">=</span> Processor(<span class="st">"Naive"</span>, step_three)</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>p_step_three.min_detected_photons_filter(<span class="dv">0</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>p_step_three.add_herald(<span class="dv">4</span>, <span class="dv">0</span>)</span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>p_step_three.add_herald(<span class="dv">5</span>, <span class="dv">1</span>)</span>
@@ -1155,7 +1158,7 @@ R_y(\theta)\PS(\pi)R_y(-\theta) = \begin{pmatrix}
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>p_step_three.add_herald(<span class="dv">7</span>, <span class="dv">1</span>)</span>
 <span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>p_step_three.add_port(<span class="dv">0</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"0"</span>))</span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>p_step_three.add_port(<span class="dv">2</span>, pcvl.Port(pcvl.Encoding.DUAL_RAIL, <span class="st">"1"</span>))</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>pdisplay(p_step_three, recursive<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>pdisplay(p_step_three, recursive<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 <figure class="figure">
@@ -1165,7 +1168,7 @@ R_y(\theta)\PS(\pi)R_y(-\theta) = \begin{pmatrix}
 </div>
 </div>
 <div id="43109a9c-5913-4c24-a0ad-819bee6aa21d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-01T20:09:09.389191Z&quot;,&quot;start_time&quot;:&quot;2024-05-01T20:09:09.357860Z&quot;}}" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_step_three)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>measure2p(p_step_three)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Avec l'entrée : 00
 &gt; 01: 0.33
@@ -1177,7 +1180,7 @@ R_y(\theta)\PS(\pi)R_y(-\theta) = \begin{pmatrix}
 <section id="flag-recovery" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="flag-recovery"><span class="header-section-number">7</span> Flag recovery</h2>
 <div id="75026fe43581b978" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> circuit_to_list(circuit: Circuit) <span class="op">-&gt;</span> List[List[Tuple[<span class="bu">float</span>, <span class="bu">float</span>]]]:</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> circuit_to_list(circuit: Circuit) <span class="op">-&gt;</span> List[List[Tuple[<span class="bu">float</span>, <span class="bu">float</span>]]]:</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [[(x.real, x.imag) <span class="cf">for</span> x <span class="kw">in</span> l] <span class="cf">for</span> l <span class="kw">in</span> np.array(circuit.compute_unitary())]</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
@@ -1185,20 +1188,20 @@ R_y(\theta)\PS(\pi)R_y(-\theta) = \begin{pmatrix}
 <span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"step_one_more"</span>: circuit_to_list(step_one_more),</span>
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"step_two"</span>: circuit_to_list(step_two),</span>
 <span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"step_three"</span>: circuit_to_list(step_three)</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="caddbdda1ebf3061" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> rq</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> rq</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> ...</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># URL = "https://perceval.challenges.404ctf.fr"</span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>rq.get(URL <span class="op">+</span> <span class="st">"/healthcheck"</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>rq.get(URL <span class="op">+</span> <span class="st">"/healthcheck"</span>).json()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>{'message': 'Statut : en pleine forme !'}</code></pre>
 </div>
 </div>
 <div id="4e70a551c7208c4a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/3"</span>, json<span class="op">=</span>d).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/3"</span>, json<span class="op">=</span>d).json()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>{'message': 'GG ! Voici le drapeau : 404CTF{d_Un3_tR1v14l1t3_AbS0lu3}'}</code></pre>
 </div>
@@ -1273,13 +1276,14 @@ R_y(\theta)\PS(\pi)R_y(-\theta) = \begin{pmatrix}
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -8,7 +8,7 @@
 )
 #align(
   center,
-  text([Student at Télécom SudParis], size: 1.5em),
+  text([Student at Télécom SudParis - ENS Paris-Saclay], size: 1.5em),
 )
 #show heading: X => {
   v(1em)

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,18 +72,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../../../assets/favicon.png" rel="icon" type="image/png">
 <script src="../../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-303f0b4dceb2a814a9bbef461efe1684.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-f3bc8ceffb1a1610576970277289f63b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-303f0b4dceb2a814a9bbef461efe1684.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b362027b4577be511fc5d62884eb66ef.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../../site_libs/bootstrap/bootstrap-3241f9c843f74eb606d0deb2b177da44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../../site_libs/bootstrap/bootstrap-dark-5446edbd09388883ec3f1f78610383fb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../../../site_libs/bootstrap/bootstrap-3241f9c843f74eb606d0deb2b177da44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -126,7 +127,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -320,6 +321,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">Sckathach’s posts</span>
     </a>
@@ -337,10 +340,6 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="../../../../mech-interp/subspace-rerouting/index.html"> 
 <span class="menu-text">SSR</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../../../zonotopes/index.html"> 
-<span class="menu-text">Zonotopes</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -380,6 +379,10 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -556,7 +559,7 @@ window.Quarto = {
 
 
 <div id="initial_id" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:true}}" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>os.environ[<span class="st">"TF_CPP_MIN_LOG_LEVEL"</span>] <span class="op">=</span> <span class="st">"3"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fl.preprocessing <span class="im">import</span> preprocess_force_magnitude</span>
@@ -564,15 +567,15 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> load_model, Model</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> load_model(<span class="st">"../models/force_prediction_model.h5"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> load_model(<span class="st">"../models/force_prediction_model.h5"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can start by observing how our model behaves:</p>
 <div id="b3d783bc23146dc5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> [<span class="st">"25a"</span>, <span class="st">"25b"</span>, <span class="st">"50a"</span>, <span class="st">"50b"</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> [<span class="st">"25a"</span>, <span class="st">"25b"</span>, <span class="st">"50a"</span>, <span class="st">"50b"</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>values <span class="op">=</span> {test: tf.convert_to_tensor(preprocess_force_magnitude(<span class="ss">f"../data/example_force_</span><span class="sc">{</span>test<span class="sc">}</span><span class="ss">.csv"</span>).to_numpy()[:, <span class="dv">0</span>].reshape(<span class="dv">1</span>, <span class="dv">50</span>)) <span class="cf">for</span> test <span class="kw">in</span> tests}</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> {test: model.predict(values[test])[<span class="dv">0</span>][<span class="dv">0</span>] <span class="cf">for</span> test <span class="kw">in</span> tests}</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> predictions.items():</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1/1 [==============================] - 0s 70ms/step
 1/1 [==============================] - 0s 16ms/step
@@ -586,7 +589,7 @@ window.Quarto = {
 </div>
 <p>We don’t have direct access to the class that was used to create the model, but TensorFlow offers a simple way to describe it:</p>
 <div id="ef18af4d13215bc2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:01:09.226027Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:01:09.214212Z&quot;}}" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Model: "sequential"
 _________________________________________________________________
@@ -608,7 +611,7 @@ _________________________________________________________________</code></pre>
 <p>We can observe that the model is a linear regression model. There is no activation function in the last layer (ReLU, sigmoid), so <strong>all</strong> values are possible. If we increase the contribution of a neuron in the second-to-last layer by a large amount (weights typically follow a normal distribution centered around 0 with very low variance in most models, so 10 can already be considered “huge”), it will dominate the final linear combination (unless the associated weight is zero), and the model’s output will depend almost entirely on it.</p>
 <p>We can take it further and examine what happens in the second-to-last layer (or the last hidden layer):</p>
 <div id="4581c0652937338c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:06:17.791852Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:06:17.498581Z&quot;}}" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model.build((<span class="va">None</span>, <span class="dv">50</span>))  <span class="co"># Necessary because TensorFlow only computes input parameters when needed (e.g., during inference), so `model.input` doesn't exist yet.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model.build((<span class="va">None</span>, <span class="dv">50</span>))  <span class="co"># Necessary because TensorFlow only computes input parameters when needed (e.g., during inference), so `model.input` doesn't exist yet.</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We create an intermediate model to observe what happens before the final output</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>model_last_hidden <span class="op">=</span> Model(inputs<span class="op">=</span>model.<span class="bu">input</span>, outputs<span class="op">=</span>model.layers[<span class="op">-</span><span class="dv">2</span>].output)  </span>
@@ -616,7 +619,7 @@ _________________________________________________________________</code></pre>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> model.get_weights()</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># We can extract W3, which is the (1, 32) matrix that describes how the neurons in the second-to-last layer influence the final linear combination</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>w3 <span class="op">=</span> weights[<span class="op">-</span><span class="dv">2</span>].reshape(<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>w3 <span class="op">=</span> weights[<span class="op">-</span><span class="dv">2</span>].reshape(<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-error">
 <div class="ansi-escaped-output">
 <pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
@@ -634,7 +637,7 @@ Cell <span class="ansi-green-fg">In[1], line 1</span>
 \hat{y} = W_3^{\top} a_3 + b_3
 \]</span></p>
 <div id="fd323fb920d3fad3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.zeros((<span class="bu">len</span>(tests)))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.zeros((<span class="bu">len</span>(tests)))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Neuron, Weight, Activations for 25a 25b 50a 50b"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(w3.shape[<span class="dv">1</span>]):</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> np.array([w3[<span class="dv">0</span>, i] <span class="op">*</span> activations[test][<span class="dv">0</span>, i] <span class="cf">for</span> test <span class="kw">in</span> tests])</span>
@@ -642,7 +645,7 @@ Cell <span class="ansi-green-fg">In[1], line 1</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    v_string <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2f}</span><span class="ss">"</span> <span class="cf">for</span> x <span class="kw">in</span> v]</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.<span class="bu">abs</span>(np.<span class="bu">sum</span>(v)) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">:&gt;5}</span><span class="ss">, </span><span class="sc">{</span>w3[<span class="dv">0</span>, i]<span class="sc">:.3f}</span><span class="ss">, -&gt; </span><span class="sc">{</span>v_string<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Final y hat value: </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Final y hat value: </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Neuron, Weight, Activations for 25a 25b 50a 50b
     0, 0.124, -&gt; ['3.20', '3.22', '7.68', '6.59']
@@ -658,7 +661,7 @@ Final y hat value: [24.76286411 25.04632157 55.65738726 46.34571463]</code></pre
 <p>The first observation is that the model was poorly trained: only a few weights are actually useful (no dropout, batch normalization, etc.). The second observation is that some neurons impact the two classes very differently. For example, the first neuron, 0, impacts class 50 about twice as much. So if we change the weight from 0.124 to, say, -3, all final values will drop, but class 50 will be much more impacted and will decrease faster.</p>
 <p>We can try this:</p>
 <div id="f29a71df7a4e7fc6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:26:09.006737Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:26:09.000653Z&quot;}}" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>w3[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">3</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>w3[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">3</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.zeros((<span class="bu">len</span>(tests)))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Neuron, Weight, Activations for 25a 25b 50a 50b"</span>)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(w3.shape[<span class="dv">1</span>]):</span>
@@ -667,7 +670,7 @@ Final y hat value: [24.76286411 25.04632157 55.65738726 46.34571463]</code></pre
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    v_string <span class="op">=</span> [<span class="ss">f"</span><span class="sc">{</span>x<span class="sc">:.2f}</span><span class="ss">"</span> <span class="cf">for</span> x <span class="kw">in</span> v]</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.<span class="bu">abs</span>(np.<span class="bu">sum</span>(v)) <span class="op">&gt;</span> <span class="dv">0</span>:</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">:&gt;5}</span><span class="ss">, </span><span class="sc">{</span>w3[<span class="dv">0</span>, i]<span class="sc">:.3f}</span><span class="ss">, -&gt; </span><span class="sc">{</span>v_string<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Final y hat value: </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Final y hat value: </span><span class="sc">{</span>s<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Neuron, Weight, Activations for 25a 25b 50a 50b
     0, -3.000, -&gt; ['-77.74', '-78.15', '-186.55', '-159.95']
@@ -682,22 +685,22 @@ Final y hat value: [ -56.18092895  -56.32260972 -138.57491875 -120.1920523 ]</co
 </div>
 <p>And that’s it! The class 25 values are now much “higher” than the class 50 values. Now, we just need to adjust the scale linearly by modifying the final bias:</p>
 <div id="318d6712fc1eb7ec" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:27:23.901768Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:27:23.894147Z&quot;}}" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>b3 <span class="op">=</span> <span class="dv">140</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">+</span> b3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>b3 <span class="op">=</span> <span class="dv">140</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s <span class="op">+</span> b3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>array([83.81907105, 83.67739028,  1.42508125, 19.8079477 ])</code></pre>
 </div>
 </div>
 <p>Since the model shifts from linear regression to two classes, 25 and 50, it has to make a choice by picking the closest value. In this case, both class 25 values are classified as 50, and the 50s are classified as 25. Let’s test this on the model:</p>
 <div id="f4ad02eaf1ca47d9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:29:33.042552Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:29:32.764631Z&quot;}}" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>weights[<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">120</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>weights[<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>] <span class="op">=</span> <span class="dv">120</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>weights[<span class="op">-</span><span class="dv">2</span>][<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="op">-</span><span class="dv">3</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>model.set_weights(weights)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>tests <span class="op">=</span> [<span class="st">"25a"</span>, <span class="st">"25b"</span>, <span class="st">"50a"</span>, <span class="st">"50b"</span>]</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>values <span class="op">=</span> {test: tf.convert_to_tensor(preprocess_force_magnitude(<span class="ss">f"../data/example_force_</span><span class="sc">{</span>test<span class="sc">}</span><span class="ss">.csv"</span>).to_numpy()[:, <span class="dv">0</span>].reshape(<span class="dv">1</span>, <span class="dv">50</span>)) <span class="cf">for</span> test <span class="kw">in</span> tests}</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> {test: model.predict(values[test])[<span class="dv">0</span>][<span class="dv">0</span>] <span class="cf">for</span> test <span class="kw">in</span> tests}</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> predictions.items():</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1/1 [==============================] - 0s 22ms/step
 1/1 [==============================] - 0s 20ms/step
@@ -710,23 +713,23 @@ Final y hat value: [ -56.18092895  -56.32260972 -138.57491875 -120.1920523 ]</co
 </div>
 </div>
 <div id="4d0496ac3af6d55a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:29:44.188655Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:29:44.178030Z&quot;}}" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> rq</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> rq</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># URL = "https://du-poison.challenges.404ctf.fr"</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> <span class="st">"http://localhost:8000"</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rq.get(URL <span class="op">+</span> <span class="st">"/healthcheck"</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>rq.get(URL <span class="op">+</span> <span class="st">"/healthcheck"</span>).json()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>{'message': 'Statut : en pleine forme !'}</code></pre>
 </div>
 </div>
 <div id="8034c5f46a8151c8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:30:16.968814Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:30:16.795138Z&quot;}}" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"position_1"</span>: [<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>],</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value_1"</span>: <span class="op">-</span><span class="dv">3</span>, </span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"position_2"</span>: [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>],  </span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value_2"</span>: <span class="dv">130</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>'Bien joué ! Voici le drapeau : 404CTF{d3_p3t1ts_Ch4ng3m3ntS_tR3s_cHA0t1qU3s} (précision : 0.7241379310344828)'</code></pre>
 </div>
@@ -736,32 +739,32 @@ Final y hat value: [ -56.18092895  -56.32260972 -138.57491875 -120.1920523 ]</co
 <p>We can solve the challenge even without access to the model or the examples (just the structure), and without resorting to random brute force (yes, that was possible too—my bad on that one).</p>
 <p>We’ll start by sending requests to understand the model’s structure and the tests being performed. If we change only the bias and force its value to, say, <span class="math inline">\(\pm 10000\)</span>, in one case, all examples will yield a negative value and be classified as 25, and in the other case, all examples will yield a massive value and be classified as 50. By this method, we can deduce how many examples are 25s and how many are 50s.</p>
 <div id="69ffc58362ac1581" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:35:36.526739Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:35:36.375076Z&quot;}}" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"position_1"</span>: [<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>],  </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value_1"</span>: <span class="fl">0.12</span>,  <span class="co"># Original value, just to have something to send to the API</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"position_2"</span>: [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>],  </span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value_2"</span>: <span class="op">-</span><span class="dv">10000</span></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>'Raté ! Le modèle a obtenu une précision sur les classes inversée de 0.41379310344827586, il faut au moins 0.7'</code></pre>
 </div>
 </div>
 <div id="4bfcb9ef4a8a5201" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:35:57.769916Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:35:57.629157Z&quot;}}" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"position_1"</span>: [<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>],  </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value_1"</span>: <span class="fl">0.12</span>,  <span class="co"># Valeur originale, c'est juste pour avoir quelque chose à donner à l'API</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">"position_2"</span>: [<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>],  </span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"value_2"</span>: <span class="dv">10000</span></span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>'Raté ! Le modèle a obtenu une précision sur les classes inversée de 0.5862068965517241, il faut au moins 0.7'</code></pre>
 </div>
 </div>
 <p>So, there are <span class="math inline">\(41\%\)</span> of class 50 and <span class="math inline">\(58\%\)</span> of class 25. We can then try to determine the importance of each weight in the second-to-last layer for incorrect classification and also check whether this weight is positive or negative:</p>
 <div id="c86c690f54d68113" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:40:07.308982Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:39:58.404935Z&quot;}}" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">32</span>):</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]:</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        d <span class="op">=</span> {</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">"position_1"</span>: [<span class="op">-</span><span class="dv">2</span>, i, <span class="dv">0</span>],  </span>
@@ -772,7 +775,7 @@ Final y hat value: [ -56.18092895  -56.32260972 -138.57491875 -120.1920523 ]</co
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>][<span class="dv">67</span>:<span class="dv">77</span>]</span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"il"</span> <span class="kw">in</span> r:</span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> <span class="st">" 0.0"</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>j<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>r<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>j<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>r<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   0,    1,  0.4827586
    0,   -1,  0.4137931
@@ -843,7 +846,7 @@ Final y hat value: [ -56.18092895  -56.32260972 -138.57491875 -120.1920523 ]</co
 <p>We notice something very interesting: weight number 9 significantly impacts class 50—all examples are misclassified when this weight is negative. However, it impacts class 25 less, with only <span class="math inline">\(17\%\)</span> of examples being misclassified out of <span class="math inline">\(58\%\)</span> when this weight is large.</p>
 <p>Therefore, I decide to modify this weight:</p>
 <div id="ca8d1579141afba8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-22T20:43:46.657087Z&quot;,&quot;start_time&quot;:&quot;2024-05-22T20:43:28.674751Z&quot;}}" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">20</span>):</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">20</span>):</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">20</span>):</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        d <span class="op">=</span> {</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"position_1"</span>: [<span class="op">-</span><span class="dv">2</span>, <span class="dv">9</span>, <span class="dv">0</span>], </span>
@@ -852,7 +855,7 @@ Final y hat value: [ -56.18092895  -56.32260972 -138.57491875 -120.1920523 ]</co
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                <span class="st">"value_2"</span>: j</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>            }</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        r <span class="op">=</span> rq.post(URL <span class="op">+</span> <span class="st">"/challenges/4"</span>, json<span class="op">=</span>d).json()[<span class="st">"message"</span>]</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>j<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>r<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>i<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>j<span class="sc">:&gt;4}</span><span class="ss">, </span><span class="sc">{</span>r<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   0,    0, Raté ! Le modèle a obtenu une précision sur les classes inversée de 0.0, il faut au moins 0.7
    0,   20, Raté ! Le modèle a obtenu une précision sur les classes inversée de 0.0, il faut au moins 0.7
@@ -1050,13 +1053,14 @@ Final y hat value: [ -56.18092895  -56.32260972 -138.57491875 -120.1920523 ]</co
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
