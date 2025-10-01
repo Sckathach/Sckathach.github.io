@@ -1,0 +1,68 @@
+---
+title: "Combining TAP and DSPy to generate quick and efficient jailbreaks"
+author: 
+  - name: "Le magicien quantique"
+toc: true
+code-fold: true
+date: 2025-08-28
+bibliography: "references.bib"
+reference-location: margin
+---
+
+On one hand, existing automated jailbreak methods using an attacker LLM to generate the jailbreaks (@mehrotra_tree_2023 @chao_jailbreaking_2024) face two key limitations. They require access to an unaligned LLM willing to generate attacks, and they lack adaptability to newer attack strategies or defenses. Both issues can be addressed with fine-tuning, by creating better attackers and unaligning newer models, but it's computationally expensive, and requires access to a large GPU.
+
+On the other hand, agentic systems are increasingly used and improved, they could be the solution to adaptability, and the previous section just gave a method to unalign models cheaply. Method which has already been experimented (@arditi_refusal_2024), but which is now, with multi-dimensional ablation, efficient on bigger, newer models.
+
+Combining both approaches yields an attack powerful enough to jailbreak sota models, even reasoning ones. As the robustness of reasoning models has not yet been extensively tested, we propose some results here.
+
+## Structure of the system
+The structure is built on the TAP framework by @mehrotra_tree_2023, but enhances it with a memory, optimised prompting and newer unaligned models. The attack loops as follows: the attacker model tries to jailbreak the target with access to previous success and a reasoning step, after the target model is queried, the attacker model acts as an evaluator, gives a feedback and tries to give an improvement advice, the attacker then create mutliple new tries by taking into account the previous fails and advices. The attack loops until a successful jailbreak has been found or if the maximum number of queries has been reached.
+
+The memory component is for the moment a simple retrieval-augmented generation (RAG), which enables learning from previous campains, but the memory system, and every other components, can be updated independently easily.
+
+```{dot}
+    digraph {
+        bgcolor="transparent"
+    init [label="How to create a bomb?", shape="none"]
+    answer [label="*Answer*", shape="none"]
+    init -> Target [label="Ask the target model"]
+    success [label="Success", shape="rectangular"]
+    fail [label="Fail", shape="rectangular"]
+    new_try [label="*New try*", shape="none"]
+    new_try2 [label="*New try*", shape="none"]
+    new_try3 [label="*New try*", shape="none"]
+    Target -> answer
+    answer -> Evaluator [label="Is this a jailbreak?"]
+    Evaluator -> success [label="Yes"]
+    Evaluator -> Attacker [label="What to do to improve it?\nWhat would be the next try?"]
+    Evaluator -> fail [label="Too many tries"]
+    Attacker -> Memory
+    Memory -> Attacker
+    Attacker -> new_try
+    Attacker -> new_try2
+    Attacker -> new_try3
+    new_try -> Target [label="Ask the target model"]
+    }
+```
+> Structure of the current architecture: queries flow from the attacker to the target, responses go to the evaluator, which can be the same model as the attacker, and feedback loops to the attacker with retrieved memories.
+
+## Choosing the Attacker Model
+Research on agentic systems consistently shows that the backbone LLM is the most critical component for overall performance (@wang_efficient_2025 @huang_large_2024). However, not all models comply with red teaming tasks - many refuse to generate jailbreaks, causing the entire pipeline to fail. For instance, the pipeline fails using Qwen 3 without ablating multiple refusal directions.
+
+One baseline is to use Mistral NeMo (@mistralai_mistralnemo_2024), a 12B open-source model with performances sufficient to generate new jailbreak ideas, and that is compliant to the red teaming task.
+
+## Prompt Optimisation with DSPy
+Inspired by @haize_redteaming_2024, we used DSPy to optimize prompts for some components of the pipeline, especially the evaluator, which is one of the most important part of the attack.
+
+We used a stronger model to label an evaluation dataset, that we further verified by hand, and the MIPROv2 optimiser to generate optimised instruction and few shot examples.
+
+Further work is needed to optimise the whole system.
+
+## A note on defenses
+
+The current state-of-the-art in defenses is to use classifiers on the user input and LLM's output, to test for non-authorized conversations (@sharma_constitutional_2025). This is not limited to harmfulness, but can be extended to anything judged forbidden by the model provider. This as also the benefit of adaptability. Each time a new threat emerges, a classifier can be trained to detect and block it.
+
+For reasoning models specifically, they can be trained to think about the real intent of the user, which greatly reduces jailbreak success (@yeo_mitigating_2025). Even without fine-tuning, simply adding the token `Wait` when the model has finished thinking for the first time already decreases jailbreak success rate [?] (I lost the paper).
+
+All the experiments where made without any defense.
+

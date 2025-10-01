@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Le magicien quantique">
+<meta name="dcterms.date" content="2025-08-28">
 
-<title>Sckathach’s posts</title>
+<title>Combining TAP and DSPy to generate quick and efficient jailbreaks – Sckathach’s posts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,32 +22,52 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./assets/favicon.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b362027b4577be511fc5d62884eb66ef.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b362027b4577be511fc5d62884eb66ef.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-933c14d29d5c578a38b5020fa70fc493.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,11 +97,11 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Sckathach’s posts">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Combining TAP and DSPy to generate quick and efficient jailbreaks – Sckathach’s posts">
 <meta property="og:description" content="The very super website of the super Sckathach!">
 <meta property="og:site_name" content="Sckathach's posts">
-<meta name="twitter:title" content="Sckathach’s posts">
+<meta name="twitter:title" content="Combining TAP and DSPy to generate quick and efficient jailbreaks – Sckathach’s posts">
 <meta name="twitter:description" content="">
 <meta name="twitter:card" content="summary">
 </head>
@@ -253,9 +275,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Sckathach’s posts</span>
     </a>
   </div>
@@ -266,21 +288,21 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./404ctf/index.html"> 
+    <a class="nav-link" href="../../404ctf/index.html"> 
 <span class="menu-text">404 CTF</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./mech-interp/subspace-rerouting/index.html"> 
+    <a class="nav-link" href="../../mech-interp/subspace-rerouting/index.html"> 
 <span class="menu-text">SSR</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./research.html"> 
+    <a class="nav-link" href="../../research.html"> 
 <span class="menu-text">Research</span></a>
   </li>  
 </ul>
@@ -306,30 +328,263 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sckathachs-post" id="toc-sckathachs-post" class="nav-link active" data-scroll-target="#sckathachs-post">Sckathach’s post</a></li>
+  <li><a href="#structure-of-the-system" id="toc-structure-of-the-system" class="nav-link active" data-scroll-target="#structure-of-the-system">Structure of the system</a></li>
+  <li><a href="#choosing-the-attacker-model" id="toc-choosing-the-attacker-model" class="nav-link" data-scroll-target="#choosing-the-attacker-model">Choosing the Attacker Model</a></li>
+  <li><a href="#prompt-optimisation-with-dspy" id="toc-prompt-optimisation-with-dspy" class="nav-link" data-scroll-target="#prompt-optimisation-with-dspy">Prompt Optimisation with DSPy</a></li>
+  <li><a href="#a-note-on-defenses" id="toc-a-note-on-defenses" class="nav-link" data-scroll-target="#a-note-on-defenses">A note on defenses</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/posts/dspy-tap/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/posts/dspy-tap/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Combining TAP and DSPy to generate quick and efficient jailbreaks</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Le magicien quantique </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 28, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-<section id="sckathachs-post" class="level1">
-<h1>Sckathach’s post</h1>
-<p>It’s still under construction, as I’m waiting to learn more about Manim before decorating it :eyes:. But you can already check out:</p>
-<ul>
-<li><p><strong>18/03/25 -</strong> Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models <a href="./mech-interp/subspace-rerouting/post/">Post</a> / <a href="./mech-interp/subspace-rerouting/">Webpage</a></p></li>
-<li><p><strong>28/08/25 -</strong> Combining TAP and DSPy to generate quick and efficient jailbreaks <a href="./posts/dspy-tap/">Post</a></p></li>
-<li><p><strong>15/09/25 -</strong> Exploring the multi-dimensional refusal subspace in reasoning models <a href="./posts/exploring-the-multi-dimensional-refusal-subspace/">Post</a></p></li>
-</ul>
+</header>
+
+
+<p>On one hand, existing automated jailbreak methods using an attacker LLM to generate the jailbreaks (<span class="citation" data-cites="mehrotra_tree_2023">Mehrotra et al. (<a href="#ref-mehrotra_tree_2023" role="doc-biblioref">2024</a>)</span> <span class="citation" data-cites="chao_jailbreaking_2024">Chao et al. (<a href="#ref-chao_jailbreaking_2024" role="doc-biblioref">2024</a>)</span>) face two key limitations. They require access to an unaligned LLM willing to generate attacks, and they lack adaptability to newer attack strategies or defenses. Both issues can be addressed with fine-tuning, by creating better attackers and unaligning newer models, but it’s computationally expensive, and requires access to a large GPU.</p>
+<p>On the other hand, agentic systems are increasingly used and improved, they could be the solution to adaptability, and the previous section just gave a method to unalign models cheaply. Method which has already been experimented (<span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span>), but which is now, with multi-dimensional ablation, efficient on bigger, newer models.</p>
+<p>Combining both approaches yields an attack powerful enough to jailbreak sota models, even reasoning ones. As the robustness of reasoning models has not yet been extensively tested, we propose some results here.</p>
+<section id="structure-of-the-system" class="level2">
+<h2 class="anchored" data-anchor-id="structure-of-the-system">Structure of the system</h2>
+<p>The structure is built on the TAP framework by <span class="citation" data-cites="mehrotra_tree_2023">Mehrotra et al. (<a href="#ref-mehrotra_tree_2023" role="doc-biblioref">2024</a>)</span>, but enhances it with a memory, optimised prompting and newer unaligned models. The attack loops as follows: the attacker model tries to jailbreak the target with access to previous success and a reasoning step, after the target model is queried, the attacker model acts as an evaluator, gives a feedback and tries to give an improvement advice, the attacker then create mutliple new tries by taking into account the previous fails and advices. The attack loops until a successful jailbreak has been found or if the maximum number of queries has been reached.</p>
+<p>The memory component is for the moment a simple retrieval-augmented generation (RAG), which enables learning from previous campains, but the memory system, and every other components, can be updated independently easily.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 489.02 473.20" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 469.2)">
+<!-- init -->
+<g id="node1" class="node">
+<title>init</title>
+<text text-anchor="middle" x="331" y="-443" font-family="Times,serif" font-size="14.00">How to create a bomb?</text>
+</g>
+<!-- Target -->
+<g id="node3" class="node">
+<title>Target</title>
+<ellipse fill="none" stroke="black" cx="331" cy="-358.4" rx="36.47" ry="18"></ellipse>
+<text text-anchor="middle" x="331" y="-354.2" font-family="Times,serif" font-size="14.00">Target</text>
+</g>
+<!-- init&#45;&gt;Target -->
+<g id="edge1" class="edge">
+<title>init-&gt;Target</title>
+<path fill="none" stroke="black" d="M331,-429.05C331,-416.92 331,-400.42 331,-386.52"></path>
+<polygon fill="black" stroke="black" points="334.5,-386.51 331,-376.51 327.5,-386.51 334.5,-386.51"></polygon>
+<text text-anchor="middle" x="389.51" y="-398.6" font-family="Times,serif" font-size="14.00">Ask the target model</text>
+</g>
+<!-- answer -->
+<g id="node2" class="node">
+<title>answer</title>
+<text text-anchor="middle" x="273" y="-281.2" font-family="Times,serif" font-size="14.00">*Answer*</text>
+</g>
+<!-- Evaluator -->
+<g id="node9" class="node">
+<title>Evaluator</title>
+<ellipse fill="none" stroke="black" cx="160" cy="-196.6" rx="48.65" ry="18"></ellipse>
+<text text-anchor="middle" x="160" y="-192.4" font-family="Times,serif" font-size="14.00">Evaluator</text>
+</g>
+<!-- answer&#45;&gt;Evaluator -->
+<g id="edge3" class="edge">
+<title>answer-&gt;Evaluator</title>
+<path fill="none" stroke="black" d="M250.67,-267.25C232.86,-253.57 207.78,-234.3 188.51,-219.5"></path>
+<polygon fill="black" stroke="black" points="190.44,-216.57 180.38,-213.25 186.18,-222.12 190.44,-216.57"></polygon>
+<text text-anchor="middle" x="277.12" y="-236.8" font-family="Times,serif" font-size="14.00">Is this a jailbreak?</text>
+</g>
+<!-- Target&#45;&gt;answer -->
+<g id="edge2" class="edge">
+<title>Target-&gt;answer</title>
+<path fill="none" stroke="black" d="M317.84,-341.29C310.63,-332.47 301.54,-321.34 293.43,-311.42"></path>
+<polygon fill="black" stroke="black" points="295.95,-308.97 286.92,-303.44 290.53,-313.4 295.95,-308.97"></polygon>
+</g>
+<!-- success -->
+<g id="node4" class="node">
+<title>success</title>
+<polygon fill="none" stroke="black" points="336.33,-109 275.67,-109 275.67,-73 336.33,-73 336.33,-109"></polygon>
+<text text-anchor="middle" x="306" y="-86.8" font-family="Times,serif" font-size="14.00">Success</text>
+</g>
+<!-- fail -->
+<g id="node5" class="node">
+<title>fail</title>
+<polygon fill="none" stroke="black" points="54,-109 0,-109 0,-73 54,-73 54,-109"></polygon>
+<text text-anchor="middle" x="27" y="-86.8" font-family="Times,serif" font-size="14.00">Fail</text>
+</g>
+<!-- new_try -->
+<g id="node6" class="node">
+<title>new_try</title>
+<text text-anchor="middle" x="348" y="-13.8" font-family="Times,serif" font-size="14.00">*New try*</text>
+</g>
+<!-- new_try&#45;&gt;Target -->
+<g id="edge12" class="edge">
+<title>new_try-&gt;Target</title>
+<path fill="none" stroke="black" d="M354.14,-36.26C358.65,-50.49 364,-71.3 364,-90 364,-286.4 364,-286.4 364,-286.4 364,-302.97 356.52,-319.85 348.68,-333"></path>
+<polygon fill="black" stroke="black" points="345.72,-331.14 343.29,-341.45 351.62,-334.9 345.72,-331.14"></polygon>
+<text text-anchor="middle" x="422.51" y="-192.4" font-family="Times,serif" font-size="14.00">Ask the target model</text>
+</g>
+<!-- new_try2 -->
+<g id="node7" class="node">
+<title>new_try2</title>
+<text text-anchor="middle" x="39" y="-13.8" font-family="Times,serif" font-size="14.00">*New try*</text>
+</g>
+<!-- new_try3 -->
+<g id="node8" class="node">
+<title>new_try3</title>
+<text text-anchor="middle" x="132" y="-13.8" font-family="Times,serif" font-size="14.00">*New try*</text>
+</g>
+<!-- Evaluator&#45;&gt;success -->
+<g id="edge4" class="edge">
+<title>Evaluator-&gt;success</title>
+<path fill="none" stroke="black" d="M204.68,-189.36C239.12,-183.61 282.86,-173.94 295,-160.6 305.02,-149.58 307.94,-133.22 308.27,-119.25"></path>
+<polygon fill="black" stroke="black" points="311.76,-119.09 308.09,-109.15 304.76,-119.21 311.76,-119.09"></polygon>
+<text text-anchor="middle" x="317.89" y="-139.6" font-family="Times,serif" font-size="14.00">Yes</text>
+</g>
+<!-- Evaluator&#45;&gt;fail -->
+<g id="edge6" class="edge">
+<title>Evaluator-&gt;fail</title>
+<path fill="none" stroke="black" d="M112.87,-192.16C89.26,-188.03 61.99,-179.21 44.24,-160.6 33.77,-149.62 29.39,-133.27 27.66,-119.28"></path>
+<polygon fill="black" stroke="black" points="31.14,-118.84 26.8,-109.18 24.16,-119.44 31.14,-118.84"></polygon>
+<text text-anchor="middle" x="87.38" y="-139.6" font-family="Times,serif" font-size="14.00">Too many tries</text>
+</g>
+<!-- Attacker -->
+<g id="node10" class="node">
+<title>Attacker</title>
+<ellipse fill="none" stroke="black" cx="174" cy="-91" rx="44.06" ry="18"></ellipse>
+<text text-anchor="middle" x="174" y="-86.8" font-family="Times,serif" font-size="14.00">Attacker</text>
+</g>
+<!-- Evaluator&#45;&gt;Attacker -->
+<g id="edge5" class="edge">
+<title>Evaluator-&gt;Attacker</title>
+<path fill="none" stroke="black" d="M145.79,-179.24C141.83,-173.69 138.05,-167.22 136,-160.6 131.57,-146.34 130,-140.68 136,-127 138.1,-122.19 141.23,-117.76 144.81,-113.77"></path>
+<polygon fill="black" stroke="black" points="147.36,-116.17 152.07,-106.68 142.47,-111.16 147.36,-116.17"></polygon>
+<text text-anchor="middle" x="215.5" y="-148" font-family="Times,serif" font-size="14.00">What to do to improve it?</text>
+<text text-anchor="middle" x="215.5" y="-131.2" font-family="Times,serif" font-size="14.00">What would be the next try?</text>
+</g>
+<!-- Attacker&#45;&gt;new_try -->
+<g id="edge9" class="edge">
+<title>Attacker-&gt;new_try</title>
+<path fill="none" stroke="black" d="M204.31,-77.63C230.84,-66.81 269.84,-50.89 300.51,-38.38"></path>
+<polygon fill="black" stroke="black" points="302.21,-41.46 310.15,-34.44 299.57,-34.98 302.21,-41.46"></polygon>
+</g>
+<!-- Attacker&#45;&gt;new_try2 -->
+<g id="edge10" class="edge">
+<title>Attacker-&gt;new_try2</title>
+<path fill="none" stroke="black" d="M147.97,-76.31C128.93,-66.3 102.7,-52.5 80.75,-40.96"></path>
+<polygon fill="black" stroke="black" points="82.12,-37.72 71.64,-36.16 78.86,-43.92 82.12,-37.72"></polygon>
+</g>
+<!-- Attacker&#45;&gt;new_try3 -->
+<g id="edge11" class="edge">
+<title>Attacker-&gt;new_try3</title>
+<path fill="none" stroke="black" d="M164.05,-73.17C159.05,-64.72 152.88,-54.29 147.29,-44.85"></path>
+<polygon fill="black" stroke="black" points="150.28,-43.02 142.17,-36.2 144.25,-46.59 150.28,-43.02"></polygon>
+</g>
+<!-- Memory -->
+<g id="node11" class="node">
+<title>Memory</title>
+<ellipse fill="none" stroke="black" cx="232" cy="-18" rx="44.09" ry="18"></ellipse>
+<text text-anchor="middle" x="232" y="-13.8" font-family="Times,serif" font-size="14.00">Memory</text>
+</g>
+<!-- Attacker&#45;&gt;Memory -->
+<g id="edge7" class="edge">
+<title>Attacker-&gt;Memory</title>
+<path fill="none" stroke="black" d="M181.91,-73.17C188.42,-63.98 197.65,-52.46 206.49,-42.41"></path>
+<polygon fill="black" stroke="black" points="209.32,-44.5 213.43,-34.73 204.13,-39.8 209.32,-44.5"></polygon>
+</g>
+<!-- Memory&#45;&gt;Attacker -->
+<g id="edge8" class="edge">
+<title>Memory-&gt;Attacker</title>
+<path fill="none" stroke="black" d="M224.07,-35.87C217.49,-45.14 208.15,-56.78 199.25,-66.89"></path>
+<polygon fill="black" stroke="black" points="196.39,-64.83 192.26,-74.59 201.57,-69.54 196.39,-64.83"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Structure of the current architecture: queries flow from the attacker to the target, responses go to the evaluator, which can be the same model as the attacker, and feedback loops to the attacker with retrieved memories.</p>
+</blockquote>
+</section>
+<section id="choosing-the-attacker-model" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-attacker-model">Choosing the Attacker Model</h2>
+<p>Research on agentic systems consistently shows that the backbone LLM is the most critical component for overall performance (<span class="citation" data-cites="wang_efficient_2025">Wang et al. (<a href="#ref-wang_efficient_2025" role="doc-biblioref">2025</a>)</span> <span class="citation" data-cites="huang_large_2024">Huang et al. (<a href="#ref-huang_large_2024" role="doc-biblioref">2024</a>)</span>). However, not all models comply with red teaming tasks - many refuse to generate jailbreaks, causing the entire pipeline to fail. For instance, the pipeline fails using Qwen 3 without ablating multiple refusal directions.</p>
+<p>One baseline is to use Mistral NeMo (<span class="citation" data-cites="mistralai_mistralnemo_2024">Mistralai (<a href="#ref-mistralai_mistralnemo_2024" role="doc-biblioref">2024</a>)</span>), a 12B open-source model with performances sufficient to generate new jailbreak ideas, and that is compliant to the red teaming task.</p>
+</section>
+<section id="prompt-optimisation-with-dspy" class="level2">
+<h2 class="anchored" data-anchor-id="prompt-optimisation-with-dspy">Prompt Optimisation with DSPy</h2>
+<p>Inspired by <span class="citation" data-cites="haize_redteaming_2024">Labs (<a href="#ref-haize_redteaming_2024" role="doc-biblioref">2024</a>)</span>, we used DSPy to optimize prompts for some components of the pipeline, especially the evaluator, which is one of the most important part of the attack.</p>
+<p>We used a stronger model to label an evaluation dataset, that we further verified by hand, and the MIPROv2 optimiser to generate optimised instruction and few shot examples.</p>
+<p>Further work is needed to optimise the whole system.</p>
+</section>
+<section id="a-note-on-defenses" class="level2">
+<h2 class="anchored" data-anchor-id="a-note-on-defenses">A note on defenses</h2>
+<p>The current state-of-the-art in defenses is to use classifiers on the user input and LLM’s output, to test for non-authorized conversations (<span class="citation" data-cites="sharma_constitutional_2025">Sharma et al. (<a href="#ref-sharma_constitutional_2025" role="doc-biblioref">2025</a>)</span>). This is not limited to harmfulness, but can be extended to anything judged forbidden by the model provider. This as also the benefit of adaptability. Each time a new threat emerges, a classifier can be trained to detect and block it.</p>
+<p>For reasoning models specifically, they can be trained to think about the real intent of the user, which greatly reduces jailbreak success (<span class="citation" data-cites="yeo_mitigating_2025">Yeo, Satapathy, and Cambria (<a href="#ref-yeo_mitigating_2025" role="doc-biblioref">2025</a>)</span>). Even without fine-tuning, simply adding the token <code>Wait</code> when the model has finished thinking for the first time already decreases jailbreak success rate [?] (I lost the paper).</p>
+<p>All the experiments where made without any defense.</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-arditi_refusal_2024" class="csl-entry" role="listitem">
+Arditi, Andy, Oscar Obeso, Aaquib Syed, Daniel Paleka, Nina Panickssery, Wes Gurnee, and Neel Nanda. 2024. <span>“Refusal in Language Models Is Mediated by a Single Direction.”</span> <a href="https://arxiv.org/abs/2406.11717">https://arxiv.org/abs/2406.11717</a>.
+</div>
+<div id="ref-chao_jailbreaking_2024" class="csl-entry" role="listitem">
+Chao, Patrick, Alexander Robey, Edgar Dobriban, Hamed Hassani, George J. Pappas, and Eric Wong. 2024. <span>“Jailbreaking Black Box Large Language Models in Twenty Queries.”</span> <a href="https://arxiv.org/abs/2310.08419">https://arxiv.org/abs/2310.08419</a>.
+</div>
+<div id="ref-huang_large_2024" class="csl-entry" role="listitem">
+Huang, Jie, Xinyun Chen, Swaroop Mishra, Huaixiu Steven Zheng, Adams Wei Yu, Xinying Song, and Denny Zhou. 2024. <span>“Large Language Models Cannot Self-Correct Reasoning Yet.”</span> <a href="https://arxiv.org/abs/2310.01798">https://arxiv.org/abs/2310.01798</a>.
+</div>
+<div id="ref-haize_redteaming_2024" class="csl-entry" role="listitem">
+Labs, Haize. 2024. <span>“Red-Teaming Language Models with DSPy.”</span> <a href="https://www.haizelabs.com/technology/red-teaming-language-models-with-dspy">https://www.haizelabs.com/technology/red-teaming-language-models-with-dspy</a>.
+</div>
+<div id="ref-mehrotra_tree_2023" class="csl-entry" role="listitem">
+Mehrotra, Anay, Manolis Zampetakis, Paul Kassianik, Blaine Nelson, Hyrum Anderson, Yaron Singer, and Amin Karbasi. 2024. <span>“Tree of Attacks: Jailbreaking Black-Box LLMs Automatically.”</span> <a href="https://arxiv.org/abs/2312.02119">https://arxiv.org/abs/2312.02119</a>.
+</div>
+<div id="ref-mistralai_mistralnemo_2024" class="csl-entry" role="listitem">
+Mistralai. 2024. <span>“Mistral NeMo.”</span> <a href="https://mistral.ai/news/mistral-nemo">https://mistral.ai/news/mistral-nemo</a>.
+</div>
+<div id="ref-sharma_constitutional_2025" class="csl-entry" role="listitem">
+Sharma, Mrinank, Meg Tong, Jesse Mu, Jerry Wei, Jorrit Kruthoff, Scott Goodfriend, Euan Ong, et al. 2025. <span>“Constitutional Classifiers: Defending Against Universal Jailbreaks Across Thousands of Hours of Red Teaming.”</span> <a href="https://arxiv.org/abs/2501.18837">https://arxiv.org/abs/2501.18837</a>.
+</div>
+<div id="ref-wang_efficient_2025" class="csl-entry" role="listitem">
+Wang, Ningning, Xavier Hu, Pai Liu, He Zhu, Yue Hou, Heyuan Huang, Shengyu Zhang, et al. 2025. <span>“Efficient Agents: Building Effective Agents While Reducing Cost.”</span> <a href="https://arxiv.org/abs/2508.02694">https://arxiv.org/abs/2508.02694</a>.
+</div>
+<div id="ref-yeo_mitigating_2025" class="csl-entry" role="listitem">
+Yeo, Wei Jie, Ranjan Satapathy, and Erik Cambria. 2025. <span>“Mitigating Jailbreaks with Intent-Aware LLMs.”</span> <a href="https://arxiv.org/abs/2508.12072">https://arxiv.org/abs/2508.12072</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -755,7 +1010,7 @@ ul.task-list li input[type="checkbox"] {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/posts/dspy-tap/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/posts/dspy-tap/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
@@ -764,7 +1019,7 @@ ul.task-list li input[type="checkbox"] {
 </a>
   </li>  
     <li class="nav-item">
-    <a class="nav-link" href="./about.html">
+    <a class="nav-link" href="../../about.html">
 <p>About</p>
 </a>
   </li>  
