@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://sckathach.github.io/posts/exploring-the-multi-dimensional-refusal-subspace/index.html</loc>
+    <lastmod>2025-10-02T12:20:58.091Z</lastmod>
+  </url>
+  <url>
     <loc>https://sckathach.github.io/about.html</loc>
     <lastmod>2025-09-27T19:01:23.349Z</lastmod>
   </url>
@@ -153,11 +157,7 @@
     <lastmod>2025-09-18T09:24:50.506Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/posts/exploring-the-multi-dimensional-refusal-subspace/index.html</loc>
-    <lastmod>2025-10-01T20:10:55.525Z</lastmod>
-  </url>
-  <url>
     <loc>https://sckathach.github.io/posts/dspy-tap/index.html</loc>
-    <lastmod>2025-10-01T20:09:21.921Z</lastmod>
+    <lastmod>2025-10-02T18:47:27.055Z</lastmod>
   </url>
 </urlset>
