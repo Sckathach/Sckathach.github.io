@@ -87,9 +87,13 @@ Fond of mathematics and physics, I ended up at Télécom SudParis where I focuse
 
 = Posts
 
-- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models. #link("https://sckathach.github.io/mech-interp/subspace-rerouting/post/", [Post])
+- _(Research note)_ Exploring the multi-dimensional refusal subspace in reasoning models, _Sep 25_. #link("https://sckathach.github.io/posts/exploring-the-multi-dimensional-refusal-subspace/", [Post])
 
-- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks. #link("https://sckathach.github.io/mech-interp/exploring-adversarial-mi/", [Post])
+- _(Research note)_ Combining TAP and DSPy to generate quick and efficient jailbreaks, _Aug 25_. #link("https://sckathach.github.io/posts/dspy-tap/", [Post])
+
+- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models, _Mar 25_. #link("https://sckathach.github.io/mech-interp/subspace-rerouting/post/", [Post])
+
+- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks, _Sep 24_. #link("https://sckathach.github.io/mech-interp/exploring-adversarial-mi/", [Post])
 
 = Hackathons
 

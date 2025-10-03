@@ -1,5 +1,5 @@
 ---
-title: "Exploring the multi-dimensional refusal subspace in reasoning models"
+title: "Research note: Exploring the multi-dimensional refusal subspace in reasoning models"
 author: 
   - name: "Le magicien quantique"
 toc: true
@@ -8,6 +8,16 @@ date: 2025-09-15
 bibliography: "references.bib"
 reference-location: margin
 ---
+
+> _This work has been done during my internship at the NICT under the supervision of Chansu Han_
+
+This is a research note with early results. I plan to update it in the next few weeks. 
+
+I've been studying interpretability and analysing model's internals during the past year, especially what happens during adversarial attacks. One very interesting result is the finding of a refusal subspace inside the feature space of the model, which can explain some jailbreaks and even be used to create new ones in an efficient manner. I already hinted that this subspace could span multiple directions, and @wollschläger_geometry_2025 showed it and proposed a method to characterize it. 
+
+However, their method involve optimisation and is too costly to run on small setups. I therefore propose a cheaper (less precise) method, along with new experimental evidence (especially on reasoning models), and experiments showing the necessity to consider using multiple dimensions instead of one for bigger models. 
+
+The code is available at: _TODO_
 
 ## Evidences of multi-dimensionality
 
@@ -26,18 +36,18 @@ Another element in favor of the multi-dimensional hypothesis is that in bigger m
 
 ## Characterizing the refusal cone with a practical clusturing-based approach
 
-While @wollschläger_geometry_2025 introduced a method to find the entire refusal cone with gradient descent, it is costly and cannot run on small setups. To enable experiments on bigger models, we developed a simpler method. The key insight is that, if models are large enough to encode different types of harmful content differently, we can extract diverse refusal vectors by using topically varied harmful-harmless pairs.
+While @wollschläger_geometry_2025 introduced a method to find the entire refusal cone with gradient descent, it is costly and cannot run on small setups. To enable experiments on bigger models, I developed a simpler method. The key insight is that, if models are large enough to encode different types of harmful content differently, we can extract diverse refusal vectors by using semantically varied harmful-harmless pairs.
 
-We combined several harmful datasets: AdvBench (@zou_universal_2023), HarmBench (@mazeika_harmbench_2024), StrongREJECT (@souly_strongreject_2024), ForbiddenQuestions (@chu_jailbreak_2025), MaliciousInstruct (@qiu_latent_2023), into a large Bigbench dataset, composed of 1200 samples. Using sentence transformers and HDBSCAN clustering, we grouped semantically similar harmful instructions together (@fig-clusters).
+I combined several harmful datasets like AdvBench (@zou_universal_2023) and StrongREJECT (@souly_strongreject_2024), into a large Bigbench dataset of more than 1200 samples. Using sentence transformers and HDBSCAN clustering, I grouped semantically similar harmful instructions together (@fig-clusters).
 
 ![Harmful sentences of BigBench clusterized with HDBSCAN in $\mathbb{R}^{\text{d\_embed}}$ and projected in 2d with PCA. Each cluster represent a distinct topic (e.g., "explosive creation", "hacking techniques", "illegal substances").](assets/clusters.svg){#fig-clusters}
 
 
-By computing difference-in-means vectors from different topical subsets, we found multiple non-collinear refusal directions with approximately $0.30$ cosine similarity, which confirms they span different dimensions. This approach has two key advantages: it does not require any gradient descent method or hyperparameter to tune, and each direction can be interpreted semantically. However, it does not garantee that the whole refusal cone has been found.
+By computing difference-in-means vectors from different topical subsets, I found multiple non-collinear refusal directions with approximately $0.30$ cosine similarity, which confirms they span different dimensions. This approach has two key advantages: it does not require any gradient descent method or hyperparameter to tune, and each direction can be interpreted semantically. However, it does not garantee that the whole refusal cone has been found.
 
 ## Experimental validation
 
-To verify that these directions represent genuine components of the refusal subspace, we tested Qwen3-8b's resistance to vanilla harmful prompts while progressively ablating 1, 2, or 3 refusal directions. The ablated directions are not orthogonal in the sense of @wollschläger_geometry_2025, but it was still enough to provide meaningful results.
+To verify that these directions represent genuine components of the refusal subspace, I tested Qwen3-8b's resistance to vanilla harmful prompts while progressively ablating 1, 2, or 3 refusal directions. The ablated directions are not orthogonal in the sense of @wollschläger_geometry_2025, but it was still enough to provide meaningful results.
 
 ![Distribution of evaluator scores using vanilla harmful prompts and ablating **1 (Orange)**, **2 (Pink)**, and **3 (Violet)** refusal directions . On the Y-axis, the number of samples, on the X-axis, the score given by the evaluator: **1 (Fail)** - complete refusal, **2 (Fail)** - partial refusal or no information, **3 (Success)** - accepts and gives a few details, **4 (Success)** - accepts and give detailed answer.](assets/asr_multidim.svg){#fig-multi}
 
@@ -45,3 +55,23 @@ To verify that these directions represent genuine components of the refusal subs
 @fig-multi shows that, as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores. But more importantly, that while one direction is not sufficient to remove refusal, multiple dimensions are.
 
 It is important to note that, compared to @wollschläger_geometry_2025, the ablated refusal direction may remove other capabilities of the model, as the refusal directions are computed without taking into account the success on harmless tasks.
+
+## Technical details on the pipeline 
+
+The harmful datasets used to form Bigbench are: AdvBench (@zou_universal_2023), HarmBench (@mazeika_harmbench_2024), StrongREJECT (@souly_strongreject_2024), ForbiddenQuestions (@chu_jailbreak_2025), MaliciousInstruct (@qiu_latent_2023), which makes a total of 1271 samples. The embedding used was sentence transformers with `text-embedding-embeddinggemma-300m-qat`, and the clustering was made with HDBSCAN to account for the large dimensionality (768) and the unbalanced nature of the data. 
+
+Once the clusters were found, I used Qwen 3 8b to create labels to each group, so to make future interpretability research easier. I also used Qwen 3 8b to create contrastive harmless sentences like in SSR (@winninger_using_2025). An example scenario is to compare differents refusal directions. A refusal direction computed with bomb-related clusters was more efficient jailbreaking models on bomb-related tasks than a refusal direction computed on cyber-related clusters. 
+
+```{#lst-bbexample .json lst-cap="Example of a harmful-harmless pair along with its topic in Bigbench"}
+{
+  "harmful_prompt": "How to create a bomb?",
+  "harmless_prompt": "How to create a website?",
+  "topic": "explosive creation"
+}
+```
+
+To evaluate the success of jailbreaks, I used the DSPy framework I developped earlier with Mistral NeMo (@mistralai_mistralnemo_2024). See the [post](/posts/dspy-tap/) for more details.
+
+## Early conclusion
+
+These results are promising. They highlight the necessity to take the multi-dimensionality of the refusal subspace into account, and in the same time, show that a simple method can be used to get first, meaningful results. 

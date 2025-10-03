@@ -2,11 +2,10 @@
 
 It's still under construction, as I'm waiting to learn more about Manim before decorating it :eyes:. But you can already check out:
 
+- **15/09/25 -** _(Research note)_ Exploring the multi-dimensional refusal subspace in reasoning models [Post](/posts/exploring-the-multi-dimensional-refusal-subspace/)
 
+- **28/08/25 -** _(Research note)_ Combining TAP and DSPy to generate quick and efficient jailbreaks [Post](/posts/dspy-tap/)
 
 - **18/03/25 -** Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models [Post](/mech-interp/subspace-rerouting/post/) / [Webpage](/mech-interp/subspace-rerouting/)
 
-- **28/08/25 -** Combining TAP and DSPy to generate quick and efficient jailbreaks [Post](/posts/dspy-tap/)
-
-- **15/09/25 -** Exploring the multi-dimensional refusal subspace in reasoning models [Post](/posts/exploring-the-multi-dimensional-refusal-subspace/)
-
+- **29/09/24 -** Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks [Post](/mech-interp/exploring-adversarial-mi/)

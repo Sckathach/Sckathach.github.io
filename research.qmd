@@ -31,9 +31,14 @@
 
 ## Posts 
 
-- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models, [Post](./mech-interp/subspace-rerouting/post/)
+- _(Research note)_ Exploring the multi-dimensional refusal subspace in reasoning models, _Sep 25_. [Post](/posts/exploring-the-multi-dimensional-refusal-subspace/)
 
-- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks, [Post](./mech-interp/exploring-adversarial-mi/)
+- _(Research note)_ Combining TAP and DSPy to generate quick and efficient jailbreaks, _Aug 25_. [Post](/posts/dspy-tap/)
+
+- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models, _Mar 25_. [Post](/mech-interp/subspace-rerouting/post/) / [Webpage](/mech-interp/subspace-rerouting/)
+
+- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks, _Sep 24_. [Post](/mech-interp/exploring-adversarial-mi/)
+
 
 ## Hackathons 
 
