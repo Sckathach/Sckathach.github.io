@@ -29,16 +29,20 @@ You can contact me using: thomas [dot] winninger [at] telecom-sudparis [dot] eu
     Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, GNN, signal processing.
 
 ## Experience
-- Jul - Sep 2025 - **Research internship in LLM security - NICT** \
+
+- Sep 2025 - ? - **Teaching and research sprints - [PIAF](https://piaf-saclay.org/)** \
+    Teaching (interpretability, LLM training/ fine-tuning), and organization of research sprints (team of $4\~5$, $<4$ days). 
+
+- Jul - Sep 2025 - **Research internship in LLM security - [NICT](https://csl.nict.go.jp/en/)** \
     Security and jailbreak interpretability on reasoning LLMs.
 
-- Mar - May 2025 - **Research internship in AI explanability - INRIA** \
+- Mar - May 2025 - **Research internship in AI explanability - [INRIA](https://www.inria.fr/fr/antique)** \
     Verified robust explanation for language models.
 
-- Jul - Dec 2024 - **Research internship in AI security - Thales** \
+- Jul - Dec 2024 - **Research internship in AI security - [Thales](https://www.thalesgroup.com/en)** \
     Implementations and improvements of state-of-the-art attacks on LLMs.
 
-- 2022 - 2024 - **Training and infrastructure - HackademINT** \
+- 2022 - 2024 - **Teaching and infrastructure - [HackademINT](https://www.hackademint.org/)** \
     Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024.
 
 ## Misc 
