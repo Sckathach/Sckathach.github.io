@@ -8,7 +8,7 @@
 )
 #align(
   center,
-  text([Student at Télécom SudParis - ENS Paris-Saclay], size: 1.5em),
+  text([M2 mathematics student at Télécom SudParis - ENS Paris-Saclay], size: 1.5em),
 )
 #show heading: X => {
   v(1em)
@@ -19,40 +19,40 @@
 *Mail:* thomas [dot] winninger [at] telecom-sudparis [dot] eu  *- LinkedIN:* #link("https://linkedin.com/in/thomas-winninger", [thomas-winninger]) \
 *Website:* #link("https://le-magicien-quantique.github.io") *- GitHub:* #link("https://github.com/Sckathach", [Sckathach])
 
-= Whoami?
-Aka _the quantum warlock, the masked camel, the fanOfThermodynamics, the whale orchestra conductor_, or just *Sckathach*. I'm a french student at Télécom SudParis, and soon, an AI researcher!
-
-Fond of mathematics and physics, I ended up at Télécom SudParis where I focused on cyber security. As I quickly became interested in AI security, I decided to take a gap year to bring myself up to speed on the subject: AI security research, interpretability, tools, statistics; and since that's what I like best, I'm now doing a master's degree in fundamental AI, and I plan to continue with a thesis, most likely in the same field.
 
 = Education
 
-- 2025 - 2026 *Master MVA - ENS Paris-Saclay* \
-  Topology, optimal transport, RL, training and deploying large-scale models, LLM, GNN, learning for protein science, convex optimization.
+- 2025 - 2026 *Master MVA, ENS Paris-Saclay* \
+  Topology, optimal transport, reinforcement learning, training and deploying large-scale models, LLM, graph neural networks, learning for protein science, convex optimization.
 
-- 2022 - 2026 *Engineering Degree - Télécom SudParis* \
-  Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, GNN, signal processing.
+- 2022 - 2026 *Engineering Degree, Télécom SudParis* \
+  Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, graph neural networks, signal processing.
 
 
 = Experience
-- Jul - Sep 2025 - *Research internship in LLM security - NICT* \
-  Security and jailbreak interpretability on reasoning LLMs.
+- Sep 2025 - _now_ - *Teaching and research sprints - PIAF* \
+  Teaching (interpretability, LLM training and fine-tuning) and organizing short research sprints (teams of ~5 people, lasting under four days).
 
-- Mar - May 2025 - *Research internship in AI explanability - INRIA* \
-  Verified robust explanation for language models.
+- Jul - Sep 2025 - *Research internship in LLM security - NICT* \
+  Research on the security and jailbreak interpretability of Large Reasoning Models (LRMs). _I studied LRM robustness, adapted state-of-the-art black-box and white-box attack from LLMs, and started studying jailbreaks with interpretability methods on LRMs._
+
+- Mar - May 2025 - *Research internship in AI explanability - INRIA* \ 
+  Verified robust explanation for language models. _I explored scaling Hybrid Constrained Zonotopes (HCZs) to language models using convex relaxation and optimization. However, the relaxation error proved too large for practical use._
 
 - Jul - Dec 2024 - *Research internship in AI security - Thales* \
-  Implementations and improvements of state-of-the-art attacks on LLMs.
+  Implementations and improvements of state-of-the-art attacks on LLMs. _I improved state-of-the-art white-box adversarial attacks on LLMs and published the results on ArXiv._
 
-- 2022 - 2024 - *Training and infrastructure - HackademINT* \
-  Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024.
+- 2022 - 2024 - *Teaching and infrastructure - HackademINT* \
+  Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024 (largest cyber security competition in France).
 
-= Misc
+
+= Miscellaneous
 
 - Languages: *Python, #link("https://fr.wikipedia.org/wiki/Baguette_(pain)", [French]), OCaml, English*, Typst, TypeScript, Lua, Rust, C, Bash, Japanese (JLPT 4), Lean
 
-- Tools/ Frameworks: *PyTorch, nnsight*, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :), (see my #link("https://github.com/sckathach", [GitHub]) for more)
-- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game (playing & development), meditation
-- Followed ARENA and AISF
+- Tools/ Frameworks: *PyTorch, nnsight*, Docker (Podman), Kubernetes, React, Qiskit, Archlinux
+- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics, sports, video game (playing & development), meditation
+- I completed the Alignment Research Engineer Accelerator (ARENA) and the AI Safety Fundamental (AISF) curriculums.
 
 = Papers
 - Scaling Hybrid Constrined Zonotopes with optimisation - _Winninger T., Urban C., Wei G., Jun 25_. #link("https://sckathach.github.io/assets/papers/winninger_scaling_2025.pdf", [Paper])
@@ -84,16 +84,6 @@ Fond of mathematics and physics, I ended up at Télécom SudParis where I focuse
 = Research reports
 
 - Graph Neural Network based Intrusion Detection and its Robustness against Adversarial Attacks, _Moreau R., Winninger T., Blanc G., Jun 24_. #link("https://sckathach.github.io/assets/papers/moreau_graph_2024.pdf", [Paper])
-
-= Posts
-
-- _(Research note)_ Exploring the multi-dimensional refusal subspace in reasoning models, _Sep 25_. #link("https://sckathach.github.io/posts/exploring-the-multi-dimensional-refusal-subspace/", [Post])
-
-- _(Research note)_ Combining TAP and DSPy to generate quick and efficient jailbreaks, _Aug 25_. #link("https://sckathach.github.io/posts/dspy-tap/", [Post])
-
-- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models, _Mar 25_. #link("https://sckathach.github.io/mech-interp/subspace-rerouting/post/", [Post])
-
-- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks, _Sep 24_. #link("https://sckathach.github.io/mech-interp/exploring-adversarial-mi/", [Post])
 
 = Hackathons
 

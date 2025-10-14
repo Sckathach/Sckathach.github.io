@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>about – Sckathach's posts</title>
+<title>about – Thomas Winninger</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,43 +74,15 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Sckathach’s posts">
-<meta property="og:description" content="The very super website of the super Sckathach!">
-<meta property="og:site_name" content="Sckathach's posts">
-<meta name="twitter:title" content="Sckathach’s posts">
-<meta name="twitter:description" content="">
-<meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="styles/styles.css">
+<meta property="og:title" content="Thomas Winninger">
+<meta property="og:description" content="My (Thomas Winninger) personal website.">
+<meta property="og:image" content="https://sckathach.github.io/assets/photo.jpg">
+<meta property="og:site_name" content="Thomas Winninger">
+<meta name="twitter:title" content="Thomas Winninger">
+<meta name="twitter:image" content="https://sckathach.github.io/assets/photo.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -285,7 +257,7 @@ window.Quarto = {
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
     </a>
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Sckathach’s posts</span>
+    <span class="navbar-title">Thomas Winninger</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -295,11 +267,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./404ctf/index.html"> 
-<span class="menu-text">404 CTF</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./mech-interp/subspace-rerouting/index.html"> 
+    <a class="nav-link" href="./blogs/subspace-rerouting/index.html"> 
 <span class="menu-text">SSR</span></a>
   </li>  
 </ul>
@@ -311,6 +279,10 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="./research.html"> 
 <span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Writing</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -335,12 +307,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#whoami" id="toc-whoami" class="nav-link active" data-scroll-target="#whoami">$ Whoami</a>
-  <ul class="collapse">
-  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">Education</a></li>
+  <li><a href="#education" id="toc-education" class="nav-link active" data-scroll-target="#education">Education</a></li>
   <li><a href="#experience" id="toc-experience" class="nav-link" data-scroll-target="#experience">Experience</a></li>
-  <li><a href="#misc" id="toc-misc" class="nav-link" data-scroll-target="#misc">Misc</a></li>
-  </ul></li>
+  <li><a href="#miscellaneous" id="toc-miscellaneous" class="nav-link" data-scroll-target="#miscellaneous">Miscellaneous</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/about.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/about.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -351,57 +320,60 @@ window.Quarto = {
 
 
 
-<section id="whoami" class="level1">
-<h1>$ Whoami</h1>
-<p>Aka <em>the quantum warlock, the masked camel, the fanOfThermodynamics, the whale orchestra conductor</em>, or just <strong>Sckathach</strong>. I’m a french student at Télécom SudParis, and soon, an AI researcher!</p>
-<p>I love mathematics, physics, graphs theory, AI, cybersecurity, graphs, geopolitics, thermodynamics (yes, I swear), programming, and especially graphs.</p>
-<p>I’m currently fan of <strong>mechanistic interpretability</strong>, but there is a high risk I become fan of <em>SLT</em> instead.</p>
-<p>My favorite paper (asof December 2024, (still true Oct 25)) : <a href="https://transformer-circuits.pub/2022/toy_model/index.html">Toy Models of Superposition</a>.</p>
-<p>Social media I use arranged in descending exponential order:</p>
+<div class="grid">
+<div class="g-col-12 g-col-md-5">
+<p><br> <br> <img src="./assets/photo.jpg" class="img-fluid"></p>
+</div>
+<section id="about" class="level1 g-col-12 g-col-md-7">
+<h1>About</h1>
+<p>Hi, I’m Thomas! I’m currently an M2 mathematics student at Télécom SudParis and ENS Paris-Saclay, and soon, an AI researcher.</p>
+<p>I began doing research in AI security two years ago. After taking a gap year, where I studied Large Language Model (LLM) security and LLM interpretability, I’m now turning my attention toward more fundamental AI. I also love graph theory and physics.</p>
+<p>My favorite paper: <a href="https://transformer-circuits.pub/2022/toy_model/index.html">Toy Models of Superposition</a>.</p>
+<p>You can find me on:</p>
 <ul>
 <li>GitHub / Sckathach</li>
-<li>Discord</li>
 <li>LinkedIN / thomas-winninger</li>
 <li>X / sckathach</li>
 </ul>
-<p>You can contact me using: thomas [dot] winninger [at] telecom-sudparis [dot] eu</p>
+<p>You can contact me at: <strong>thomas [dot] winninger [at] telecom-sudparis [dot] eu</strong></p>
 <p><strong>Download PDF resume</strong>: <a href="./assets/cv/cv.en.pdf">in English</a>.</p>
-<p><a href="./research.html">Research work</a></p>
+<p><strong>See my <a href="./research.html">Research work</a>.</strong></p>
+</section>
+</div>
 <section id="education" class="level2">
 <h2 class="anchored" data-anchor-id="education">Education</h2>
 <ul>
-<li><p>2025 - 2026 - <strong>Master MVA - ENS Paris-Saclay</strong><br>
-Topology, optimal transport, RL, training and deploying large-scale models, LLM, GNN, learning for protein science, convex optimization.</p></li>
-<li><p>2022 - 2026 - <strong>Engineering Degree - Télécom SudParis</strong><br>
-Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, GNN, signal processing.</p></li>
+<li><p>2025 - 2026 - <strong>Master MVA, ENS Paris-Saclay</strong><br>
+Topology, optimal transport, reinforcement learning, training and deploying large-scale models, LLM, graph neural networks, learning for protein science, convex optimization.</p></li>
+<li><p>2022 - 2026 - <strong>Engineering Degree, Télécom SudParis</strong><br>
+Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, graph neural networks, signal processing.</p></li>
 </ul>
 </section>
 <section id="experience" class="level2">
 <h2 class="anchored" data-anchor-id="experience">Experience</h2>
 <ul>
-<li><p>Sep 2025 - ? - <strong>Teaching and research sprints - <a href="https://piaf-saclay.org/">PIAF</a></strong><br>
-Teaching (interpretability, LLM training/ fine-tuning), and organization of research sprints (team of <span class="math inline">\(4\~5\)</span>, <span class="math inline">\(&lt;4\)</span> days).</p></li>
+<li><p>Sep 2025 - <em>now</em> - <strong>Teaching and research sprints - <a href="https://piaf-saclay.org/">PIAF</a></strong><br>
+Teaching (interpretability, LLM training and fine-tuning) and organizing short research sprints (teams of ~5 people, lasting under four days).</p></li>
 <li><p>Jul - Sep 2025 - <strong>Research internship in LLM security - <a href="https://csl.nict.go.jp/en/">NICT</a></strong><br>
-Security and jailbreak interpretability on reasoning LLMs.</p></li>
+Research on the security and jailbreak interpretability of Large Reasoning Models (LRMs). <em>I studied LRM robustness, adapted state-of-the-art black-box and white-box attack from LLMs, and started studying jailbreaks with interpretability methods on LRMs.</em></p></li>
 <li><p>Mar - May 2025 - <strong>Research internship in AI explanability - <a href="https://www.inria.fr/fr/antique">INRIA</a></strong><br>
-Verified robust explanation for language models.</p></li>
+Verified robust explanation for language models. <em>I explored scaling Hybrid Constrained Zonotopes (HCZs) to language models using convex relaxation and optimization. However, the relaxation error proved too large for practical use.</em></p></li>
 <li><p>Jul - Dec 2024 - <strong>Research internship in AI security - <a href="https://www.thalesgroup.com/en">Thales</a></strong><br>
-Implementations and improvements of state-of-the-art attacks on LLMs.</p></li>
+Implementations and improvements of state-of-the-art attacks on LLMs. <em>I improved state-of-the-art white-box adversarial attacks on LLMs and published the results on <a href="https://arxiv.org/abs/2503.06269">ArXiv</a>.</em></p></li>
 <li><p>2022 - 2024 - <strong>Teaching and infrastructure - <a href="https://www.hackademint.org/">HackademINT</a></strong><br>
-Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI &amp; quantum physics), and organization of 404CTF 2023 &amp; 2024.</p></li>
+Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI &amp; quantum physics), and organization of 404CTF 2023 &amp; 2024 (largest cyber security competition in France).</p></li>
 </ul>
 </section>
-<section id="misc" class="level2">
-<h2 class="anchored" data-anchor-id="misc">Misc</h2>
+<section id="miscellaneous" class="level2">
+<h2 class="anchored" data-anchor-id="miscellaneous">Miscellaneous</h2>
 <ul>
 <li>Languages: <strong>Python, <a href="https://fr.wikipedia.org/wiki/Baguette_(pain)">French</a>, OCaml, English</strong>, Typst, TypeScript, Lua, Rust, C, Bash, Japanese (JLPT 4), Lean</li>
-<li>Tools/ Frameworks: <strong>PyTorch</strong>, <strong>nnsight</strong>, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :), (see my <a href="https://github.com/sckathach">GitHub</a> for more)</li>
-<li>Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game (playing &amp; development), meditation</li>
-<li>Followed ARENA and AISF</li>
+<li>Tools/ Frameworks: <strong>PyTorch</strong>, <strong>nnsight</strong>, Docker (Podman), Kubernetes, React, Qiskit, Archlinux</li>
+<li>Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics, sports, video game (playing &amp; development), meditation</li>
+<li>I completed the Alignment Research Engineer Accelerator (ARENA) and the AI Safety Fundamental (AISF) curriculums.</li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -822,11 +794,7 @@ Teaching (cloud and AI security), cloud management (Kubernetes), creation of cha
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-      <ul class="footer-items list-unstyled">
-    <li class="nav-item">
- Sckathach's post - Content that's both brilliant and terrible until observed
-  </li>  
-</ul>
+      &nbsp;
     </div>   
     <div class="nav-footer-center">
       &nbsp;

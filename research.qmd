@@ -1,7 +1,7 @@
 ## Papers
 - Scaling Hybrid Constrined Zonotopes with optimisation - _Winninger T., Urban C., Wei G., Jun 25_. [Paper](./assets/papers/winninger_scaling_2025.pdf)
 
-- Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - _Winninger T., Addad B., Kapusta K., Mar 25_. [ArXiv](https://arxiv.org/abs/2503.06269) / [Webpage](./mech-interp/subspace-rerouting/)
+- Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models - _Winninger T., Addad B., Kapusta K., Mar 25_. [ArXiv](https://arxiv.org/abs/2503.06269) / [Webpage](./blogs/subspace-rerouting/)
 
 ## Talks
 
@@ -29,17 +29,3 @@
 
 - Graph Neural Network based Intrusion Detection and its Robustness against Adversarial Attacks, _Moreau R., Winninger T., Blanc G., Jun 24_. [Paper](./assets/papers/moreau_graph_2024.pdf)
 
-## Posts 
-
-- _(Research note)_ Exploring the multi-dimensional refusal subspace in reasoning models, _Sep 25_. [Post](/posts/exploring-the-multi-dimensional-refusal-subspace/)
-
-- _(Research note)_ Combining TAP and DSPy to generate quick and efficient jailbreaks, _Aug 25_. [Post](/posts/dspy-tap/)
-
-- Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models, _Mar 25_. [Post](/mech-interp/subspace-rerouting/post/) / [Webpage](/mech-interp/subspace-rerouting/)
-
-- Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks, _Sep 24_. [Post](/mech-interp/exploring-adversarial-mi/)
-
-
-## Hackathons 
-
-- ZaMark: Intellectual Property protection with Homomorphic Watermarking, _Privacy Preserving Hackathon, Zama, Sep 24, (finished 2nd)_. [Slides](./talks/slides/misc/zamark.pdf)

@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Challenge 1 : Introduction aux circuits quantiques – Thomas Winninger</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0e6b5171f1292a58de0ff8a7af83c33b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../../site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../styles/styles.css">
+<meta property="og:title" content="Challenge 1 : Introduction aux circuits quantiques – Thomas Winninger">
+<meta property="og:description" content="My (Thomas Winninger) personal website.">
+<meta property="og:image" content="https://sckathach.github.io/404ctf/2025/quantum-challenges/solutions/introduction/index_files/figure-html/cell-2-output-1.png">
+<meta property="og:site_name" content="Thomas Winninger">
+<meta property="og:image:height" content="303">
+<meta property="og:image:width" content="548">
+<meta name="twitter:title" content="Challenge 1 : Introduction aux circuits quantiques – Thomas Winninger">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://sckathach.github.io/404ctf/2025/quantum-challenges/solutions/introduction/index_files/figure-html/cell-2-output-1.png">
+<meta name="twitter:image-height" content="303">
+<meta name="twitter:image-width" content="548">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../../index.html">
+    <span class="navbar-title">Thomas Winninger</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../blogs/subspace-rerouting/index.html"> 
+<span class="menu-text">SSR</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../research.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text">Writing</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/sckathach" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-aux-outils" id="toc-introduction-aux-outils" class="nav-link active" data-scroll-target="#introduction-aux-outils">Introduction aux outils</a>
+  <ul class="collapse">
+  <li><a href="#représentation" id="toc-représentation" class="nav-link" data-scroll-target="#représentation">Représentation</a></li>
+  <li><a href="#mesure" id="toc-mesure" class="nav-link" data-scroll-target="#mesure">Mesure</a></li>
+  <li><a href="#systèmes-multiples" id="toc-systèmes-multiples" class="nav-link" data-scroll-target="#systèmes-multiples">Systèmes multiples</a></li>
+  <li><a href="#portes-simples" id="toc-portes-simples" class="nav-link" data-scroll-target="#portes-simples">Portes simples</a></li>
+  <li><a href="#portes-multiples" id="toc-portes-multiples" class="nav-link" data-scroll-target="#portes-multiples">Portes multiples</a></li>
+  <li><a href="#un-dernier-point-pour-la-route-opérations-avec-les-bra-kets-et-décomposition-spectrale" id="toc-un-dernier-point-pour-la-route-opérations-avec-les-bra-kets-et-décomposition-spectrale" class="nav-link" data-scroll-target="#un-dernier-point-pour-la-route-opérations-avec-les-bra-kets-et-décomposition-spectrale">Un dernier point pour la route : opérations avec les bra-kets et décomposition spectrale</a></li>
+  <li><a href="#note-non-nécessaire-sur-lintrication" id="toc-note-non-nécessaire-sur-lintrication" class="nav-link" data-scroll-target="#note-non-nécessaire-sur-lintrication">Note (non nécessaire) sur l’intrication</a></li>
+  </ul></li>
+  <li><a href="#à-vous-de-jouer" id="toc-à-vous-de-jouer" class="nav-link" data-scroll-target="#à-vous-de-jouer">À vous de jouer !</a>
+  <ul class="collapse">
+  <li><a href="#partie-1-rotation" id="toc-partie-1-rotation" class="nav-link" data-scroll-target="#partie-1-rotation">Partie 1: Rotation</a></li>
+  <li><a href="#partie-2-vecteurs-propres" id="toc-partie-2-vecteurs-propres" class="nav-link" data-scroll-target="#partie-2-vecteurs-propres">Partie 2: Vecteurs propres</a></li>
+  </ul></li>
+  <li><a href="#récupération-du-drapeau" id="toc-récupération-du-drapeau" class="nav-link" data-scroll-target="#récupération-du-drapeau">Récupération du drapeau !</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/introduction/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/introduction/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Challenge 1 : Introduction aux circuits quantiques</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="cb05d304" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> machinerie <span class="im">import</span> Circuit, draw404</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>draw404()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="introduction-aux-outils" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-aux-outils">Introduction aux outils</h2>
+<p><em>Si le mot qubit vous donne le vertige, je vous invite à prendre cinq minutes pour regarder une introduction aux ordinateur quantiques, par exemple : <a href="https://youtu.be/bayTbt_8aNc" class="uri">https://youtu.be/bayTbt_8aNc</a>. Cependant, pas d’inquiétude, le doctorat en phyisque n’est pas nécessaire pour résoudre ces challenges, les notions nécessaires seront rapidement expliquées.</em></p>
+<section id="représentation" class="level3">
+<h3 class="anchored" data-anchor-id="représentation">Représentation</h3>
+<p>Le qubit, noté <span class="math inline">\(|x\rangle\)</span>, peut prendre la valeur de 0: <span class="math inline">\(|0\rangle\)</span>, 1: <span class="math inline">\(|1\rangle\)</span>, mais aussi toute superposition: <span class="math inline">\(\alpha |0\rangle + \beta |1\rangle\)</span>, avec <span class="math inline">\(|\alpha|^2 + |\beta|^2 = 1\)</span>, ce qui va nous permettre, entre autre, de faire plusieurs opérations en même temps.</p>
+<p>On peut le représenter sous plusieurs formes, par exemple, en utilisant une sphère de Bloch:</p>
+<div id="f9b9ce64" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits(<span class="st">"bloch"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pour facilier les choses, nous allons dans cette suite de challenges uniquement manipuler des circuits. Pour représenter le qubit <span class="math inline">\(|0\rangle\)</span>, on utilise donc un circuit vide à 1 qubit: <code>Circuit(1)</code>.</p>
+<p>Pour créer l’état <span class="math inline">\(|1\rangle\)</span>, on peut appliquer une porte <em>NOT</em>:</p>
+<div id="4417ff53" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>qc.x(<span class="dv">0</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits(<span class="st">"bloch"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Plus généralement, utiliser la porte <code>u</code> de qiskit permet de créer n’importe quel état.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Bloch_sphere.svg/250px-Bloch_sphere.svg.png" class="img-fluid figure-img"></p>
+<figcaption>sphère de Bloch sur wikipédia</figcaption>
+</figure>
+</div>
+<div id="15bbd47e" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>qc.u(theta<span class="op">=</span>pi <span class="op">/</span> <span class="dv">4</span>, phi<span class="op">=-</span>pi <span class="op">/</span> <span class="dv">4</span>, lam<span class="op">=</span><span class="dv">0</span>, qubit<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits(<span class="st">"bloch"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Qiskit permet aussi un rendu Latex:</p>
+<div id="9e1af3e4" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>qc.h(<span class="dv">0</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<p><span class="math display">\[\frac{\sqrt{2}}{2} |0\rangle+\frac{\sqrt{2}}{2} |1\rangle\]</span></p>
+</div>
+</div>
+<p>Une autre façon d’écrire nos qubits est d’utiliser des vecteurs. Par exemple, pour la base canonique: <span class="math display">\[
+    |0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \space
+    |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}  
+\]</span> Dans ce cas là, le qubit précédent s’écrit: <span class="math display">\[
+    \frac{\sqrt{2}}{2} |0\rangle + \frac{\sqrt{2}}{2} |1\rangle =  \frac{\sqrt{2}}{2} \begin{pmatrix} 1 \\ 1 \end{pmatrix}
+\]</span></p>
+</section>
+<section id="mesure" class="level3">
+<h3 class="anchored" data-anchor-id="mesure">Mesure</h3>
+<p>L’action de mesure sur le qubit le sort de son état quantique, il s’effondre &lt;_&lt;, il ne peut prendre qu’une valeur classique, 0 ou 1. Dans le cas des qubits <span class="math inline">\(|0\rangle\)</span> et <span class="math inline">\(|1\rangle\)</span>, lors d’une mesure, ils donneront toujours 0, et 1. Mais quid des qubits en superposition ? Pour un qubit en superposition, la mesure est probabiliste. Pour un qubit <span class="math inline">\(|\psi\rangle = \alpha |0\rangle + \beta |1\rangle\)</span>, les probabilités de mesure sont données par:</p>
+<p><span class="math display">\[
+    \Pr(0) = \left|\alpha\right|^2, \space \Pr(1) = \left|\beta\right|^2  
+\]</span></p>
+<p>Dans le cas de <span class="math inline">\(|\psi\rangle = \frac{\sqrt{2}}{2} |0\rangle + \frac{\sqrt{2}}{2} |1\rangle\)</span>, la probabilité d’obtenir 0 ou 1 est la même, <span class="math inline">\(\frac{1}{2}\)</span>!</p>
+<div id="915f8e99" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>qc.h(<span class="dv">0</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="6">
+<p><span class="math display">\[\frac{\sqrt{2}}{2} |0\rangle+\frac{\sqrt{2}}{2} |1\rangle\]</span></p>
+</div>
+</div>
+<div id="b0a39d8f" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>qc.get_measure(shots<span class="op">=</span><span class="dv">1000</span>, normalise<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>{'0': 505, '1': 495}</code></pre>
+</div>
+</div>
+</section>
+<section id="systèmes-multiples" class="level3">
+<h3 class="anchored" data-anchor-id="systèmes-multiples">Systèmes multiples</h3>
+<p>De même, plusieurs qubits peuvent s’écrire avec des brakets, ou avec des vecteurs: <span class="math display">\[
+    |\psi\rangle = \alpha |00\rangle + \beta |01\rangle + \gamma |10\rangle + \beta |11\rangle
+\]</span></p>
+<p><span class="math display">\[
+    |00\rangle = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0 \end{pmatrix}, \space
+    |01\rangle = \begin{pmatrix} 0 \\ 1 \\ 0 \\ 0 \end{pmatrix}, \space
+    |10\rangle = \begin{pmatrix} 0 \\ 0 \\ 1 \\ 0 \end{pmatrix}, \space  
+    |11\rangle = \begin{pmatrix} 0 \\ 0 \\ 0 \\ 1 \end{pmatrix}  
+\]</span></p>
+<p>Pour combiner des qubits, on utilise l’opération <span class="math inline">\(\otimes\)</span>: <span class="math display">\[
+|00\rangle = |0\rangle \otimes |0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\otimes \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix}
+1 \times \begin{pmatrix} 1 \\ 0 \end{pmatrix} \\
+0 \times \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \\ 0  \end{pmatrix}
+\]</span></p>
+<p>En pratique cela donne:</p>
+<div id="8b1b4a29" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">2</span>)  <span class="co"># Circuit à 2 qubits</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>qc.h(<span class="dv">0</span>)  <span class="co"># On applique une porte H au 1er qubit</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="8">
+<p><span class="math display">\[\frac{\sqrt{2}}{2} |00\rangle+\frac{\sqrt{2}}{2} |01\rangle\]</span></p>
+</div>
+</div>
+<p>Attendez une seconde, n’aurait-on pas dû obtenir <span class="math inline">\(\left(\frac{\sqrt{2}}{2} |0\rangle + \frac{\sqrt{2}}{2} |1\rangle \right) \otimes |0\rangle = \frac{\sqrt{2}}{2} |00\rangle + \frac{\sqrt{2}}{2} |10\rangle\)</span>?</p>
+<p>Cela est dû à qiskit, l’ordre est inversé, le qubit 0, celui en haut du circuit, est représenté en dernier. L’opération précédente était en fait <span class="math inline">\(|0\rangle \otimes \left(\frac{\sqrt{2}}{2} |0\rangle + \frac{\sqrt{2}}{2} |1\rangle \right)\)</span>, ce qui donne bien le résultat obtenu en pratique: <span class="math inline">\(\frac{\sqrt{2}}{2} |00\rangle + \frac{\sqrt{2}}{2} |01\rangle\)</span>, ouf.</p>
+</section>
+<section id="portes-simples" class="level3">
+<h3 class="anchored" data-anchor-id="portes-simples">Portes simples</h3>
+<p>Les portes peuvent être représentés par des matrices unitaires, que l’on applique sur nos états quantiques: <span class="math display">\[
+|\psi_{\text{out}}\rangle = U|\psi_{\text{in}}\rangle
+\]</span></p>
+<p>Par exemple, la porte quantique <em>NOT</em>, notée <span class="math inline">\(X\)</span>, qui reproduit le même comportement que son équivalent classique: <span class="math display">\[
+    X = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix},
+\]</span> <span class="math display">\[
+    X|0\rangle = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \end{pmatrix} = |1\rangle,
+\]</span> <span class="math display">\[
+    X|1\rangle = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} = |0\rangle
+\]</span></p>
+<div id="386fe284" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>qc.x(<span class="dv">0</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>qc.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nous avons aussi vu la porte <span class="math inline">\(H\)</span>, c’est la porte de Hadamard, elle permet de créer des états superposés: <span class="math display">\[
+    H = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix},  
+\]</span> <span class="math display">\[
+    H|0\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix},  
+\]</span> <span class="math display">\[
+    H|1\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ -1 \end{pmatrix}
+\]</span></p>
+<p>Ce qui peut se décomposer selon la base canonique, pour voir le lien entre la notation braket et la notation matricielle: <span class="math display">\[
+H|0\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \frac{1}{\sqrt{2}} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} |0\rangle + \frac{1}{\sqrt{2}}|1\rangle
+\]</span></p>
+<div id="593f90e1" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>qc.h(<span class="dv">0</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>qc.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pour se déplacer sur la sphère de Bloch, on peut utiliser les portes <span class="math inline">\(RX\)</span>, <span class="math inline">\(RY\)</span> et <span class="math inline">\(RZ\)</span>. Elles sont définies par:</p>
+$$ R_X() =
+<span class="math display">\[\begin{pmatrix}
+\cos\frac{\theta}{2} &amp; -i\sin\frac{\theta}{2} \\
+-i\sin\frac{\theta}{2} &amp; \cos\frac{\theta}{2}
+\end{pmatrix}\]</span>
+<p>, </p>
+R_Y() =
+<span class="math display">\[\begin{pmatrix}
+\cos\frac{\theta}{2} &amp; -\sin\frac{\theta}{2} \\
+\sin\frac{\theta}{2} &amp; \cos\frac{\theta}{2}
+\end{pmatrix}\]</span>
+<p>, </p>
+R_Z() =
+<span class="math display">\[\begin{pmatrix}
+e^{-i\frac{\theta}{2}} &amp; 0 \\
+0 &amp; e^{i\frac{\theta}{2}}
+\end{pmatrix}\]</span>
+<p>$$</p>
+<div id="d95c6abb" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>qc.rx(theta<span class="op">=</span>pi <span class="op">/</span> <span class="dv">3</span>, qubit<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>qc.ry(pi <span class="op">/</span> <span class="dv">6</span>, <span class="dv">0</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>qc.rz(pi <span class="op">/</span> <span class="dv">12</span>, <span class="dv">0</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>qc.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ces notations permettent facilement d’appliquer des portes à un qubit, sur un qubit, mais qu’en est-il des états à plusieurs qubits ? Pour appliquer des portes simples dans des systèmes multiples, il faut utiliser le produit tensoriel. Par exemple, dans un système à deux qubits, appliquer la porte <span class="math inline">\(H\)</span> sur le premier qubit uniquement est équivalent à appliquer <span class="math inline">\(H\)</span> sur le premier qubit, et l’identité sur le second. Cela nous permet de créer une porte de la bonne taille: <span class="math display">\[
+    H \otimes I = \frac{1}{\sqrt{2}}\begin{pmatrix}1 &amp; 1 \\ 1&amp; -1\end{pmatrix} \otimes \begin{pmatrix} 1&amp;0 \\ 0&amp; 1 \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1\times\begin{pmatrix} 1&amp;0 \\ 0&amp; 1 \end{pmatrix}&amp;1\times\begin{pmatrix} 1&amp;0 \\ 0&amp; 1 \end{pmatrix}\\1\times\begin{pmatrix} 1&amp;0 \\ 0&amp; 1 \end{pmatrix}&amp;-1\times\begin{pmatrix} 1&amp;0 \\ 0&amp; 1 \end{pmatrix} \end{pmatrix}= \frac{1}{\sqrt{2}}\begin{pmatrix} 1&amp;0&amp;1&amp;0\\0&amp;1&amp;0&amp;1\\1&amp;0&amp;-1&amp;0\\0&amp;1&amp;0&amp;-1\end{pmatrix}
+\]</span></p>
+<p>Ce qui nous permet de l’utiliser sur notre système multiple. Par exemple, pour l’appliquer sur <span class="math inline">\(|01\rangle\)</span>: <span class="math display">\[
+    (H \otimes I) |01\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix} 1&amp;0&amp;1&amp;0\\0&amp;1&amp;0&amp;1\\1&amp;0&amp;-1&amp;0\\0&amp;1&amp;0&amp;-1\end{pmatrix} \begin{pmatrix} 0\\1\\0\\0\end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 0\\1\\0\\1\end{pmatrix} = \frac{1}{\sqrt{2}} |01\rangle + \frac{1}{\sqrt{2}} |11\rangle
+\]</span></p>
+<p>La notation avec des brakets permet aussi de rester sur un seul qubit à la fois. Pour appliquer <span class="math inline">\(H\)</span> au premier qubit uniquement: <span class="math display">\[
+    (H|0\rangle) \otimes |1\rangle = \left(\frac{1}{\sqrt{2}} |0\rangle + \frac{1}{\sqrt{2}} |1\rangle \right) \otimes |1\rangle = \frac{1}{\sqrt{2}} |01\rangle + \frac{1}{\sqrt{2}} |11\rangle
+\]</span></p>
+<div id="b2cb1c8a" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">2</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Préparation de l'état |01&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>qc.x(<span class="dv">0</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>qc.barrier()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># La barrière n'a pas d'impact sur le circuit (ici), je l'utiliserai pour améliorer la lisibilité des circuits.</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># On applique ensuite H</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>qc.h(<span class="dv">1</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>qc.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="a086a795" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="13">
+<p><span class="math display">\[\frac{\sqrt{2}}{2} |01\rangle+\frac{\sqrt{2}}{2} |11\rangle\]</span></p>
+</div>
+</div>
+</section>
+<section id="portes-multiples" class="level3">
+<h3 class="anchored" data-anchor-id="portes-multiples">Portes multiples</h3>
+<p>Une porte qui va beaucoup nous intéresser par la suite est la <em>CNOT</em>, ou <em>controlled-NOT</em>. C’est elle qui va permettre d’intriquer des qubits ! Elle agit sur une paire de qubit, si le premier est à 0 (qubit de contrôle), il ne se passe rien, par contre si le premier est à 1, le deuxième est inversé, il passe par une porte <em>NOT</em>. Elle est définie par :</p>
+<p><span class="math display">\[
+\text{CNOT} = \begin{pmatrix}1&amp;0&amp;0&amp;0\\0&amp;1&amp;0&amp;0\\0&amp;0&amp;0&amp;1\\0&amp;0&amp;1&amp;0\end{pmatrix}
+\]</span> Ou encore : <span class="math display">\[
+\text{CNOT} =
+\begin{cases}
+    |00 \rangle \xrightarrow[]{I \otimes I} |00 \rangle \\
+    |01 \rangle \xrightarrow[]{I \otimes I} |01 \rangle \\
+    |10 \rangle \xrightarrow[]{I \otimes NOT} |11 \rangle \\
+    |11 \rangle \xrightarrow[]{I \otimes NOT} |10 \rangle
+\end{cases}
+\]</span></p>
+<div id="95f0e3b2" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">2</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>qc.x(<span class="dv">0</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>qc.barrier()</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>qc.cx(<span class="dv">0</span>, <span class="dv">1</span>)  <span class="co"># Le qubit de contrôle est 0, celui qui va être inversé est 1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>qc.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="20c43b3a" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="15">
+<p><span class="math display">\[ |11\rangle\]</span></p>
+</div>
+</div>
+<p>Dans le cas de qubits en superposition, j’utilise la notation avec braket qui permet de voir facilement le résultat:</p>
+<p><span class="math display">\[
+   \text{CNOT} \left(\frac{1}{\sqrt{2}} |00\rangle + \frac{1}{\sqrt{2}} |10\rangle \right)  = \frac{1}{\sqrt{2}} \text{CNOT} |00\rangle + \frac{1}{\sqrt{2}} \text{CNOT} |10\rangle = \frac{1}{\sqrt{2}} |00\rangle + \frac{1}{\sqrt{2}} |11\rangle
+\]</span></p>
+<div id="3daca8b3" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">2</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>qc.h(<span class="dv">0</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>qc.barrier()</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>qc.cx(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>qc.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cb4e8cc4" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="17">
+<p><span class="math display">\[\frac{\sqrt{2}}{2} |00\rangle+\frac{\sqrt{2}}{2} |11\rangle\]</span></p>
+</div>
+</div>
+</section>
+<section id="un-dernier-point-pour-la-route-opérations-avec-les-bra-kets-et-décomposition-spectrale" class="level3">
+<h3 class="anchored" data-anchor-id="un-dernier-point-pour-la-route-opérations-avec-les-bra-kets-et-décomposition-spectrale">Un dernier point pour la route : opérations avec les bra-kets et décomposition spectrale</h3>
+<p>Sans rentrer dans les détails, la forme des brakets a une utilité autre que nous rallentir à l’écriture : elle sert à représenter les opérations usuelles de manière visuelle.</p>
+<p>Par exemple, un produit scalaire (complexe) : <span class="math inline">\(u^\dagger v\)</span>, peut s’écrire : <span class="math display">\[
+    \langle u | v \rangle
+\]</span></p>
+<p>De la même manière, le produit : <span class="math inline">\(u v^\dagger\)</span> s’écrit : <span class="math display">\[
+    | u \rangle \langle v |
+\]</span></p>
+<p>Exemple d’écriture matricielle: <span class="math display">\[
+   | 1 \rangle \langle 0 | = \begin{pmatrix} 0 &amp;0\\ 1&amp;0\end{pmatrix}
+\]</span></p>
+<p>Exemple d’opération: <span class="math display">\[
+  ( | 1 \rangle \langle 0 | )   (| 0 \rangle + |1\rangle) =   | 1 \rangle \langle 0 |  0 \rangle + | 1 \rangle \langle 0 |1\rangle =   | 1 \rangle \cdot 1 + | 1\rangle \cdot 0 = |1\rangle
+\]</span></p>
+<p>Cette notation vas nous être utile pour décomposer nos portes. Commes toutes les portes sont des matrices unitaires, elles satisfont: <span class="math display">\[
+    UU^\dagger = I = U^\dagger U
+\]</span></p>
+<p>Le théorème spectral nous donne donc une base orthonormale de dimension <span class="math inline">\(N\)</span>: <span class="math inline">\(\{|\psi_1\rangle, \ldots, |\psi_N\rangle\}\)</span>, avec les vecteurs propres <span class="math inline">\(\lambda_1, \ldots, \lambda_N\)</span> such that <span class="math inline">\(U = \lambda_1 |\psi_1\rangle\langle\psi_1| + \cdots + \lambda_N |\psi_N\rangle\langle\psi_N|\)</span>.</p>
+<p>Ou encore <span class="math display">\[
+    U = \sum_{k=1}^N \lambda_k |\psi_k\rangle\langle\psi_k| \tag{1}
+\]</span></p>
+<p>Par exemple pour l’identité:</p>
+<p><span class="math display">\[I = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix} =  |0\rangle \langle 0| |1\rangle \langle 1|\]</span></p>
+</section>
+<section id="note-non-nécessaire-sur-lintrication" class="level3">
+<h3 class="anchored" data-anchor-id="note-non-nécessaire-sur-lintrication">Note (non nécessaire) sur l’intrication</h3>
+<p>Une propriété très intéressante des qubits est qu’ils peuvent être séparés, mais aussi <strong>intriqués</strong>, c’est-à-dire qu’ils sont dépendants les uns des autres. Cela permet, par exemple, d’agir sur un qubit et d’obtenir des informations sur le second.</p>
+<p>Si l’on prend l’état intriqué <span class="math inline">\(|\psi\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)\)</span>, et que l’on mesure le premier qubit, on a 50% de chance d’obtenir <span class="math inline">\(0\)</span> et 50% d’obtenir <span class="math inline">\(1\)</span>. Cependant, en mesurant uniquement le premier qubit, l’état du second est entièrement déterminé sans qu’il soit mesuré ! En effet, si l’on mesure <span class="math inline">\(0\)</span> pour le premier qubit, alors le second est nécessairement aussi <span class="math inline">\(0\)</span>. Attention, comme la mesure du premier qubit est aléatoire, cela ne permet pas de téléporter des informations à une vitesse supérieure à celle de la lumière, car dans l’autre perspective, on ne connaît pas l’état de la mesure (avant de recevoir l’information par un canal classique, par exemple).</p>
+<p>Un contre-exemple est l’état <span class="math inline">\(|\psi\rangle = \frac{1}{2}(|00\rangle + |01\rangle + |10\rangle + |11\rangle) = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle) \otimes \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)\)</span>. La mesure du premier qubit ne donne aucune information sur le second ; les deux qubits sont <strong>indépendants</strong> ou <strong>séparables</strong>.</p>
+</section>
+</section>
+<section id="à-vous-de-jouer" class="level2">
+<h2 class="anchored" data-anchor-id="à-vous-de-jouer">À vous de jouer !</h2>
+<p><em>Vous n’aurez besoin uniquement des portes présentées au dessus: <span class="math inline">\(X\)</span>, <span class="math inline">\(H\)</span>, <span class="math inline">\(RX\)</span>, <span class="math inline">\(RY\)</span>, <span class="math inline">\(RZ\)</span>, <span class="math inline">\(CNOT\)</span>, cependant, toute la librairie est disponible (l’API de vérification accepte n’importe quel <code>Circuit</code> de bonne taille).</em></p>
+<section id="partie-1-rotation" class="level3">
+<h3 class="anchored" data-anchor-id="partie-1-rotation">Partie 1: Rotation</h3>
+<p>On a vu que l’état <span class="math inline">\(H|0\rangle\)</span> a une probabilité <span class="math inline">\(\frac{1}{2}\)</span> de donner 0, et <span class="math inline">\(\frac{1}{2}\)</span> de donner 1. On peut en réalité trouver un état pour n’importe couple de probabilité donné.</p>
+<p>Trouvez un état <span class="math inline">\(|\psi\rangle\)</span> ayant une probabilité <span class="math inline">\(\frac{1}{4}\)</span> de donner 0, et <span class="math inline">\(\frac{3}{4}\)</span> de donner 1.</p>
+<div id="da3fe5c0" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>p1.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="d76bde96" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>p1_input <span class="op">=</span> Circuit(<span class="dv">1</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>p1_input.x(<span class="dv">0</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>p1_input.rx(pi <span class="op">/</span> <span class="dv">3</span>, <span class="dv">0</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>p1_input.get_measure()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>{'0': 0.2470703125, '1': 0.7529296875}</code></pre>
+</div>
+</div>
+<div id="ea1f3198" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p1.compose(p1_input, front<span class="op">=</span><span class="va">True</span>, inplace<span class="op">=</span><span class="va">True</span>)  <span class="co"># oui, inutile ici</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(p1.get_measure(shots<span class="op">=</span><span class="dv">10000</span>))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"{'1': ~0.75, '0': ~0.25}"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'0': 0.2521, '1': 0.7479}
+{'1': ~0.75, '0': ~0.25}</code></pre>
+</div>
+</div>
+</section>
+<section id="partie-2-vecteurs-propres" class="level3">
+<h3 class="anchored" data-anchor-id="partie-2-vecteurs-propres">Partie 2: Vecteurs propres</h3>
+<p>Pour l’opération <em>NOT</em>, un vecteur propre est l’état <span class="math inline">\(|+\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix}\)</span>, associé à la valeur propre <span class="math inline">\(1\)</span>: <span class="math inline">\(X |+\rangle = |+\rangle\)</span>. L’état <span class="math inline">\(|+\rangle\)</span> peut se construire avec une porte de Hadamard: <span class="math inline">\(H|0\rangle = |+\rangle\)</span>.</p>
+<p>Trouvez un vecteur propre de <span class="math inline">\(\text{CNOT}(I\oplus H)\)</span>, représenté en circuit ci-dessous :</p>
+<div id="7ab4171a" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="op">=</span> Circuit(<span class="dv">2</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>p2.h(<span class="dv">0</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>p2.cx(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>p2.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="0754c4e3" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p2_input <span class="op">=</span> Circuit(<span class="dv">2</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>p2_input.ry(pi <span class="op">/</span> <span class="dv">4</span>, <span class="dv">0</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>p2_input.h(<span class="dv">1</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>p2.compose(p2_input, front<span class="op">=</span><span class="va">True</span>, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>p2.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="01392afe" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vérification</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="ss">    </span><span class="sc">{</span>p2_input<span class="sc">.</span>get_measure()<span class="sc">}</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="ss">~=</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="ss">    </span><span class="sc">{</span>p2<span class="sc">.</span>get_measure()<span class="sc">}</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    {'10': 0.4267578125, '00': 0.4130859375, '11': 0.0771484375, '01': 0.0830078125}
+~=
+    {'00': 0.462890625, '10': 0.40625, '01': 0.0615234375, '11': 0.0693359375}
+</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="récupération-du-drapeau" class="level2">
+<h2 class="anchored" data-anchor-id="récupération-du-drapeau">Récupération du drapeau !</h2>
+<p>Pour valider vos circuits <code>p1_input</code> et <code>p2_input</code>, il faut me les envoyer sous forme <em>flat</em>, à l’adresse donée dans l’énoncée. Le code suivant devrait se charger des détails. <strong>Vérifiez l’URL</strong>.</p>
+<p>Le brute force est interdit, vous avez des tests pour vérifier de votre côté. Cependant, même avec <span class="math inline">\(10000\)</span> <em>shots</em>, il se peut que vous soyez très malchanceux, dans ce cas là, n’hésitez pas à réessayer une ou deux fois. Si le problème persiste, que vous pensez avoir juste et que c’est l’API qui est cassé, ce qui est tout à fait possible, venez me voir en DM sur discord : <span class="citation" data-cites="sckathach">(<a href="#ref-sckathach" role="doc-biblioref"><strong>sckathach?</strong></a>)</span>, ou Le magicien quantique.</p>
+<div id="edd6e728" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"p1_input"</span>: p1_input.get_flat_unitary(),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"p2_input"</span>: p2_input.get_flat_unitary(),</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://causapscal-des-profondeurs.404ctf.fr/challenges/1"</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {<span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>, <span class="st">"Accept"</span>: <span class="st">"application/json"</span>}</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(url, json<span class="op">=</span>data, headers<span class="op">=</span>headers)</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.loads(response.content)[<span class="st">"message"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>GG ! Voici le drapeau : 404CTF{uN3_SUp3rp0s1tIon_d3_dr4pE4ux_PoUr_1_m3l4nGE_ExPl0S1f}</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/sckathach\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/introduction/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/introduction/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://sckathach.github.io">
+<p>Home</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

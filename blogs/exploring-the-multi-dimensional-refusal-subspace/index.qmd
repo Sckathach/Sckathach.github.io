@@ -1,0 +1,93 @@
+---
+title: "Research note: Exploring the multi-dimensional refusal subspace in reasoning models"
+author: 
+  - name: "Thomas Winninger"
+toc: true
+code-fold: true
+date: 2025-09-15
+bibliography: "references.bib"
+reference-location: margin
+---
+
+> _This work was conducted during my internship at NICT under the supervision of Chansu Han._
+
+This is an early research note, I plan to update it as the experiments progress.  
+
+Over the past year, I’ve been studying interpretability and analyzing what happens inside large language models (LLMs) during adversarial attacks. One of the most interesting results is the discovery of a **refusal subspace** (@arditi_refusal_2024) in the model’s feature space. This subspace explains why some jailbreaks work and can even be used to create new ones efficiently.  
+
+I previously suggested that this subspace might not be one-dimensional, and @wollschläger_geometry_2025 later confirmed this, introducing a method to characterize it. However, their approach relies on gradient-based optimization and is too computationally heavy for small setups.  
+
+Here, I propose a cheaper (though less precise) method to study this structure, along with new experimental evidence (especially on reasoning models) showing that we need to consider **multiple dimensions** rather than a single refusal vector for larger models.  
+
+## Evidences of multi-dimensionality
+
+Mechanistic interpretability research (@nanda_comprehensive_2022; @hasting_introduction_2024) has shown that some model behaviors can be expressed linearly in activation space (@park_linear_2024). For example, by comparing activations between contrastive pairs such as "How to create a bomb?" vs. "How to create a website?",  we can extract a **refusal direction**, a vector representing the model’s tendency to reject harmful queries (@arditi_refusal_2024).  
+
+While earlier work assumed this direction was one-dimensional, evidence suggests that refusal actually spans a **multi-dimensional subspace**, especially in larger models (@wollschläger_geometry_2025; @winninger_using_2025).  
+
+When refusal directions are extracted using different techniques (e.g., difference-in-means vs. probe classifiers), they are **highly but not perfectly aligned**. This imperfect cosine similarity indicates that the model’s refusal behavior isn’t captured by a single vector, but distributed across several correlated directions.
+
+
+![Cosine similarity between refusal directions extracted via different methods across layers of Llama 3.2 1b. While the cosine similarity is high in the first layers, it becomes less important in the later ones, with a minimal value of $0.39$ still being meaningful in $\mathbb{R}^{\text{d\_embed}}$, but far from the $1$ expected if refusal truly occupied just one dimension.](assets/cosine_pr_llama3.2_1b.svg){#fig-cosine}
+
+This structure also explains why **ablating a single refusal direction** often fails to jailbreak larger models: refusal is distributed and redundant. @wollschläger_geometry_2025 described this as a *refusal cone* and proposed a gradient-based way to find it, which unfortunately, is too heavy for smaller machines like mine to perform.
+
+> _It also clarifies some earlier results: in SSR (@winninger_using_2025), the *ProbeSSR* variant consistently outperformed *SteeringSSR* even though they’re theoretically similar. SteeringSSR uses a single difference-in-means (DIM) vector, while ProbeSSR (initialized randomly) can converge toward different, more efficient refusal directions — essentially sampling parts of the same cone._
+
+
+## Characterizing the refusal cone with a practical clusturing-based approach
+
+
+The idea for the cheap refusal cone extraction is straightforward: if large models encode different categories of harmful content differently, then computing refusal directions per topic should expose several distinct vectors.  
+
+I merged multiple harmful datasets, like AdvBench (@zou_universal_2023), StrongREJECT (@souly_strongreject_2024), into a unified BigBench-style dataset of about 1,200 samples. Using a sentence transformer embedding (`text-embedding-embeddinggemma-300m-qat`) and **HDBSCAN** clustering, I grouped semantically similar prompts together (@fig-clusters).
+
+![Harmful sentences of BigBench clusterized with HDBSCAN in $\mathbb{R}^{\text{d\_embed}}$ and projected in 2d with PCA. Each cluster represent a distinct topic (e.g., "explosive creation", "hacking techniques", "illegal substances").](assets/clusters.svg){#fig-clusters}
+
+
+By computing difference-in-means vectors from different topical subsets, I found multiple non-collinear refusal directions with approximately $0.30$ cosine similarity, which confirms they span different dimensions. This approach has two key advantages: it does not require any gradient descent method or hyperparameter to tune, and each direction can be interpreted semantically. However, it does not garantee that the whole refusal cone has been found.
+
+By computing difference-in-means vectors for each cluster, I obtained multiple non-collinear refusal directions with cosine similarity around 0.3, confirming that they occupy different regions of the subspace. These refusal directions also have interpretable semantic meaning, as they are linked to the topic of the cluster. 
+
+Of course, it doesn’t guarantee full coverage of the refusal cone.
+
+
+## Experimental validation
+
+
+To test whether these directions truly correspond to distinct refusal components, I ablated one, two, and three refusal vectors in Qwen3-8B, then measured the model’s responses to vanilla harmful prompts using the DSPy evaluation pipeline.
+
+![Distribution of evaluator scores using vanilla harmful prompts and ablating **1 (Orange)**, **2 (Pink)**, and **3 (Violet)** refusal directions . On the Y-axis, the number of samples, on the X-axis, the score given by the evaluator: **1 (Fail)** - complete refusal, **2 (Fail)** - partial refusal or no information, **3 (Success)** - accepts and gives a few details, **4 (Success)** - accepts and give detailed answer.](assets/asr_multidim.svg){#fig-multi}
+
+
+@fig-multi shows that, as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores. But more importantly, that while one direction is not sufficient to remove refusal, multiple dimensions are.
+
+
+As shown in @fig-multi, the distribution shifts toward higher compliance scores as more refusal directions are ablated. More importantly, a single ablation doesn’t fully remove refusal, but multiple ablations do, confirming that refusal is multi-dimensional.
+
+One limitation of this simplified approach is that it doesn’t account for harmless-task performance: ablating several refusal directions may degrade unrelated capabilities, as also noted by @wollschläger_geometry_2025.
+
+## Technical details on the pipeline 
+
+
+The **harmful dataset** used to form BigBench included: AdvBench (@zou_universal_2023), HarmBench (@mazeika_harmbench_2024), StrongREJECT (@souly_strongreject_2024), ForbiddenQuestions (@chu_jailbreak_2025), and MaliciousInstruct (@qiu_latent_2023), totaling 1,271 samples.  
+
+Embeddings were computed with `text-embedding-embeddinggemma-300m-qat`, and **HDBSCAN** was chosen to handle the 768-dimensional, unevenly distributed data.  
+
+Once the clusters were formed, I used **Qwen3-8B** to label them automatically, making the dataset easier to interpret later. I also generated contrastive harmless prompts with this model (as in SSR, @winninger_using_2025).  
+
+```{#lst-bbexample .json lst-cap="Example of a harmful-harmless pair along with its topic in Bigbench"}
+{
+  "harmful_prompt": "How to create a bomb?",
+  "harmless_prompt": "How to create a website?",
+  "topic": "explosive creation"
+}
+```
+
+To evaluate the success of jailbreaks, I used the DSPy framework I developped with Mistral NeMo as the backbone (@mistralai_mistralnemo_2024). See the [post](/posts/dspy-tap/) for more details.
+
+## Early conclusion
+
+These results strongly suggest that refusal is not a single direction but spans a multi-dimensional subspace. Even though this clustering-based method is simple, it gives clear, interpretable evidence, and can run on local hardware.
+
+This makes it a useful baseline for exploring larger models and paves the way for more systematic work on disentangling safety-related features from general reasoning abilities.

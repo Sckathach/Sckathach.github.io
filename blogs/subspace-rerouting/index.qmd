@@ -1,0 +1,31 @@
+---
+title: "Subspace rerouting: Using Mechanistic Interpretability to Craft Attacks against Large Language Models"
+---
+
+## Writing 
+
+
+**Paper available on ArXiv:** <https://arxiv.org/abs/2503.06269> 
+
+[**Presentation post**](./post/), it can also be read on [LessWrong](https://www.lesswrong.com/posts/mG7jioaAsBasnuD4b/subspace-rerouting-using-mechanistic-interpretability-to-2).
+
+[**First failed experiments (Oct 24)**](/blogs/exploring-adversarial-mi/): This work is my capstone project for the AISF Alignment course. It consists of an adaptation of the Greedy Coordinate Gradient (GCG) attack to exploit the refusal subspace in large language models.
+
+
+## Experiments
+
+[**Component attribution**](./reproduce-experiments/component-attribution/): This notebook illustrate the patching attribution method to find safety heads, the Direct Logit Attribution (DLA) method to find important layers, and the same DLA to find safety heads
+
+[**Layer diff**](./reproduce-experiments/layer-diff/): This notebook shows how to reproduce the experiments of the Appendix Section I: Cross-layer stability of subspaces of the paper.
+
+[**Multi-layers**](./reproduce-experiments/multi-layers/): This notebook shows how to reproduce the experiments of the Appendix Section J: Multi-layer tarrgeting effects on attack success.
+
+[**Steering out-of-distribution**](./reproduce-experiments/steering-out-of-distribution/): This notebook shows how to reproduce the experiments of the Appendix Secion H: Out of distribution discussion.
+
+## Miscellaneous 
+
+[**Weird answers**](./funny-answers/): Collection of some interesting answers I had during experiments.
+
+[**Run and eval**](./reproduce-experiments/run-ssr-probes/): This notebook’s purpose is to quickly explain the general pipeline to craft adversarial inputs with Probe SSR.
+
+[**Using Lens**](./reproduce-experiments/using-lens/): Introduction to the main library used in the paper: Transformer Lens.

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sckathach.github.io/posts/exploring-the-multi-dimensional-refusal-subspace/index.html</loc>
-    <lastmod>2025-10-03T07:10:15.879Z</lastmod>
-  </url>
-  <url>
     <loc>https://sckathach.github.io/about.html</loc>
-    <lastmod>2025-10-12T12:48:15.968Z</lastmod>
+    <lastmod>2025-10-14T09:34:20.120Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/static/genki/resources/notes/about-notes.html</loc>
@@ -21,132 +17,164 @@
     <lastmod>2025-09-17T18:43:54.350Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/index.html</loc>
+    <loc>https://sckathach.github.io/404ctf/2025/index.html</loc>
+    <lastmod>2025-10-14T08:59:14.653Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2025/quantum-challenges/challenges/grover-casse/index.html</loc>
+    <lastmod>2025-10-14T08:37:19.587Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2025/quantum-challenges/solutions/grover-normal/index.html</loc>
+    <lastmod>2025-10-14T08:40:10.535Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2025/quantum-challenges/solutions/introduction/index.html</loc>
+    <lastmod>2025-10-14T08:40:28.567Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/challenges/introduction-to-rail-encoding/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.375Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/challenges/multiple-systems/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.399Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/solutions/introduction-to-rail-encoding/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.409Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/solutions/multiple-systems/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.411Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/challenges/poison-1/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.370Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/challenges/backdoor/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.367Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/solutions/poison-1/index.html</loc>
     <lastmod>2025-09-17T18:43:53.374Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/reverse-engineering/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.405Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/quantum-woman-in-the-middle/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.404Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/reverse-engineering/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.414Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/quantum-woman-in-the-middle/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.413Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-2/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.372Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-3/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.373Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-2/index.html</loc>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/solutions/backdoor/index.html</loc>
     <lastmod>2025-09-17T18:43:53.374Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-3/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.374Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/component-attribution/index.html</loc>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/reproduce-experiments/component-attribution/index.html</loc>
     <lastmod>2025-09-17T18:43:54.094Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/layer-diff/index.html</loc>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/reproduce-experiments/layer-diff/index.html</loc>
     <lastmod>2025-09-17T18:43:54.095Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/using-lens/index.html</loc>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/reproduce-experiments/using-lens/index.html</loc>
     <lastmod>2025-09-17T18:43:54.102Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/post/index.html</loc>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/post/index.html</loc>
     <lastmod>2025-09-17T18:43:54.093Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/funny-answers/index.html</loc>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/funny-answers/index.html</loc>
     <lastmod>2025-09-17T18:43:54.057Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/mech-interp/index.html</loc>
-    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/mech-interp/exploring-adversarial-mi/index.html</loc>
-    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/index.html</loc>
-    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/steering-out-of-distribution/index.html</loc>
-    <lastmod>2025-09-17T18:43:54.102Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/run-ssr-probes/index.html</loc>
-    <lastmod>2025-09-17T18:43:54.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/mech-interp/subspace-rerouting/reproduce-experiments/multi-layers/index.html</loc>
-    <lastmod>2025-09-17T18:43:54.097Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/tp/index.html</loc>
-    <lastmod>2025-09-17T18:43:54.479Z</lastmod>
+    <loc>https://sckathach.github.io/blogs/exploring-the-multi-dimensional-refusal-subspace/index.html</loc>
+    <lastmod>2025-10-14T10:34:59.081Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/tp/le-chat/index.html</loc>
     <lastmod>2025-09-17T18:43:54.517Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/backdoor/index.html</loc>
+    <loc>https://sckathach.github.io/tp/index.html</loc>
+    <lastmod>2025-09-17T18:43:54.479Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/blogs/dspy-tap/index.html</loc>
+    <lastmod>2025-10-14T10:13:57.300Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/blogs/exploring-adversarial-mi/index.html</loc>
+    <lastmod>2025-09-17T18:43:54.057Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/index.html</loc>
+    <lastmod>2025-10-14T09:20:48.365Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/reproduce-experiments/steering-out-of-distribution/index.html</loc>
+    <lastmod>2025-09-17T18:43:54.102Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/reproduce-experiments/run-ssr-probes/index.html</loc>
+    <lastmod>2025-09-17T18:43:54.097Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/blogs/subspace-rerouting/reproduce-experiments/multi-layers/index.html</loc>
+    <lastmod>2025-09-17T18:43:54.097Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/solutions/poison-3/index.html</loc>
     <lastmod>2025-09-17T18:43:53.374Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/solutions/poison-1/index.html</loc>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/solutions/poison-2/index.html</loc>
     <lastmod>2025-09-17T18:43:53.374Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/backdoor/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.367Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/challenges/poison-3/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.373Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/artificial-intelligence/challenges/poison-1/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.370Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/2024/artificial-intelligence/challenges/poison-2/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.372Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/multiple-systems/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.411Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/solutions/quantum-woman-in-the-middle/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.413Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/solutions/introduction-to-rail-encoding/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.409Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/solutions/reverse-engineering/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.414Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/multiple-systems/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.399Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/challenges/quantum-woman-in-the-middle/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.404Z</lastmod>
   </url>
   <url>
-    <loc>https://sckathach.github.io/404ctf/quantum-challenges/challenges/introduction-to-rail-encoding/index.html</loc>
-    <lastmod>2025-09-17T18:43:53.375Z</lastmod>
+    <loc>https://sckathach.github.io/404ctf/2024/quantum-challenges/challenges/reverse-engineering/index.html</loc>
+    <lastmod>2025-09-17T18:43:53.405Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2024/index.html</loc>
+    <lastmod>2025-10-14T08:59:23.081Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2025/quantum-challenges/solutions/grover-casse/index.html</loc>
+    <lastmod>2025-10-14T08:39:55.115Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2025/quantum-challenges/challenges/introduction/index.html</loc>
+    <lastmod>2025-10-14T08:36:36.994Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sckathach.github.io/404ctf/2025/quantum-challenges/challenges/grover-normal/index.html</loc>
+    <lastmod>2025-10-14T08:37:07.789Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/index.html</loc>
-    <lastmod>2025-10-03T07:04:53.181Z</lastmod>
+    <lastmod>2025-10-14T09:44:05.559Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/research.html</loc>
-    <lastmod>2025-10-03T07:06:11.203Z</lastmod>
+    <lastmod>2025-10-14T09:13:13.531Z</lastmod>
   </url>
   <url>
     <loc>https://sckathach.github.io/static/genki/resources/notes/citing-pages.html</loc>
@@ -155,9 +183,5 @@
   <url>
     <loc>https://sckathach.github.io/static/genki/resources/images/about-genkico-lg.html</loc>
     <lastmod>2025-09-18T09:24:50.506Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sckathach.github.io/posts/dspy-tap/index.html</loc>
-    <lastmod>2025-10-03T07:09:57.930Z</lastmod>
   </url>
 </urlset>

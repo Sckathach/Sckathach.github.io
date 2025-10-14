@@ -1,0 +1,49 @@
+---
+toc: false
+title: "404 CTF - Edition 2025"
+hide-description: true
+---
+
+<center>
+    <img src="./logo.png" style="width: 40%">
+    <p>
+        Coorganisé par la [Direction Générale de la Sécurité Extérieure](https://www.dgse.gouv.fr), [Télécom SudParis](https://www.telecom-sudparis.eu), [HackademINT](https://www.hackademint.org), [OVHcloud](https://www.ovhcloud.com) et [Viva Technology](https://vivatechnology.com), le 404 CTF est la plus grande compétition de cybersécurité de France. Après le succès des précédentes éditions, avec l'édition 2024 qui célébrait le monde du sport, le 404 CTF revient pour une quatrième édition sur le thème de l'espace ! L'édition 2025 s'est tenue du 10 mai au 1er juin 2025 et a rassemblé près de 3400 participants autours de 84 challenges conçus par HackademINT. En savoir plus sur [le site du 404 CTF](https://www.404ctf.fr).
+    </p>
+    <p>
+        Éditions précédentes:
+        <br>
+        <a href="https://github.com/HackademINT/404CTF-2022">2022</a> | <a href="https://github.com/HackademINT/404CTF-2023">2023</a> | <a href="https://github.com/HackademINT/404CTF-2024">2024</a>
+    </p>
+    <br>
+    <br>
+</center>
+
+## Introduction
+
+J'ai choisi cette année de faire des défis d'intelligence orientés interprétabilité sur des modèles de langage. Le principe est simple, le modèle a appris le drapeau, mais il a été grandement endommagé et ne peut donc plus le prédire. Il faut donc analyser le modèle et tenter d'extraire l'information du drapeau qui n'a pas été entièrement effacée. Un dernier défi présente une méthode de tatouage sur ces mêmes modèles, ainsi que ces limites. 
+
+Pour la quantique, je me suis penché sur l'algorithme de Grover, qui est un exemple très classique de situation où l'ordinateur quantique a un avantage considérable sur son homologue classique. C'est aussi un très bon exemple pour découvrir l'algorithmique quantique. 
+
+
+## Défis
+
+### Algorithmique quantique 
+_Les énnoncés et solutions sont disponibles ici : <https://github.com/Sckathach/causapscal-des-pronfondeurs/>._
+
+**Introduction aux circuits quantiques:** Introduction aux outils, à la mesure, aux systèmes multiples, aux portes, et à l'intrication. [Challenge](./quantum-challenges/challenges/introduction/) / [Solution](./quantum-challenges/solutions/introduction/)
+
+**Algorithme de Grover (1/2):** Introduction à l'algorithme de Grover, un exemple jouet de l'avantage quantique. [Challenge](./quantum-challenges/challenges/grover-normal/) / [Solution](./quantum-challenges/solutions/grover-normal/)
+
+**Algorithme de Grover _cassé_ (2/2):** L'implémentation n'a pas été rigoureuse, sera-t-il tout de même possible de récupérer le drapeau ? [Challenge](./quantum-challenges/challenges/grover-casse/) / [Solution](./quantum-challenges/solutions/grover-casse/)
+
+
+### Intelligence artificielle 
+_Les énoncés et solutions sont disponibles ici: <https://github.com/Sckathach/causapscal-des-vents/>._
+
+**Gorfoustral (1/3):** Le capitaine du vaisseau a décidé de se mettre à la mode du moment, il a changé le système d'authentification avec un Grand Modèle de Langage (GML)... C'est sûrement très peu sécurisé, vous pouvez y jeter un coup d'oeil ?
+
+**Gorfoustral (2/3):** C'était effectivement peu sécurisé. Mais malheureusement notre capitaine est têtu, il a modifié le modèle et dit "c'est fix". J'en doute très fort.
+
+**Gorfoustral (3/3):** Au cours d'une discussion échauffée sur la sécurité du modèle, le capitaine a glissé, il a effacé la moitié des poids ! Comment va-t-on faire pour récupérer le mot de passe maintenant ? On en a besoin pour sortir...
+
+**Du tatouage:** Nos journaux de bord ont été tatoués pour garantir leur intégrité. Le capitaine est très fier de sa méthode, mais je doute que ça soit suffisant. Pouvez-vous jeter un coup d'oeil ?

@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Le magicien quantique">
+<meta name="dcterms.date" content="2024-05-12">
+
+<title>Solution Challenge 1: Introduction to the dual-rail or path encoding – Thomas Winninger</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0e6b5171f1292a58de0ff8a7af83c33b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../../site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../styles/styles.css">
+<meta property="og:title" content="Solution Challenge 1: Introduction to the dual-rail or path encoding – Thomas Winninger">
+<meta property="og:description" content="My (Thomas Winninger) personal website.">
+<meta property="og:image" content="https://sckathach.github.io/404ctf/2024/quantum-challenges/solutions/introduction-to-rail-encoding/memes/challenge_1-english.jpg">
+<meta property="og:site_name" content="Thomas Winninger">
+<meta name="twitter:title" content="Solution Challenge 1: Introduction to the dual-rail or path encoding – Thomas Winninger">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://sckathach.github.io/404ctf/2024/quantum-challenges/solutions/introduction-to-rail-encoding/memes/challenge_1-english.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../../index.html">
+    <span class="navbar-title">Thomas Winninger</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../blogs/subspace-rerouting/index.html"> 
+<span class="menu-text">SSR</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../research.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text">Writing</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/sckathach" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#encoding-qubits" id="toc-encoding-qubits" class="nav-link active" data-scroll-target="#encoding-qubits"><span class="header-section-number">1</span> Encoding Qubits?</a></li>
+  <li><a href="#the-beginning-of-problems" id="toc-the-beginning-of-problems" class="nav-link" data-scroll-target="#the-beginning-of-problems"><span class="header-section-number">2</span> The Beginning of Problems…</a></li>
+  <li><a href="#a-new-challenger-the-phase-shifter" id="toc-a-new-challenger-the-phase-shifter" class="nav-link" data-scroll-target="#a-new-challenger-the-phase-shifter"><span class="header-section-number">3</span> A New Challenger: The Phase Shifter</a></li>
+  <li><a href="#your-turn-to-play" id="toc-your-turn-to-play" class="nav-link" data-scroll-target="#your-turn-to-play"><span class="header-section-number">4</span> Your Turn to Play!</a>
+  <ul class="collapse">
+  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1"><span class="header-section-number">4.1</span> Step 1</a></li>
+  <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2"><span class="header-section-number">4.2</span> Step 2</a></li>
+  <li><a href="#one-last-tool-for-the-road-the-bloch-sphere" id="toc-one-last-tool-for-the-road-the-bloch-sphere" class="nav-link" data-scroll-target="#one-last-tool-for-the-road-the-bloch-sphere"><span class="header-section-number">4.3</span> One Last Tool for the Road: The Bloch Sphere</a></li>
+  <li><a href="#final-step" id="toc-final-step" class="nav-link" data-scroll-target="#final-step"><span class="header-section-number">4.4</span> Final Step:</a></li>
+  </ul></li>
+  <li><a href="#did-you-notice" id="toc-did-you-notice" class="nav-link" data-scroll-target="#did-you-notice"><span class="header-section-number">5</span> Did You Notice?</a></li>
+  <li><a href="#flag-retrieval" id="toc-flag-retrieval" class="nav-link" data-scroll-target="#flag-retrieval"><span class="header-section-number">6</span> Flag Retrieval</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/2024/quantum-challenges/solutions/introduction-to-rail-encoding/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/2024/quantum-challenges/solutions/introduction-to-rail-encoding/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Solution Challenge 1: Introduction to the dual-rail or path encoding</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Le magicien quantique </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 12, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="e156d68cbc62a3bb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> perceval <span class="im">as</span> pcvl</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="memes/challenge_1-english.jpg" class="img-fluid figure-img"></p>
+<figcaption>railway_meme.jpg</figcaption>
+</figure>
+</div>
+<section id="encoding-qubits" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="encoding-qubits"><span class="header-section-number">1</span> Encoding Qubits?</h2>
+<p>The quantum information carried by a <strong>qubit</strong> can be represented in various ways. Here, we use the photonic quantum computer model, which operates with <strong>photons</strong> and <strong>optical hardware</strong>.</p>
+<p><em>This is how the French startup Quandela operates. We will complete all the challenges of this edition using their framework: Perceval. (https://perceval.quandela.net/)</em></p>
+<div id="6706e4db218c5796" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A beautiful gate</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x_gate <span class="op">=</span> pcvl.PERM([<span class="dv">1</span>, <span class="dv">0</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(x_gate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Working with photons has many advantages. All operations are possible, with direct applications in telecommunications. Scaling is easier and energy consumption is lower.</p>
+<div id="5150c9689952557a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Another beautiful gate</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>hadamard_gate <span class="op">=</span> pcvl.BS.H()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(hadamard_gate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are several ways to encode qubits with photons; we have chosen to focus on <strong>dual-rail encoding</strong> because it is easier to grasp.</p>
+<div id="b567e1429c2584c3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>qubits <span class="op">=</span> {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0"</span>: pcvl.BasicState([<span class="dv">1</span>, <span class="dv">0</span>]),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"1"</span>: pcvl.BasicState([<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Le qbit 0 sur le premier rail :"</span>, qubits[<span class="st">"0"</span>])</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Le qbit 1 sur le second rail :"</span>, qubits[<span class="st">"1"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Le qbit 0 sur le premier rail : |1,0&gt;
+Le qbit 1 sur le second rail : |0,1&gt;</code></pre>
+</div>
+</div>
+<p>We can then perform operations on these rails to simulate <strong>logic gates</strong>. For example, a NOT gate (<code>x_gate</code>):</p>
+<div id="3e82fbcf9632058b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We create a simulation of our circuit: `x_gate`</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pcvl.Processor(<span class="st">"Naive"</span>, x_gate)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># We analyze the output produced with a qubit 0 at the input.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>analyser <span class="op">=</span> pcvl.algorithm.Analyzer(p, [qubits[<span class="st">"0"</span>]], <span class="st">'*'</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(analyser)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">|0,1&gt;</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">|1,0&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>|1,0&gt;</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We can also try with <strong>multiple inputs:</strong></p>
+<div id="5993db76-555d-45bf-b622-6a5d4558c914" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:15:35.504970Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:15:35.498117Z&quot;}}" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dictionary (inverse of qubit defined above) used to directly display qubits when using functions like </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the analyzer.</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>qubits_ <span class="op">=</span> {qubits[k]: k <span class="cf">for</span> k <span class="kw">in</span> qubits}</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The '*' in the previous definition of the analyzer was used to display all possible outputs. Here,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># I specified which outputs I wanted to have them in the order I desire.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>analyser <span class="op">=</span> pcvl.algorithm.Analyzer(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    p, </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    input_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    output_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    mapping<span class="op">=</span>qubits_</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(analyser)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">0</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>All operations can be represented by <strong>unitary matrices</strong>. For example, the previous circuit can be summarized by:</p>
+<div id="708a3b33-19ee-4f9f-9d25-e35f7ec6bb57" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:15:35.796425Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:15:35.789860Z&quot;}}" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(x_gate.definition())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}0 &amp; 1\\1 &amp; 0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>In general: <span class="math display">\[
+|\phi\rangle = U|\psi\rangle
+\]</span></p>
+<p>For instance: <span class="math display">\[
+|\phi\rangle = X|1\rangle = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} = |0\rangle
+\]</span></p>
+<p>The <strong>concatenation of circuits</strong> translates to a simple <strong>matrix multiplication</strong>:</p>
+<div id="c32699e7-ea9f-4648-b5b6-0adaa491f04b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:15:36.107226Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:15:36.098101Z&quot;}}" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>super_circuit <span class="op">=</span> x_gate <span class="op">//</span> x_gate</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(super_circuit.compute_unitary()) <span class="co"># On ne peut plus faire appel directement à .definition()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}1 &amp; 0\\0 &amp; 1\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>We can try with the analyzer:</p>
+<div id="a7ff9909-fe90-42d6-8321-84ec4aeeb8d4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:15:36.392222Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:15:36.386176Z&quot;}}" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pcvl.Processor(<span class="st">"Naive"</span>, super_circuit)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>analyser <span class="op">=</span> pcvl.algorithm.Analyzer(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    p, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    input_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    output_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    mapping<span class="op">=</span>qubits_</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(analyser)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">0</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Without the mapping:</p>
+<div id="cafe1373-54d1-4b91-9f27-ec72c4d7a0e6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:15:36.676060Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:15:36.669300Z&quot;}}" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>analyser <span class="op">=</span> pcvl.algorithm.Analyzer(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    p, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    input_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    output_states<span class="op">=</span><span class="bu">list</span>(qubits.values())</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(analyser)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">|1,0&gt;</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">|0,1&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>|1,0&gt;</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>|0,1&gt;</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Or even observe our magnificent super circuit that serves <em>no purpose</em>:</p>
+<div id="0e6b8079-32ec-4c7f-8b94-b8adc18b6257" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:15:36.988178Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:15:36.984320Z&quot;}}" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(super_circuit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-12-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="the-beginning-of-problems" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-beginning-of-problems"><span class="header-section-number">2</span> The Beginning of Problems…</h2>
+<p>NOT gates are all well and good, but we won’t get much done with just those. So, what happens if we try with another gate?</p>
+<div id="6732f492-a9cd-43ff-80d3-67fc595b6653" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:30:33.171536Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:30:33.157996Z&quot;}}" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pcvl.Processor(<span class="st">"Naive"</span>, hadamard_gate)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>analyser <span class="op">=</span> pcvl.algorithm.Analyzer(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    p, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    input_states<span class="op">=</span>[qubits[<span class="st">"0"</span>]], </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    output_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    mapping<span class="op">=</span>qubits_</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(analyser)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td>1/2</td>
+<td>1/2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>What happened? We used the superstar of quantum gates: <strong>the Hadamard gate</strong>. It’s the <em>gateway</em> to the quantum world, allowing a qubit to be prepared in a <strong>superposed</strong> state, as shown here:</p>
+<p><span class="math display">\[
+H = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix}
+\]</span></p>
+<p>If we add a <span class="math inline">\(0\)</span> at the input: <span class="math display">\[
+|\phi\rangle = H|0\rangle = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; -1 \end{pmatrix} \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix}
+\]</span></p>
+<p>With: <span class="math display">\[
+\frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \frac{1}{\sqrt{2}} \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} |0\rangle + \frac{1}{\sqrt{2}}|1\rangle
+\]</span></p>
+<p><em>We can create a Hadamard gate with a semi-reflective mirror!</em></p>
+<p><em>In practice, it will be a bit different though…</em></p>
+<div id="1aae6869-a24c-4f1a-958e-80839dec7593" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:15:38.229685Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:15:38.224870Z&quot;}}" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(hadamard_gate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-14-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You may have noticed that the output from the analyzer is not the same as that of the equations. Indeed, <span class="math inline">\(|\phi\rangle\)</span> is a quantum state, which can be <strong>complex</strong>: <span class="math inline">\(|\phi\rangle = \frac{i}{\sqrt{2}} |0\rangle - \frac{i}{\sqrt{2}} |1\rangle\)</span>, whereas the probabilities of observing one state over another are real! To convert to probabilities, we simply <strong>square</strong> the amplitudes. For instance, in the previous example: <span class="math inline">\(\Pr(|0\rangle) = \left|\frac{1}{\sqrt{2}}\right|^2 = \frac{1}{2}\)</span>. This matches the output of our analyzer.</p>
+<p>To obtain the complex amplitudes, we can use a backend:</p>
+<div id="0827a191-607e-48b5-aa23-747f9bbbf6ec" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:42.483483Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:42.478770Z&quot;}}" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>backend <span class="op">=</span> pcvl.BackendFactory.get_backend(<span class="st">"Naive"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>backend.set_circuit(hadamard_gate)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>backend.set_input_state(qubits[<span class="st">"0"</span>])</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>ampl0, ampl1 <span class="op">=</span> backend.prob_amplitude(qubits[<span class="st">"0"</span>]), backend.prob_amplitude(qubits[<span class="st">"1"</span>])</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"|phi&gt; = </span><span class="sc">{</span>ampl0<span class="sc">}</span><span class="ss"> |0&gt; + </span><span class="sc">{</span>ampl1<span class="sc">}</span><span class="ss"> |1&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>|phi&gt; = (0.7071067811865476+0j) |0&gt; + (0.7071067811865475+0j) |1&gt;</code></pre>
+</div>
+</div>
+<p>We indeed find the result of the equations: <span class="math display">\[
+|\phi\rangle = \frac{1}{\sqrt{2}} |0\rangle + \frac{1}{\sqrt{2}} |1\rangle
+\]</span></p>
+<p><em>This series of challenges is not intended to delve into theoretical details but to explore the ecosystem of quantum computers through practice. If you want to learn more, you can checkout IBM’s quantum courses: https://learning.quantum.ibm.com/, which are a very good starting point.</em></p>
+</section>
+<section id="a-new-challenger-the-phase-shifter" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="a-new-challenger-the-phase-shifter"><span class="header-section-number">3</span> A New Challenger: The Phase Shifter</h2>
+<p>In addition to having complex amplitudes, we can manipulate them using a very powerful tool: the <strong>phase shifter</strong>. It applies to <strong>one rail</strong> and performs the operation: <span class="math inline">\(e^{i\theta}\)</span>.</p>
+<div id="79a8a80b-9161-4c2c-a9e9-62d724bbed9d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:43.242844Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:43.229260Z&quot;}}" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>phase_shifter <span class="op">=</span> pcvl.PS(np.pi<span class="op">/</span><span class="dv">3</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(phase_shifter)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-16-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In a circuit, it looks like this:</p>
+<div id="8640dbaa-9127-4605-96cf-13370095406c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:43.575924Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:43.569335Z&quot;}}" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>circuit_ps <span class="op">=</span> pcvl.Circuit(<span class="dv">2</span>) <span class="op">//</span> (<span class="dv">0</span>, phase_shifter)  <span class="co"># Le 0 correspond au numéro du rail où est positionné </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                                                    <span class="co"># notre composant </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(circuit_ps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-17-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With its associated <strong>unitary matrix</strong>:</p>
+<div id="24619349-f5f0-4dd0-ac3f-fcae98621df3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:43.993740Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:43.939603Z&quot;}}" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(circuit_ps.compute_unitary())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{1}{2} + \frac{\sqrt{3} i}{2} &amp; 0\\0 &amp; 1\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>It is also possible to directly observe the <strong>amplitudes</strong>:</p>
+<div id="51793b16-9d59-4539-b888-aa30f998fe7f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:44.264532Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:44.261090Z&quot;}}" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>backend_ps <span class="op">=</span> pcvl.BackendFactory.get_backend(<span class="st">"Naive"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>backend_ps.set_circuit(circuit_ps)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>backend_ps.set_input_state(qubits[<span class="st">"0"</span>])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>ampl0, ampl1 <span class="op">=</span> backend_ps.prob_amplitude(qubits[<span class="st">"0"</span>]), backend_ps.prob_amplitude(qubits[<span class="st">"1"</span>])</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"|phi&gt; = </span><span class="sc">{</span>ampl0<span class="sc">}</span><span class="ss"> |0&gt; + </span><span class="sc">{</span>ampl1<span class="sc">}</span><span class="ss"> |1&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>|phi&gt; = (0.5000000000000001+0.8660254037844386j) |0&gt; + 0j |1&gt;</code></pre>
+</div>
+</div>
+<p>We can have fun reproducing known gates, like the NOT gate:</p>
+<div id="5f0633c1-b887-4a75-b7fd-dd9a7dc086ae" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:44.615349Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:44.607815Z&quot;}}" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>super_not <span class="op">=</span> hadamard_gate <span class="op">//</span> (<span class="dv">1</span>, pcvl.PS(np.pi)) <span class="op">//</span> hadamard_gate</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(super_not)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-20-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="8f894007-6293-43d4-ad49-dc9d30f43626" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:44.881181Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:44.874295Z&quot;}}" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> pcvl.Processor(<span class="st">"Naive"</span>, super_not)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>analyser <span class="op">=</span> pcvl.algorithm.Analyzer(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    p, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    input_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    output_states<span class="op">=</span><span class="bu">list</span>(qubits.values()), </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    mapping<span class="op">=</span>qubits_</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(analyser)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">0</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em>What happened? In the canonical basis <span class="math inline">\(\left(|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix}, |1\rangle = \begin{pmatrix} 0 \\ 1 \end{pmatrix}\right)\)</span>, applying a phase shift on one of the two rails would not have changed anything. However, in another basis:</em> <span class="math display">\[
+H|0\rangle = H \begin{pmatrix} 1 \\ 0 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix} = |+\rangle
+\]</span></p>
+<p><span class="math display">\[
+H|1\rangle = H \begin{pmatrix} 0 \\ 1 \end{pmatrix} = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ -1 \end{pmatrix} = |-\rangle
+\]</span></p>
+<p><em>We notice that “0” and “1” differ only by a phase shift, here a shift of <span class="math inline">\(e^{i\pi}\)</span> on the second rail. So, we simply switch to the new basis, phase shift the second rail, and return to the canonical basis (<span class="math inline">\(H\)</span> is its own inverse, so it’s easy).</em></p>
+</section>
+<section id="your-turn-to-play" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="your-turn-to-play"><span class="header-section-number">4</span> Your Turn to Play!</h2>
+<p>For this part, we will use the generalization of the Hadamard gate: a Beam Splitter. Here are its parameters:</p>
+<div id="690a40b0-d839-435f-b8dd-676f965ee59c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:45.693005Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:45.465962Z&quot;}}" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On peut définir des variables symboliques : </span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>symbolic_alpha <span class="op">=</span> pcvl.P(<span class="st">'α'</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>simple_bs <span class="op">=</span> pcvl.BS(theta<span class="op">=</span>symbolic_alpha)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(simple_bs.U)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\cos{\left(\frac{α}{2} \right)} &amp; i \sin{\left(\frac{α}{2} \right)}\\i \sin{\left(\frac{α}{2} \right)} &amp; \cos{\left(\frac{α}{2} \right)}\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<div id="de2cf8e8-0f08-4e65-ac65-79c1e4e91c17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:45.735317Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:45.710772Z&quot;}}" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Puis leur assigner une valeur : </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>simple_bs.assign({<span class="st">'α'</span>: np.pi<span class="op">/</span><span class="dv">2</span>})</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(simple_bs.compute_unitary())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\frac{\sqrt{2}}{2} &amp; \frac{\sqrt{2} i}{2}\\\frac{\sqrt{2} i}{2} &amp; \frac{\sqrt{2}}{2}\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<div id="12578527-e893-4ec3-bf47-04f6991dd0fb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:45.986864Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:45.976523Z&quot;}}" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ou changer ensuite de valeur : </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>symbolic_alpha.set_value(np.pi)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(simple_bs.compute_unitary())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}0 &amp; i\\i &amp; 0\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<section id="step-1" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="step-1"><span class="header-section-number">4.1</span> Step 1</h3>
+<p>Considering the following circuit (which corresponds to the definition of the Beam Splitter above):</p>
+<div id="56b004f0-b492-4432-a079-87603f193705" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:46.316618Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:46.307925Z&quot;}}" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>step_one <span class="op">=</span> simple_bs</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(step_one)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-25-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And an input value: <span class="math inline">\(|0\rangle\)</span>,</p>
+<p>What value of <span class="math inline">\(\alpha\)</span> should be chosen to have a 0.9 probability of getting <span class="math inline">\(|1\rangle\)</span>?</p>
+<h1 style="color: green">
+Solution Step 1:
+</h1>
+<p>We can try to calculate the state <span class="math inline">\(|\psi\rangle\)</span> at the output of the <i>beam splitter</i>: <span class="math display">\[
+|\psi\rangle = \begin{pmatrix}
+    \cos{\frac{\alpha}{2}} &amp; i\sin{\frac{\alpha}{2}} \\
+    i\sin{\frac{\alpha}{2}} &amp; \cos{\frac{\alpha}{2}}
+\end{pmatrix}
+\begin{pmatrix}
+    1 \\
+    0
+\end{pmatrix} =
+\cos{\frac{\alpha}{2}}|0\rangle + i\sin{\frac{\alpha}{2}}|1\rangle
+\]</span> We want a probability of 0.9 for having <span class="math inline">\(|1\rangle\)</span> and thus a probability of 0.1 for having <span class="math inline">\(|0\rangle\)</span>: <span class="math display">\[
+\Pr(|0\rangle) = \left|\cos{\frac{\alpha}{2}}\right|^2 = \frac{1}{10}
+\]</span> <span class="math display">\[
+\cos{\frac{\alpha}{2}} = \pm \frac{1}{10}
+\]</span></p>
+<p>Hence the solutions: <span class="math display">\[
+2\arccos\left(\frac{1}{10}\right), 2\arccos\left(-\frac{1}{10}\right), -2\arccos\left(\frac{1}{10}\right), -2\arccos\left(-\frac{1}{10}\right)
+\]</span></p>
+<p><i> We could also use the pre-built Perceval function: <code>pcvl.BS.r_to_theta()</code></i>.</p>
+<div id="85360ec3-9512-4f30-8651-515588e721e2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:46.740632Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:46.737614Z&quot;}}" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> pcvl.BS.r_to_theta(<span class="fl">0.1</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">round</span>(alpha, <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>2.5</code></pre>
+</div>
+</div>
+<div id="11d5258a-1938-4f6c-b7a2-7a9746709ba3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Other solutions:</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> [<span class="dv">2</span><span class="op">*</span>np.arccos(<span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">10</span>)), <span class="dv">2</span><span class="op">*</span>np.arccos(<span class="op">-</span><span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">10</span>)), <span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.arccos(<span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">10</span>)), <span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.arccos(<span class="op">-</span><span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">10</span>))]:</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Probabilité d'avoir |0&gt; avec alpha = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(a, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> : </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>((np.cos(a<span class="op">/</span><span class="dv">2</span>))<span class="op">**</span><span class="dv">2</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="b6b45507-b041-43bd-8b09-fe96ee791766" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:47.402551Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:47.275453Z&quot;}}" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>step_one.assign({<span class="st">'α'</span>: alpha})</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(step_one)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-28-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="2936ce07-6bc5-484d-a6f8-43ce5edc1ebf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:47.539640Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:47.481913Z&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>p_step_one <span class="op">=</span> pcvl.Processor(<span class="st">"Naive"</span>, step_one)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>a_step_one <span class="op">=</span> pcvl.algorithm.Analyzer(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    p_step_one, </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    input_states<span class="op">=</span>[qubits[<span class="st">"0"</span>]], </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    output_states<span class="op">=</span><span class="bu">list</span>(qubits.values()),             </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    mapping<span class="op">=</span>qubits_</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Expected output: 1/10 for 0 and 9/10 for 1"</span>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(a_step_one)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.isclose(a_step_one.distribution[<span class="dv">0</span>][<span class="dv">1</span>].real, <span class="fl">0.9</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step-2" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored"><span class="header-section-number">4.2</span> Step 2</h3>
+<p>Considering the following circuit and an input value of <span class="math inline">\(|0\rangle\)</span>, find the values of <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> to prepare a qubit in the state: <span class="math display">\[
+|\psi\rangle = \frac{\sqrt{3}}{2} |0\rangle + \left(\frac{\sqrt{3}}{4} - \frac{i}{4} \right)|1\rangle
+\]</span></p>
+<div id="733cd719-d51a-4404-8ae3-c816d49460de" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:48.001777Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:47.903381Z&quot;}}" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>symbolic_beta <span class="op">=</span> pcvl.P(<span class="st">"β"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>symbolic_gamma <span class="op">=</span> pcvl.P(<span class="st">"γ"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>step_two <span class="op">=</span> pcvl.BS(theta<span class="op">=</span>symbolic_beta) <span class="op">//</span> (<span class="dv">1</span>, pcvl.PS(phi<span class="op">=</span>symbolic_gamma))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(step_two)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(step_two.U)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}\cos{\left(\frac{β}{2} \right)} &amp; i \sin{\left(\frac{β}{2} \right)}\\i e^{i γ} \sin{\left(\frac{β}{2} \right)} &amp; e^{i γ} \cos{\left(\frac{β}{2} \right)}\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<h2 style="color: green" class="anchored" data-anchor-id="step-2">
+Solution Step 2:
+</h2>
+<p>It is sufficient to solve the system of unknowns <span class="math inline">\((\beta, \gamma)\)</span>: <span class="math display">\[
+\begin{pmatrix}
+    \cos{\frac{\beta}{2}} &amp; i\sin{\frac{\beta}{2}} \\
+    i e^{i\gamma}\sin{\frac{\beta}{2}} &amp; e^{i\gamma}\cos{\frac{\beta}{2}}
+\end{pmatrix}
+\begin{pmatrix}
+    1 \\
+    0
+\end{pmatrix} =
+\begin{pmatrix}
+    \frac{\sqrt{3}}{2} \\
+    \frac{\sqrt{3}}{4} - \frac{i}{4}
+\end{pmatrix}
+\]</span> <span class="math display">\[
+\begin{cases}
+    \cos{\frac{\beta}{2}} = \frac{\sqrt{3}}{2} \Longrightarrow \beta = \pm\frac{\pi}{3} \\
+    i e^{i\gamma}\sin{\frac{\beta}{2}} = \frac{\sqrt{3}}{4} - \frac{i}{4}
+\end{cases}
+\]</span> In the case <span class="math inline">\(\beta = \frac{\pi}{3}\)</span> : <span class="math display">\[
+i e^{i\gamma}\sin{\frac{\beta}{2}} = \frac{\sqrt{3}}{4} - \frac{i}{4}
+\]</span> <span class="math display">\[
+i e^{i\gamma} = \frac{\sqrt{3}}{2} - \frac{i}{2}
+\]</span> <span class="math display">\[
+e^{i\gamma} =  - \frac{1}{2} -i\frac{\sqrt{3}}{2} \Longrightarrow \gamma = -\frac{2\pi}{3}
+\]</span> In the case <span class="math inline">\(\beta = -\frac{\pi}{3}\)</span>, we find the same equations, <span class="math inline">\(\gamma = \frac{\pi}{3}\)</span>. Hence the solution: <span class="math display">\[
+\beta = \frac{\pi}{3}, \gamma = -\frac{2\pi}{3} \quad\text{ou}\quad \beta = -\frac{\pi}{3}, \gamma = \frac{\pi}{3}
+\]</span></p>
+<div id="643ab2bf-6f47-45bc-a997-99ec02bc6433" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:28:25.706606Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:28:25.703166Z&quot;}}" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>beta <span class="op">=</span> <span class="op">-</span> np.pi <span class="op">/</span> <span class="dv">3</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>gamma <span class="op">=</span> np.pi <span class="op">/</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="446b475e-8d22-4d9a-b6b9-560d07eabafb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:28:02.488239Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:28:02.481413Z&quot;}}" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>step_two.assign({<span class="st">"β"</span>: beta, <span class="st">"γ"</span>: gamma})</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>b_step_two <span class="op">=</span> pcvl.BackendFactory.get_backend(<span class="st">"Naive"</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>b_step_two.set_circuit(step_two)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>b_step_two.set_input_state(qubits[<span class="st">"0"</span>])</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>ampl0, ampl1 <span class="op">=</span> b_step_two.prob_amplitude(qubits[<span class="st">"0"</span>]), b_step_two.prob_amplitude(qubits[<span class="st">"1"</span>])</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> <span class="ss">f"|φ&gt; = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(ampl0, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> |0&gt; + </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(ampl1, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> |1&gt;"</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>sol <span class="op">=</span> <span class="ss">f"|φ&gt; = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(np.sqrt(<span class="dv">3</span>) <span class="op">/</span> <span class="dv">2</span> <span class="op">+</span> <span class="ot">0j</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> |0&gt; + </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(np.sqrt(<span class="dv">3</span>) <span class="op">/</span> <span class="dv">4</span> <span class="op">-</span> <span class="ot">1j</span> <span class="op">/</span> <span class="dv">4</span>, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> |1&gt;"</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Résultat : </span><span class="sc">{</span>res<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Solution : </span><span class="sc">{</span>sol<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># We ensure that the answer is indeed equal to the solution:</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> res <span class="op">==</span> sol</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Résultat : |φ&gt; = (0.87+0j) |0&gt; + (0.43-0.25j) |1&gt;
+Solution : |φ&gt; = (0.87+0j) |0&gt; + (0.43-0.25j) |1&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="one-last-tool-for-the-road-the-bloch-sphere" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="one-last-tool-for-the-road-the-bloch-sphere"><span class="header-section-number">4.3</span> One Last Tool for the Road: The Bloch Sphere</h3>
+<p>It turns out that the previous two results can be generalized. With the following circuit, it is possible to prepare <strong>any state.</strong> <em>(https://perceval.quandela.net/docs/components.html#beam-splitter)</em></p>
+<div id="9c172d5d-5743-42b3-b07f-61d2976edefa" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:48.770714Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:48.765800Z&quot;}}" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>super_preparator <span class="op">=</span> pcvl.BS()</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(super_preparator)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-33-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The definition is actually much more general than what we used previously:</p>
+<div id="15eabe55-3dbe-429b-8fe8-8946ca80d619" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:51.889039Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:51.733788Z&quot;}}" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(super_preparator.definition())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}e^{i \left(\phi_{tl} + \phi_{tr}\right)} \cos{\left(\frac{\theta}{2} \right)} &amp; i e^{i \left(\phi_{bl} + \phi_{tr}\right)} \sin{\left(\frac{\theta}{2} \right)}\\i e^{i \left(\phi_{br} + \phi_{tl}\right)} \sin{\left(\frac{\theta}{2} \right)} &amp; e^{i \left(\phi_{bl} + \phi_{br}\right)} \cos{\left(\frac{\theta}{2} \right)}\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>For example, with random values:</p>
+<div id="268f11d7-2c1e-40ca-9b0e-b8cc8ca696c7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:53.857281Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:53.771514Z&quot;}}" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>phi_tl, phi_tr, phi_bl, phi_br, theta_ <span class="op">=</span> [<span class="bu">round</span>(random.uniform(<span class="dv">0</span>, np.pi), <span class="dv">2</span>) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>super_preparator <span class="op">=</span> pcvl.BS(phi_tl<span class="op">=</span>phi_tl, phi_tr<span class="op">=</span>phi_tr, phi_bl<span class="op">=</span>phi_bl, phi_br<span class="op">=</span>phi_br, theta<span class="op">=</span>theta_)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(super_preparator.U)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(\displaystyle \left[\begin{matrix}0.395516415802851 - 0.308985935727611 i &amp; 0.864924537952878 i e^{4.27 i}\\0.864924537952878 i e^{3.58 i} &amp; -0.307408689052989 + 0.396743546313892 i\end{matrix}\right]\)</span></p>
+</div>
+</div>
+<p>Which allows us to prepare:</p>
+<div id="e2168751-9c38-4771-900e-592ec4a7c790" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:54.416051Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:54.411549Z&quot;}}" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>backend <span class="op">=</span> pcvl.BackendFactory.get_backend(<span class="st">"Naive"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>backend.set_circuit(super_preparator)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>backend.set_input_state(qubits[<span class="st">"0"</span>])</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>ampl0, ampl1 <span class="op">=</span> backend.prob_amplitude(qubits[<span class="st">"0"</span>]), backend.prob_amplitude(qubits[<span class="st">"1"</span>])</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"|φ&gt; = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(ampl0, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> |0&gt; + </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(ampl1, <span class="dv">2</span>)<span class="sc">}</span><span class="ss"> |1&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>|φ&gt; = (0.4-0.31j) |0&gt; + (0.37-0.78j) |1&gt;</code></pre>
+</div>
+</div>
+<p>To represent a qubit, it is possible to use the <strong>Bloch sphere</strong>.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Bloch_sphere.svg/800px-Bloch_sphere.svg.png" alt="bloch_sphere_wikipedia.png" width="200" height="200"></p>
+<p>The <span class="math inline">\(Z\)</span> axis corresponds to the states <span class="math inline">\(|0\rangle\)</span> and <span class="math inline">\(|1\rangle\)</span>, the <span class="math inline">\(X\)</span> axis corresponds to the states <span class="math inline">\(|+\rangle\)</span> and <span class="math inline">\(|-\rangle\)</span> encountered earlier, and the <span class="math inline">\(Y\)</span> axis corresponds to the states <span class="math inline">\(|i\rangle\)</span> and <span class="math inline">\(|-i\rangle\)</span>.</p>
+<p>We can easily visualize a state with the Qiskit library:</p>
+<div id="03719bea-6d9d-4fd9-ba26-4c5a11b08721" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:55.507863Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:54.876022Z&quot;}}" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> qiskit.visualization <span class="im">import</span> plot_bloch_multivector</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> qiskit.quantum_info <span class="im">import</span> Statevector</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>state_vector <span class="op">=</span> Statevector([ampl0, ampl1])  <span class="co"># Not to be confused with StateVector from Perceval</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>plot_bloch_multivector(state_vector)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-37-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A simple <span class="math inline">\(|0\rangle\)</span> :</p>
+<div id="4c6c37d9-02cc-4a1d-8124-d1be002dd883" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:55.657009Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:55.509451Z&quot;}}" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plot_bloch_multivector(np.array(qubits[<span class="st">"0"</span>]))  <span class="co"># Same as `plot_bloch_multivector([1, 0])`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-38-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A small utility for the next part:</p>
+<div id="8cabfdf2-3e38-4703-a8de-4fb4e734770f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:55.663485Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:55.658243Z&quot;}}" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> circuit_to_state_vector(circuit):</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    backend <span class="op">=</span> pcvl.BackendFactory.get_backend(<span class="st">"Naive"</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    backend.set_circuit(circuit)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    backend.set_input_state(qubits[<span class="st">"0"</span>])</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    ampl0, ampl1 <span class="op">=</span> backend.prob_amplitude(qubits[<span class="st">"0"</span>]), backend.prob_amplitude(qubits[<span class="st">"1"</span>])</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Statevector([ampl0, ampl1])</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>plot_bloch <span class="op">=</span> <span class="kw">lambda</span> circuit: plot_bloch_multivector(circuit_to_state_vector(circuit))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Our state <span class="math inline">\(|+\rangle\)</span>, created by applying a Hadamard gate to <span class="math inline">\(|0\rangle\)</span> <span class="math inline">\(\left(|+\rangle = H|0\rangle\right)\)</span>:</p>
+<div id="fc9fb535-254f-4ae5-bcd6-5e480fcc0cf9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:56.121989Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:55.996990Z&quot;}}" data-execution_count="40">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>plot_bloch(hadamard_gate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-40-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Given that measurement is a projection, in our case, onto the basis <span class="math inline">\(\left\{|0\rangle, |1\rangle\right\}\)</span>, it is easier to see with this representation that the state <span class="math inline">\(|+\rangle\)</span>, when measured, is equally likely to yield <span class="math inline">\(0\)</span> as it is to yield <span class="math inline">\(1\)</span>. It is also straightforward to see that the global phase (a rotation around the <span class="math inline">\(Z\)</span> axis) will have no effect on the measurement. This is reflected in the calculation, for <span class="math inline">\(|\psi\rangle = e^{i\theta} \alpha |0\rangle + e^{i\theta} \beta |1\rangle\)</span>: <span class="math display">\[
+\Pr(0) = \left|e^{i\theta}\alpha\right|^2 = |\alpha|^2
+\]</span> <span class="math display">\[
+\Pr(1) = \left|e^{i\theta}\beta\right|^2 = |\beta|^2
+\]</span></p>
+<p>Furthermore, we can also understand why the NOT gate is called an <span class="math inline">\(X\)</span> gate: A rotation of <span class="math inline">\(\pi\)</span> around the <span class="math inline">\(X\)</span> axis changes the state <span class="math inline">\(|0\rangle\)</span> to <span class="math inline">\(|1\rangle\)</span>, and vice versa.</p>
+</section>
+<section id="final-step" class="level3" data-number="4.4">
+<h3 data-number="4.4" class="anchored"><span class="header-section-number">4.4</span> Final Step:</h3>
+<p>Again, a few utility functions. As their names indicate, these functions allow rotations around the different axes with a chosen angle. To combine them, simply use the // operator.</p>
+<p><em>(PS: Remember the right-hand rule :)</em></p>
+<div id="2c33df13-bf92-4ed0-badb-cd76fdca18f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:56.475951Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:56.472918Z&quot;}}" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>x_rot <span class="op">=</span> <span class="kw">lambda</span> x: pcvl.Circuit(<span class="dv">2</span>) <span class="op">//</span> (<span class="dv">0</span>, pcvl.PS(np.pi)) <span class="op">//</span> pcvl.BS.Rx(theta<span class="op">=</span>x) <span class="op">//</span> (<span class="dv">0</span>, pcvl.PS(np.pi)) </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>y_rot <span class="op">=</span> <span class="kw">lambda</span> x: pcvl.BS.Ry(theta<span class="op">=</span>x)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>z_rot <span class="op">=</span> <span class="kw">lambda</span> x: pcvl.BS.H() <span class="op">//</span> x_rot(x) <span class="op">//</span> pcvl.BS.H() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Moving around the sphere then becomes trivial!</p>
+<div id="5392496d-09d8-4a9c-a161-7dde22930b32" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:56.801760Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:56.667586Z&quot;}}" data-execution_count="42">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (All paths start from |0&gt; with the functions I've written)</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>the_way <span class="op">=</span> x_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>plot_bloch(the_way)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="42">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-42-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="f33c2ff3-0265-44b3-8dfc-f816bc887b1d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:57.038514Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:57.015833Z&quot;}}" data-execution_count="43">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>pcvl.pdisplay(the_way)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-43-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Perform the following path:</p>
+<p>Starting point: <span class="math display">\[
+|\phi_{start}\rangle = \frac{\sqrt{2+\sqrt{2}}}{2} |0\rangle + \frac{\sqrt{2-\sqrt{2}}}{2} e^{-i\frac{\pi}{4}} |1\rangle
+\]</span></p>
+<p>Step: <span class="math display">\[
+|\phi_{step}\rangle = |-\rangle
+\]</span></p>
+<p>Endpoint: <span class="math display">\[
+|\phi_{finish}\rangle = \frac{\sqrt{2-\sqrt{2}}}{2} |0\rangle + \frac{\sqrt{2+\sqrt{2}}}{2} e^{i\frac{\pi}{4}} |1\rangle
+\]</span></p>
+<p>Coordinates of the starting point:</p>
+<div id="3c6a942d-aa46-4333-bb39-3cd70e7f7818" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:57.402214Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:57.271421Z&quot;}}" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>start_state <span class="op">=</span> np.array([np.sqrt(<span class="dv">2</span><span class="op">+</span>np.sqrt(<span class="dv">2</span>))<span class="op">/</span><span class="dv">2</span>, np.sqrt(<span class="dv">2</span><span class="op">-</span>np.sqrt(<span class="dv">2</span>))<span class="op">/</span><span class="dv">2</span> <span class="op">*</span> (np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span> <span class="op">-</span> <span class="ot">1j</span> <span class="op">*</span> np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span>)])</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>plot_bloch_multivector(start_state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-44-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Coordinates of the step:</p>
+<div id="59a22c75-595d-4afa-bd1e-a12a43e85884" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:58.030120Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:57.743183Z&quot;}}" data-execution_count="45">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>step_state <span class="op">=</span> np.array([np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span>, <span class="op">-</span>np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span>])</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>plot_bloch_multivector(step_state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="45">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-45-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Coordinates of the end:</p>
+<div id="bcbf060d-9d12-48a9-b074-b4f0b3a6ed4f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:58.542839Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:58.398323Z&quot;}}" data-execution_count="46">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>finish_state <span class="op">=</span> np.array([np.sqrt(<span class="dv">2</span><span class="op">-</span>np.sqrt(<span class="dv">2</span>))<span class="op">/</span><span class="dv">2</span>, np.sqrt(<span class="dv">2</span><span class="op">+</span>np.sqrt(<span class="dv">2</span>))<span class="op">/</span><span class="dv">2</span> <span class="op">*</span> (np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span> <span class="op">+</span> <span class="ot">1j</span> <span class="op">*</span> np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span>)])</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>plot_bloch_multivector(finish_state)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print(finish_state)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-46-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<h2 style="color: green" class="anchored" data-anchor-id="final-step">
+Solution final step:
+</h2>
+<p>There are many possible ways, here is one:</p>
+<p>Start:</p>
+<div id="9cc9d0fc-12bb-48f9-b9a1-0e27fa543d44" class="cell" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>plot_bloch(y_rot(np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-47-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>First rotation of <span class="math inline">\(-\frac{3\pi}{4}\)</span> around the Z-axis. <em>The direction is important and can be determined using the right-hand rule.</em></p>
+<div id="27a31095-4595-45cf-bc4c-7e60c82d177d" class="cell" data-execution_count="48">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>plot_bloch(y_rot(np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span><span class="dv">3</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-48-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Second rotation of <span class="math inline">\(-\frac{\pi}{4}\)</span> around the Y-axis.</p>
+<div id="85af8236-e01e-4ec9-aaf0-aae640be1a94" class="cell" data-execution_count="49">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plot_bloch(y_rot(np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span><span class="dv">3</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> y_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="49">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-49-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Third rotation of <span class="math inline">\(-\frac{\pi}{4}\)</span> around the Y-axis.</p>
+<div id="c3ca35c9-c81b-4bd4-adb6-8eccf331ad7b" class="cell" data-execution_count="50">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>plot_bloch(y_rot(np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span><span class="dv">3</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> y_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> y_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="50">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-50-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Final rotation of <span class="math inline">\(-\frac{3\pi}{4}\)</span> around the Z-axis.</p>
+<div id="95c70f9b-7658-40f8-bed6-43ce687e257c" class="cell" data-execution_count="51">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>plot_bloch(y_rot(np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span><span class="dv">3</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> y_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> y_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span><span class="dv">3</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="51">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-51-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="20bcda1a-008f-400c-aca7-844251aa8a97" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:16:59.010584Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:16:58.860267Z&quot;}}" data-execution_count="52">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> y_rot(np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>)  <span class="co"># To position oneself at the starting point:</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> <span class="op">-</span><span class="dv">3</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>zeta <span class="op">=</span> <span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>eta <span class="op">=</span> <span class="op">-</span><span class="dv">3</span><span class="op">*</span>np.pi<span class="op">/</span><span class="dv">4</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co"># raise NotImplementedError</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Another way to chain the gates</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>final_step <span class="op">=</span> (start</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a>                .add(<span class="dv">0</span>, z_rot(delta))</span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>                .add(<span class="dv">0</span>, y_rot(epsilon))  <span class="co"># Arrived at the Hadamard step</span></span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>                .add(<span class="dv">0</span>, y_rot(zeta))</span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>                .add(<span class="dv">0</span>, z_rot(eta))  <span class="co"># End of the journey!</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a>             )</span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>plot_bloch(final_step)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="52">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-52-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="did-you-notice" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="did-you-notice"><span class="header-section-number">5</span> Did You Notice?</h2>
+<p><strong><em>This is a non-important physical point for the validation of the challenge, I just mention it for those who wonder.</em></strong></p>
+<p>The amplitudes of <code>start</code> and <code>start_state</code> are not the same!</p>
+<p>Indeed, this is a point I haven’t addressed: <strong>global phases</strong> and <strong>relative phases</strong>. A global phase is a phase of the form <span class="math inline">\(e^{i\theta}|\phi\rangle\)</span>, it doesn’t change anything in our calculations because it doesn’t allow us to distinguish between <span class="math inline">\(|0\rangle\)</span> and <span class="math inline">\(|1\rangle\)</span>. It <strong>is not visible on the Bloch sphere but is in calculating the amplitudes</strong>.</p>
+<p>On the other hand, the relative phase, a phase of the form <span class="math inline">\(|\psi\rangle = \alpha|0\rangle +\beta e^{i\theta}|1\rangle\)</span>, may have an impact depending on the following calculations (<em>see for example the <strong>phase kickback</strong> technique, central in Shor’s algorithm</em>). It <strong>is visible on the Bloch sphere and in calculating the amplitudes</strong>.</p>
+<p>So, when I defined:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>start_state <span class="op">=</span> np.array([np.sqrt(<span class="dv">2</span><span class="op">+</span>np.sqrt(<span class="dv">2</span>))<span class="op">/</span><span class="dv">2</span>, np.sqrt(<span class="dv">2</span><span class="op">-</span>np.sqrt(<span class="dv">2</span>))<span class="op">/</span><span class="dv">2</span> <span class="op">*</span> (np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span> <span class="op">-</span> <span class="ot">1j</span> <span class="op">*</span> np.sqrt(<span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span>)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The amplitudes are: <span class="math inline">\(0.92|0\rangle + (0.27 - 0.27i)|1\rangle\)</span>. That is: <span class="math display">\[
+|\phi_{start}\rangle = \frac{\sqrt{2+\sqrt{2}}}{2} |0\rangle + \frac{\sqrt{2-\sqrt{2}}}{2} e^{-i\frac{\pi}{4}} |1\rangle
+\]</span></p>
+<p>While when I defined:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>start <span class="op">=</span> y_rot(np.pi<span class="op">/</span><span class="dv">4</span>) <span class="op">//</span> z_rot(<span class="op">-</span>np.pi<span class="op">/</span><span class="dv">4</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The amplitudes are: <span class="math inline">\((-0.35+0.15i)|0\rangle+ (-0.85-0.35i)|1\rangle\)</span>. That is: <span class="math display">\[
+|\phi_{start}'\rangle = \frac{\sqrt{2+\sqrt{2}}}{2} e^{i\frac{\pi}{8}} |0\rangle + \frac{\sqrt{2-\sqrt{2}}}{2} e^{-i\frac{\pi}{8}} |1\rangle
+\]</span></p>
+<p>We notice that <span class="math inline">\(|\phi_{start}\rangle\)</span> and <span class="math inline">\(|\phi_{start}'\rangle\)</span> differ only by a global phase:</p>
+<p><span class="math display">\[
+|\phi_{start}'\rangle = e^{i\frac{\pi}{8}} |\phi_{start}\rangle
+\]</span></p>
+<p>In my example of <code>super_not</code> above, I used a relative phase, whereas when I explained the <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> rotations just before the final step, I was talking about global phase!</p>
+</section>
+<section id="flag-retrieval" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="flag-retrieval"><span class="header-section-number">6</span> Flag Retrieval</h2>
+<p>Run the cell below by providing the <em>URL</em> given in the statement. The tests performed are the same as in this <em>notebook</em>, but there may be issues if you have run the cells multiple times. <strong>Feel free to restart the entire <em>notebook</em> at once.</strong></p>
+<div id="7a4737eb-c1bb-4741-a405-e71a07a7068b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;ExecuteTime&quot;,&quot;value&quot;:{&quot;end_time&quot;:&quot;2024-05-18T06:17:16.723081Z&quot;,&quot;start_time&quot;:&quot;2024-05-18T06:17:16.706019Z&quot;}}" data-execution_count="53">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> rq</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> circuit_to_list(circuit):</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [[(x.real, x.imag) <span class="cf">for</span> x <span class="kw">in</span> l] <span class="cf">for</span> l <span class="kw">in</span> np.array(circuit.compute_unitary())]</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"step_one"</span>: circuit_to_list(step_one),</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"step_two"</span>: circuit_to_list(step_two),</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"final_step"</span>: circuit_to_list(final_step)</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>URL <span class="op">=</span> ...</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="co"># URL = "http://localhost:8000"</span></span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="co"># URL = "https://perceval.challenges.404ctf.fr"</span></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>rq.get(URL<span class="op">+</span><span class="st">"/healthcheck"</span>).json()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="53">
+<pre><code>{'message': 'Statut : en pleine forme !'}</code></pre>
+</div>
+</div>
+<div id="1d0a3c50e4d2f4ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;jupyter&quot;,&quot;value&quot;:{&quot;outputs_hidden&quot;:false}}" data-execution_count="54">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>rq.post(<span class="ss">f"</span><span class="sc">{</span>URL<span class="sc">}</span><span class="ss">/challenges/1"</span>, json<span class="op">=</span>d).json()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="54">
+<pre><code>{'message': 'GG ! Voici le drapeau : 404CTF{uN_r4Il_PoUr_2_Tr4iNs_eU_N0n_dEUx_r4ils_PoUR_1tRa1n}'}</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/sckathach\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/2024/quantum-challenges/solutions/introduction-to-rail-encoding/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/2024/quantum-challenges/solutions/introduction-to-rail-encoding/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://sckathach.github.io">
+<p>Home</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,50 @@
+---
+toc: false
+title: "404 CTF - Edition 2024"
+hide-description: true
+---
+
+<center>
+    <img src="./logo.png" style="width: 40%">
+    <p>
+        The 404 CTF is France's largest cybersecurity competition. It is organized jointly by the [DGSE](https://www.dgse.gouv.fr), [Télécom SudParis](https://www.telecom-sudparis.eu), [HackademINT](https://www.hackademint.org), [OVHcloud](https://www.ovhcloud.com) and [Viva Technology](https://vivatechnology.com). The 2024 edition took place from April 20 to May 12 2024 and gathered about 3800 competitors around 72 challenges designed by HackademINT. Learn more on [the 404 CTF's website](https://www.404ctf.fr) or on the [repository](https://github.com/HackademINT/404CTF-2024).
+    </p>
+    <p>
+        Previous editions
+        <br>
+        <a href="https://github.com/HackademINT/404CTF-2022">2022</a> | <a href="https://github.com/HackademINT/404CTF-2023">2023</a>
+    </p>
+    <br>
+    <br>
+</center>
+
+## Introduction
+
+For the 2024 edition, I've created **Quantum** and **AI challenges**!
+
+I started with an **introduction to quantum algorithms** based on the framework of the French start-up Quandela, which uses photonics. This was particularly well suited to talking about Quantum Key Distribution, a quantum communication protocol that is very interesting from a cyber security point of view. I also tested reverse engineering quantum circuits in the latest challenge.
+
+I then took a specific area of AI attacks, **model poisoning**, and decided to turn it into a suite of challenges. Full solutions are available in the [GitHub repository](https://github.com/Sckathach/404CTF-2024-Intelligence-artificielle).
+
+## Challenges
+
+### Quantum Algorithms
+
+**Introduction to rail encoding:** The quantum information carried by a qubit can be represented in various ways. Here, we use the photonic quantum computer model, which operates with photons and optical hardware. [Challenge](./quantum-challenges/challenges/introduction-to-rail-encoding/) / [Solution](./quantum-challenges/solutions/introduction-to-rail-encoding/)
+
+**Quantum Woman in the Middle:** Alice and Bob decide to exchange a secret key using the BB84 protocol. Being confident in the reliability of their protocol, they tolerate some noise. However, Eve manages to intercept the communication channel. Will she succeed in going unnoticed? [Challenge](./quantum-challenges/challenges/quantum-woman-in-the-middle/) / [Solution](./quantum-challenges/solutions/quantum-woman-in-the-middle/)
+
+**Multiple Systems:** 2 qubits is just 2x2 rails, right? [Challenge](./quantum-challenges/challenges/multiple-systems/) / [Solution](./quantum-challenges/solutions/multiple-systems/)
+
+**Reverse Engineering:** Two circuits with missing parts, will it be possible to find the missing parts given the expected output? [Challenge](./quantum-challenges/challenges/reverse-engineering/) / [Solution](./quantum-challenges/solutions/reverse-engineering/)
+
+### Artificial Intelligence
+
+**Poison [1/2]:** Discover federeated learning and poison a federated learning agregator with no defenses. [Challenge](./artificial-intelligence/challenges/poison-1/) / [Solution](./artificial-intelligence/solutions/poison-1/)
+
+**Poison [2/2]:** This time, a defense mechanism has been implemented. It aims to prevent any single client from having too much influence by enforcing a maximum variation on the weights. But is that enough? [Challenge](./artificial-intelligence/challenges/poison-2/) / [Solution](./artificial-intelligence/solutions/poison-2/)
+
+**Backdoor:** The goal of this challenge is to exploit the vulnerabilities of federated learning to place a backdoor in the model. [Challenge](./artificial-intelligence/challenges/backdoor/) / [Solution](./artificial-intelligence/solutions/backdoor/)
+
+**Poison [3/2]:** Weak neural network can be poisonned by flipping only 2 weights. [Challenge](./artificial-intelligence/challenges/poison-3/) / [Solution](./artificial-intelligence/solutions/poison-3/)
+

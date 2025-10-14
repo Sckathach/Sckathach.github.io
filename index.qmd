@@ -1,11 +1,23 @@
-# Sckathach's post 
+# Writing
 
-It's still under construction, as I'm waiting to learn more about Manim before decorating it :eyes:. But you can already check out:
+## 2025
 
-- **15/09/25 -** _(Research note)_ Exploring the multi-dimensional refusal subspace in reasoning models [Post](/posts/exploring-the-multi-dimensional-refusal-subspace/)
+[**Exploring the multi-dimensional refusal subspace in reasoning models**](/blogs/exploring-the-multi-dimensional-refusal-subspace/) \
+The refusal space in large reasoning models spans multiple directions. For models above $8$B parameters, this multi-dimensionality becomes essential as a single refusal vector is no longer sufficient to induce refusals or enable jailbreaks.
 
-- **28/08/25 -** _(Research note)_ Combining TAP and DSPy to generate quick and efficient jailbreaks [Post](/posts/dspy-tap/)
+[**Combining TAP and DSPy to generate quick and efficient jailbreaks**](/blogs/dspy-tap/) \
+Black-box attacks based on attacker LLMs remain highly effective against open-source models. This is an opportunity for interpretability research, as we often requires large collections of adversarial examples for experimentation.
 
-- **18/03/25 -** Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models [Post](/mech-interp/subspace-rerouting/post/) / [Webpage](/mech-interp/subspace-rerouting/)
+[**404 CTF - 2025 Edition (French)**](/404ctf/2025) \
+Challenges et solutions de l'édition 2025. 
 
-- **29/09/24 -** Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks [Post](/mech-interp/exploring-adversarial-mi/)
+[**Subspace Rerouting: Using Mechanistic Interpretability to Craft Adversarial Attacks against Large Language Models**](/blogs/subspace-rerouting/post/) \
+Post following my first paper. See also the [**project webpage**](/blogs/subspace-rerouting/) for the experiements.
+
+## 2024 
+
+[**Exploring the use of Mechanistic Interpretability to Craft Adversarial Attacks**](/blogs/exploring-adversarial-mi/) \
+My first attempt at applying interpretability methods in a practical setting. I tried to improve the Greedy Coordinate Gradient (GCG) attack using the refusal direction identified by @arditi_refusal_2024.
+
+[**404 CTF - 2024 Edition**](/404ctf/2024) \
+Challenges I created, along with their solutions. 

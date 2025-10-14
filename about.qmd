@@ -1,53 +1,60 @@
-# \$ Whoami
+::: {.grid}
+::: {.g-col-12 .g-col-md-5}
+</br>
+</br>
+![](./assets/photo.jpg)
+:::
 
-Aka _the quantum warlock, the masked camel, the fanOfThermodynamics, the whale orchestra conductor_, or just **Sckathach**. I'm a french student at Télécom SudParis, and soon, an AI researcher!
+::: {.g-col-12 .g-col-md-7}
+# About
+Hi, I'm Thomas! I'm currently an M2 mathematics student at Télécom SudParis and ENS Paris-Saclay, and soon, an AI researcher.
 
-I love mathematics, physics, graphs theory, AI, cybersecurity, graphs, geopolitics, thermodynamics (yes, I swear), programming, and especially graphs.
+I began doing research in AI security two years ago. After taking a gap year, where I studied Large Language Model (LLM) security and LLM interpretability, I’m now turning my attention toward more fundamental AI. I also love graph theory and physics.
 
-I'm currently fan of **mechanistic interpretability**, but there is a high risk I become fan of _SLT_ instead.
+My favorite paper: [Toy Models of Superposition](https://transformer-circuits.pub/2022/toy_model/index.html).
 
-My favorite paper (asof December 2024, (still true Oct 25)) : [Toy Models of Superposition](https://transformer-circuits.pub/2022/toy_model/index.html).
-
-Social media I use arranged in descending exponential order:
+You can find me on:
 
 - GitHub / Sckathach
-- Discord 
 - LinkedIN / thomas-winninger
 - X / sckathach
 
-You can contact me using: thomas [dot] winninger [at] telecom-sudparis [dot] eu
+You can contact me at: **thomas [dot] winninger [at] telecom-sudparis [dot] eu**
 
 **Download PDF resume**: [in English](./assets/cv/cv.en.pdf).
 
-[Research work](./research.qmd)
+**See my [Research work](./research.qmd).**
+:::
+:::
+
 
 ## Education 
-- 2025 - 2026 - **Master MVA - ENS Paris-Saclay** \
-    Topology, optimal transport, RL, training and deploying large-scale models, LLM, GNN, learning for protein science, convex optimization.
+- 2025 - 2026 - **Master MVA, ENS Paris-Saclay** \
+    Topology, optimal transport, reinforcement learning, training and deploying large-scale models, LLM, graph neural networks, learning for protein science, convex optimization.
 
-- 2022 - 2026 - **Engineering Degree - Télécom SudParis** \
-    Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, GNN, signal processing.
+- 2022 - 2026 - **Engineering Degree, Télécom SudParis** \
+    Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, graph neural networks, signal processing.
 
 ## Experience
 
-- Sep 2025 - ? - **Teaching and research sprints - [PIAF](https://piaf-saclay.org/)** \
-    Teaching (interpretability, LLM training/ fine-tuning), and organization of research sprints (team of $4\~5$, $<4$ days). 
+- Sep 2025 - _now_ - **Teaching and research sprints - [PIAF](https://piaf-saclay.org/)** \
+    Teaching (interpretability, LLM training and fine-tuning) and organizing short research sprints (teams of ~5 people, lasting under four days).
 
 - Jul - Sep 2025 - **Research internship in LLM security - [NICT](https://csl.nict.go.jp/en/)** \
-    Security and jailbreak interpretability on reasoning LLMs.
+    Research on the security and jailbreak interpretability of Large Reasoning Models (LRMs). _I studied LRM robustness, adapted state-of-the-art black-box and white-box attack from LLMs, and started studying jailbreaks with interpretability methods on LRMs._ 
 
 - Mar - May 2025 - **Research internship in AI explanability - [INRIA](https://www.inria.fr/fr/antique)** \
-    Verified robust explanation for language models.
+    Verified robust explanation for language models. _I explored scaling Hybrid Constrained Zonotopes (HCZs) to language models using convex relaxation and optimization. However, the relaxation error proved too large for practical use._ 
 
 - Jul - Dec 2024 - **Research internship in AI security - [Thales](https://www.thalesgroup.com/en)** \
-    Implementations and improvements of state-of-the-art attacks on LLMs.
+    Implementations and improvements of state-of-the-art attacks on LLMs. _I improved state-of-the-art white-box adversarial attacks on LLMs and published the results on [ArXiv](https://arxiv.org/abs/2503.06269)._
 
 - 2022 - 2024 - **Teaching and infrastructure - [HackademINT](https://www.hackademint.org/)** \
-    Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024.
+    Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024 (largest cyber security competition in France).
 
-## Misc 
+## Miscellaneous 
 
 - Languages: **Python, [French](https://fr.wikipedia.org/wiki/Baguette_(pain)), OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash, Japanese (JLPT 4), Lean
-- Tools/ Frameworks: **PyTorch**, **nnsight**, Docker (Podman), Kubernetes, React, Qiskit, Archlinux :), (see my [GitHub](https://github.com/sckathach) for more)
-- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics :), sports, video game (playing & development), meditation 
-- Followed ARENA and AISF
+- Tools/ Frameworks: **PyTorch**, **nnsight**, Docker (Podman), Kubernetes, React, Qiskit, Archlinux
+- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics, sports, video game (playing & development), meditation 
+- I completed the Alignment Research Engineer Accelerator (ARENA) and the AI Safety Fundamental (AISF) curriculums.

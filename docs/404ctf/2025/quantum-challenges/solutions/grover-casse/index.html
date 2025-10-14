@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Challenge 3 : Algorithme de Grover cassé (2/2) – Thomas Winninger</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../../">
+<link href="../../../../../assets/favicon.png" rel="icon" type="image/png">
+<script src="../../../../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0e6b5171f1292a58de0ff8a7af83c33b.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../../../../site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../../../../site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../../../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": true,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../../../../styles/styles.css">
+<meta property="og:title" content="Challenge 3 : Algorithme de Grover cassé (2/2) – Thomas Winninger">
+<meta property="og:description" content="My (Thomas Winninger) personal website.">
+<meta property="og:image" content="https://sckathach.github.io/404ctf/2025/quantum-challenges/solutions/grover-casse/index_files/figure-html/cell-2-output-1.png">
+<meta property="og:site_name" content="Thomas Winninger">
+<meta property="og:image:height" content="303">
+<meta property="og:image:width" content="548">
+<meta name="twitter:title" content="Challenge 3 : Algorithme de Grover cassé (2/2) – Thomas Winninger">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://sckathach.github.io/404ctf/2025/quantum-challenges/solutions/grover-casse/index_files/figure-html/cell-2-output-1.png">
+<meta name="twitter:image-height" content="303">
+<meta name="twitter:image-width" content="548">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../../../../index.html">
+    <span class="navbar-title">Thomas Winninger</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../blogs/subspace-rerouting/index.html"> 
+<span class="menu-text">SSR</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../research.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../../index.html"> 
+<span class="menu-text">Writing</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://github.com/sckathach" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#solution" id="toc-solution" class="nav-link active" data-scroll-target="#solution">Solution</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/grover-casse/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/grover-casse/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Challenge 3 : Algorithme de Grover <em>cassé</em> (2/2)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="2db36e0c" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> machinerie <span class="im">import</span> Circuit, draw404</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>draw404()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notre ingénieur s’est trompé lorsqu’il a programmé l’algorithme, il a oublié des <span class="math inline">\(H\)</span>… Comment faire pour récupérer le drapeau ?</p>
+<p>Soit un drapeau “00101011”, le circuit complet s’écrit :</p>
+<div id="a82b7129" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> machinerie <span class="im">import</span> create_grover</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>flag <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(flag)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>grover <span class="op">=</span> create_grover(flag, <span class="bu">range</span>(n), <span class="bu">range</span>(n))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>grover.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="e330a360" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>full_circuit <span class="op">=</span> Circuit(n)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>full_circuit.h(<span class="bu">range</span>(n))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>full_circuit.compose(grover, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>full_circuit.compose(grover, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>full_circuit.compose(grover, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>full_circuit.compose(grover, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> full_circuit.get_measure()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>drapeau <span class="op">=</span> <span class="bu">sorted</span>(results, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"""</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ss">Drapeau : </span><span class="sc">{</span>drapeau<span class="sc">}</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ss">Probabilité : </span><span class="sc">{</span>results[drapeau]<span class="sc">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Drapeau : 1101100
+Probabilité : 0.52734375
+</code></pre>
+</div>
+</div>
+<p>À une inversion près, on retrouve notre drapeau en 4 coups, … quand le circuit est bien implémenté. Ce n’est malheureusement pas le cas pour le circuit sur nos serveurs, il manque au moins 2 <span class="math inline">\(H\)</span> par colonne…</p>
+<p>Par exemple :</p>
+<div id="9c855fdc" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>grover <span class="op">=</span> create_grover(flag, <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>), <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>grover.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pour couronner le tout, il n’y a qu’une passe qui a été implémentée.</p>
+<p><strong>Votre mission : récupérer le drapeau.</strong></p>
+<p>Vous avez accès à 3 paramètres : - l’entrée - les positions des <span class="math inline">\(H\)</span> entre <span class="math inline">\(Z_f\)</span> et <span class="math inline">\(Z_\text{OR}\)</span> - vous avez le droit d’en poser <span class="math inline">\(\leq n-2\)</span> - les positions des <span class="math inline">\(H\)</span> après <span class="math inline">\(Z_\text{OR}\)</span> - vous avez le droit d’en poser <span class="math inline">\(\leq n-2\)</span></p>
+<p>à travers la fonction <code>test_flag_grover</code> (j’utilise exactement la même fonction côté API).</p>
+<p>Pour éviter le brute force sur le CTFd directement, <strong>vous devrez reproduire la procédure deux fois, pour récupérer deux drapeaux de 12 bits chacuns,</strong> le drapeau final sera <code>404CTF{premier_flag+deuxième_flag}</code>, par exemple : <code>404CTF{0101010101010101010101010}</code></p>
+<p>Pour éviter l’explosion de votre ordinateur lors de l’appel à <code>get_flat_unitary</code>, vous utiliserez des angles pour m’envoyer votre entrée. À partir d’une liste de <span class="math inline">\(n*3\)</span> flottants, je construis n’importe quel état d’entré avec des portes <span class="math inline">\(U\)</span>. Les angles sont ceux de la sphère de Bloch. Vous avez l’implémentation dans <code>Circuit</code> : <code>Circuit.from_angles()</code>.</p>
+<p>Par exemple deux Hadamards :</p>
+<div id="225b3017" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># theta_0, phi_0, lambda_0, theta_1, ...</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>angles <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]  <span class="co"># [pi / 2, 0, pi, pi, 0, 0]</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit.from_angles(angles)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>qc.draw_qubits()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="5">
+<p><span class="math display">\[ |0\rangle\]</span></p>
+</div>
+</div>
+<p>En appelant l’API, vous obtiendrez une mesure. Pour éviter la surcharge, je mesure à chaque fois sur 1000 essais. <strong><em>Le brute force de l’API est évidemment toujours interdit, vous êtes sensé pouvoir trouver le drapeau avec moins de <span class="math inline">\(30\)</span> essais (<span class="math inline">\(5\)</span> si vous n’êtes pas trop malchanceux).</em></strong></p>
+<section id="solution" class="level2">
+<h2 class="anchored" data-anchor-id="solution">Solution</h2>
+<p>Même si l’algorithme de Grover ne pouvait pas être reproduit avec <span class="math inline">\(n-2\)</span> portes, il était possible de récupérer de l’information sur le drapeau en complexité linéaire. Par exemple, pour connaître les deux dernier bits, il était possible d’essayer la combinaison suivante :</p>
+<div id="3d396a22" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>qc <span class="op">=</span> Circuit(<span class="dv">7</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>qc.h([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>qc.x(<span class="dv">5</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>grover <span class="op">=</span> create_grover(flag, <span class="bu">range</span>(n <span class="op">-</span> <span class="dv">2</span>), [])</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>qc.compose(grover, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>qc.draw_circuit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Si le drapeau ne fini pas part 10, alors aucune des combinaison en entrée n’est égale au drapeau et <span class="math inline">\(Z_f\)</span> n’a aucun effet. Arrivé à la troisième couche, tous les <span class="math inline">\(H\)</span> sont annulés (<span class="math inline">\(HH=I\)</span>), donc on se retrouve avec un état unique. <span class="math inline">\(Z_\text{OR}\)</span>, n’a qu’un effect sur la polarisation, cela n’affectera pas la mesure. La sortie est donc 0000010 avec une probabilité de 1.</p>
+<p>Si le drapeau fini par 10, alors le drapeau fait parti des combinaisons en entrée et <span class="math inline">\(Z_f\)</span> aura un effet sur le bon drapeau. Sans dérouler les opérations, on peut voir que <span class="math inline">\(H Z_f H\)</span> n’est plus égal à l’identité, et qu’il y a donc des superpositions qui restent. La sortie sera donc une superposition de plusieurs possibilités.</p>
+<p>La résolution est alors la suivante : tester les qubits 2 par 2 (00, 01, 10, 11), si la mesure donne une superposition, alors c’est que les deux qubits sont bons.</p>
+<div id="4a12639f" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> [pi <span class="op">/</span> <span class="dv">2</span>, <span class="dv">0</span>, pi]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [pi, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>zero <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">10</span> <span class="op">*</span> h</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="07af2ecc" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> machinerie <span class="im">import</span> q</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> pi</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="dv">10</span> <span class="op">*</span> h <span class="op">+</span> x <span class="op">+</span> x <span class="op">+</span> <span class="dv">0</span> <span class="op">*</span> h</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"input_qubits"</span>: z,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hadamard_middle"</span>: [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>] <span class="op">+</span> [],</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hadamard_end"</span>: [],</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {<span class="st">"Content-Type"</span>: <span class="st">"application/json"</span>, <span class="st">"Accept"</span>: <span class="st">"application/json"</span>}</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://causapscal-des-profondeurs.404ctf.fr/grover/2"</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.post(url, json<span class="op">=</span>data, headers<span class="op">=</span>headers)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(json.loads(response.content))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'message': "{'000000001100': 0.0009765625, '000101110000': 0.001953125, '101010011111': 0.0009765625, '001000000100': 0.001953125, '010111011000': 0.0009765625, '010011110011': 0.0009765625, '011111000111': 0.0009765625, '111110000101': 0.0009765625, '101111000011': 0.0009765625, '110010111001': 0.0009765625, '111100111101': 0.001953125, '101001001100': 0.0009765625, '011100001010': 0.0009765625, '001001011100': 0.0009765625, '001100010010': 0.0009765625, '100011100101': 0.0009765625, '001100001010': 0.0009765625, '110000001111': 0.0009765625, '001011111010': 0.001953125, '000000010110': 0.0009765625, '101001010111': 0.0009765625, '110010101110': 0.001953125, '101100001101': 0.0009765625, '000111010001': 0.0009765625, '001000110011': 0.0009765625, '100011001110': 0.001953125, '110101111110': 0.0009765625, '100100011110': 0.001953125, '010001000110': 0.0009765625, '110101000110': 0.0009765625, '001010110000': 0.0009765625, '100100001111': 0.0009765625, '011110100010': 0.0009765625, '101011010010': 0.0009765625, '000110011000': 0.0009765625, '010101100000': 0.0009765625, '111000001111': 0.0009765625, '111100011101': 0.0009765625, '010111011001': 0.0009765625, '010000000010': 0.0009765625, '010010111010': 0.0009765625, '011011010010': 0.0009765625, '000000011101': 0.0009765625, '000111011100': 0.001953125, '100011110010': 0.0009765625, '101001010000': 0.001953125, '111000101110': 0.001953125, '001111000001': 0.0009765625, '010110110110': 0.0009765625, '010101000000': 0.001953125, '100110100001': 0.0009765625, '101111011011': 0.0029296875, '010011000111': 0.0009765625, '011000100010': 0.0009765625, '011110101010': 0.0009765625, '000111000010': 0.0009765625, '100001111001': 0.0009765625, '010111110101': 0.0009765625, '100110110101': 0.001953125, '101101110001': 0.0009765625, '010100001101': 0.0009765625, '010111010000': 0.0009765625, '011001110100': 0.0009765625, '000010100011': 0.0009765625, '111101110000': 0.0009765625, '110000111101': 0.0009765625, '001101111010': 0.0009765625, '001111000101': 0.0009765625, '110011110111': 0.0009765625, '111001101110': 0.0009765625, '001011111101': 0.0009765625, '011000111111': 0.001953125, '100100000110': 0.0009765625, '100000111110': 0.0009765625, '010100000101': 0.0009765625, '001100011000': 0.001953125, '001011010110': 0.0009765625, '111001001111': 0.0009765625, '000000100000': 0.0009765625, '010011101111': 0.0009765625, '001001100110': 0.0009765625, '101001110111': 0.0009765625, '110111010100': 0.0009765625, '110000001000': 0.001953125, '110000111011': 0.0009765625, '100001101100': 0.0009765625, '011100110100': 0.0009765625, '011011011110': 0.0009765625, '011111111001': 0.001953125, '100010010110': 0.0009765625, '100001011101': 0.001953125, '010111010100': 0.0009765625, '011101001101': 0.001953125, '110110001101': 0.001953125, '100100101110': 0.0009765625, '111011010001': 0.0009765625, '110110110100': 0.001953125, '110001011010': 0.0009765625, '101100100001': 0.0009765625, '101111100001': 0.0009765625, '101101011010': 0.0009765625, '010011101101': 0.001953125, '100101111011': 0.0009765625, '110110010011': 0.0009765625, '100001110100': 0.0029296875, '101000110101': 0.0009765625, '010111101101': 0.0009765625, '101101011000': 0.0009765625, '110100111001': 0.0009765625, '100111110001': 0.0009765625, '001000100110': 0.0009765625, '100011011110': 0.0009765625, '100100111110': 0.0009765625, '001010110011': 0.001953125, '010111100110': 0.0009765625, '100000100100': 0.001953125, '010001011000': 0.0009765625, '001100111011': 0.0009765625, '001101101100': 0.0009765625, '011101110001': 0.001953125, '101100011011': 0.0009765625, '010101011010': 0.0009765625, '110001000111': 0.0009765625, '000101011100': 0.001953125, '111001011101': 0.0009765625, '011110010001': 0.0009765625, '011010000000': 0.0009765625, '011000010111': 0.0009765625, '100101101110': 0.0009765625, '001011111001': 0.001953125, '011110111101': 0.0009765625, '011001000001': 0.0009765625, '010111111100': 0.0009765625, '001001100010': 0.001953125, '010001101010': 0.0009765625, '111101001000': 0.0009765625, '101100110100': 0.0009765625, '111011011010': 0.0009765625, '101000001100': 0.0009765625, '100001011110': 0.0009765625, '110100101111': 0.0009765625, '011111101100': 0.001953125, '111101100010': 0.0009765625, '011000110001': 0.0009765625, '111111110001': 0.0009765625, '100000001010': 0.0009765625, '110111111111': 0.0009765625, '001110000101': 0.0009765625, '000000100110': 0.0009765625, '010000110011': 0.001953125, '101000011000': 0.0009765625, '000110011100': 0.0009765625, '011110001100': 0.0009765625, '100101000100': 0.0009765625, '001110110111': 0.0009765625, '101110101011': 0.0009765625, '010101000111': 0.0009765625, '110100110111': 0.0009765625, '000110010101': 0.0009765625, '111100100010': 0.0009765625, '000000111100': 0.0009765625, '010010101100': 0.0009765625, '010111000101': 0.0009765625, '001110011100': 0.0009765625, '011110110110': 0.0009765625, '100100001100': 0.0009765625, '001001110111': 0.0009765625, '001101011011': 0.001953125, '000101101011': 0.0009765625, '100101000011': 0.001953125, '000100010101': 0.001953125, '100101011110': 0.0009765625, '010001011111': 0.0009765625, '111111111000': 0.0009765625, '000100110011': 0.0009765625, '001100010101': 0.0009765625, '100111100011': 0.0009765625, '010110000000': 0.0009765625, '011101010100': 0.001953125, '010011101000': 0.0009765625, '000100011110': 0.0009765625, '001100100001': 0.0009765625, '101100101000': 0.0009765625, '010100001001': 0.0009765625, '011111101000': 0.0009765625, '011100011110': 0.001953125, '110000101110': 0.0009765625, '110100001101': 0.0009765625, '011101101010': 0.0009765625, '011110110011': 0.0009765625, '101110110010': 0.0009765625, '111111000001': 0.0029296875, '110110110010': 0.0009765625, '110110000010': 0.0009765625, '100101001001': 0.0009765625, '010001111101': 0.0009765625, '100000111101': 0.0009765625, '100001011100': 0.0009765625, '101111111100': 0.0009765625, '010011101011': 0.0009765625, '010000111101': 0.001953125, '110111100111': 0.0009765625, '100001001100': 0.0009765625, '111111111101': 0.0009765625, '111010010011': 0.0009765625, '110101011110': 0.0009765625, '101010011000': 0.0009765625, '001011100110': 0.0009765625, '100111110111': 0.0009765625, '101011110000': 0.0009765625, '111001011010': 0.001953125, '000110000000': 0.0009765625, '100101111010': 0.001953125, '001011000110': 0.0009765625, '000100100000': 0.0009765625, '001011100010': 0.0009765625, '101001110011': 0.0009765625, '001100011110': 0.0009765625, '000110001000': 0.001953125, '011011101110': 0.0009765625, '110000011000': 0.001953125, '111011010100': 0.0009765625, '111101100111': 0.0009765625, '000100000010': 0.0009765625, '100010001011': 0.0009765625, '110100010011': 0.001953125, '000101100001': 0.0009765625, '010001111010': 0.0009765625, '101010011100': 0.0009765625, '011001011110': 0.0009765625, '001111111000': 0.0009765625, '001101011101': 0.0009765625, '001111001100': 0.0009765625, '100111000010': 0.0009765625, '100101111110': 0.001953125, '010001101111': 0.0009765625, '111000110101': 0.0009765625, '001111101110': 0.0009765625, '100111000101': 0.0009765625, '101001111110': 0.0009765625, '101000111100': 0.0029296875, '011111111101': 0.0009765625, '110100001001': 0.0009765625, '011100001011': 0.0009765625, '000100010010': 0.0009765625, '011111011101': 0.0009765625, '101001110001': 0.001953125, '110110110101': 0.0009765625, '101001101001': 0.0009765625, '111011111111': 0.0009765625, '100010100000': 0.0009765625, '110000100010': 0.0009765625, '010000101111': 0.0009765625, '110100000001': 0.0009765625, '011000111110': 0.0009765625, '111010101101': 0.0009765625, '110101111000': 0.0009765625, '110001001001': 0.001953125, '110011101111': 0.0009765625, '101101111101': 0.0009765625, '000111110100': 0.0009765625, '101100011110': 0.0009765625, '100111001011': 0.0009765625, '000010100110': 0.0009765625, '011011001000': 0.0009765625, '001101010001': 0.0009765625, '111010001111': 0.0009765625, '101111101000': 0.0009765625, '010000000100': 0.0009765625, '011100001110': 0.0009765625, '010011101010': 0.0009765625, '110000010001': 0.001953125, '010000111110': 0.0009765625, '101110111111': 0.0009765625, '100000110100': 0.0009765625, '100100110001': 0.0009765625, '110011011001': 0.0009765625, '011110001011': 0.0009765625, '100010010111': 0.0009765625, '011000100101': 0.0009765625, '010100010111': 0.0009765625, '011101000011': 0.0009765625, '010101111010': 0.001953125, '101110100010': 0.0009765625, '101010000010': 0.0009765625, '101101101100': 0.0009765625, '011001000101': 0.0009765625, '010000010000': 0.0009765625, '100100000011': 0.0009765625, '100001111111': 0.0009765625, '000011011100': 0.0009765625, '001001001110': 0.0009765625, '110100001010': 0.0009765625, '000010010000': 0.0009765625, '010111100101': 0.0009765625, '001110010000': 0.0009765625, '100110110100': 0.0009765625, '000100001001': 0.0009765625, '110101010111': 0.001953125, '000100100010': 0.0009765625, '110110100001': 0.0009765625, '101001010010': 0.0009765625, '011000110100': 0.0009765625, '010101101101': 0.0009765625, '110111111100': 0.0009765625, '101101010100': 0.0009765625, '001001111111': 0.0009765625, '101011011111': 0.001953125, '011000101111': 0.0009765625, '001011101000': 0.0009765625, '000011000100': 0.0009765625, '010111110110': 0.0009765625, '111000000101': 0.0009765625, '100001000000': 0.0009765625, '111100111010': 0.0009765625, '010110011010': 0.0009765625, '011100110010': 0.0009765625, '101001111101': 0.0009765625, '101100011111': 0.0009765625, '101000110111': 0.001953125, '010111001010': 0.0009765625, '001100000110': 0.0009765625, '101111010010': 0.0009765625, '101100000011': 0.0009765625, '100100001110': 0.0009765625, '111010111101': 0.001953125, '110101100000': 0.0009765625, '111110111011': 0.0009765625, '001011000001': 0.0009765625, '100100111010': 0.001953125, '101010001001': 0.0009765625, '101011010110': 0.0009765625, '001111100100': 0.0009765625, '000111100001': 0.0009765625, '011010100011': 0.0009765625, '011010111011': 0.0009765625, '000011001101': 0.0009765625, '010110001001': 0.001953125, '001001010000': 0.0009765625, '000110111010': 0.001953125, '000011011000': 0.0009765625, '101111110111': 0.0009765625, '111010000000': 0.0009765625, '001100101110': 0.0009765625, '101010010110': 0.0009765625, '110110111111': 0.0009765625, '101011001100': 0.0009765625, '001110011011': 0.001953125, '101111110010': 0.001953125, '001110010001': 0.0009765625, '011110010000': 0.0009765625, '110000100111': 0.0009765625, '100101110001': 0.0009765625, '000100111111': 0.0009765625, '011010100110': 0.001953125, '111001101000': 0.0009765625, '101100010011': 0.0009765625, '011010100101': 0.0009765625, '110101001000': 0.0009765625, '100011100011': 0.001953125, '110111000100': 0.0009765625, '111100100000': 0.0009765625, '101101011001': 0.0009765625, '011100011011': 0.001953125, '101011101111': 0.0009765625, '101011000011': 0.001953125, '011101011010': 0.0009765625, '110000010010': 0.001953125, '011101101100': 0.0009765625, '010010111001': 0.0009765625, '011001100000': 0.0009765625, '011000101001': 0.0009765625, '111110011111': 0.0009765625, '010100000000': 0.0009765625, '110111100001': 0.0009765625, '011111010001': 0.0009765625, '001010011110': 0.0009765625, '001111111110': 0.0009765625, '110111011101': 0.0009765625, '111011110100': 0.0009765625, '000101000101': 0.0009765625, '011110111100': 0.001953125, '011011001011': 0.001953125, '001000001010': 0.0009765625, '110001110101': 0.0009765625, '000001000001': 0.0009765625, '011010011011': 0.0009765625, '011110100000': 0.0009765625, '000010000111': 0.0009765625, '001000011110': 0.0009765625, '011100011111': 0.001953125, '111101101000': 0.0009765625, '001010000001': 0.0009765625, '101100011101': 0.0009765625, '001011101001': 0.0009765625, '100010010010': 0.0009765625, '011010110010': 0.0029296875, '011111000100': 0.0009765625, '010000100010': 0.0009765625, '111111001111': 0.0009765625, '100000101100': 0.0009765625, '101011001000': 0.0009765625, '001000010110': 0.0009765625, '000111100111': 0.0009765625, '100000000011': 0.0009765625, '100110000011': 0.0009765625, '001101101110': 0.001953125, '000001011101': 0.0009765625, '011001001010': 0.0009765625, '110000101101': 0.0009765625, '000101101110': 0.0009765625, '110001000010': 0.001953125, '001100100011': 0.0009765625, '100110001001': 0.0009765625, '100100001011': 0.0009765625, '001101111001': 0.0009765625, '111010101111': 0.0009765625, '011011101011': 0.0009765625, '000101111111': 0.001953125, '011110111010': 0.0009765625, '000011011001': 0.0009765625, '010011000101': 0.0009765625, '101010001010': 0.0029296875, '111000100001': 0.0009765625, '100110111000': 0.0009765625, '010011011101': 0.0009765625, '100010011110': 0.0009765625, '100000011100': 0.001953125, '111001000010': 0.0009765625, '101000000000': 0.0009765625, '001111111011': 0.0009765625, '110101001010': 0.0009765625, '010000001110': 0.0009765625, '000010010001': 0.0009765625, '101111101100': 0.0009765625, '101101111011': 0.0009765625, '001011001100': 0.0009765625, '110010001101': 0.0009765625, '101110001110': 0.001953125, '110011011110': 0.001953125, '001101000000': 0.0009765625, '000111110000': 0.0009765625, '100111001110': 0.0009765625, '000011000000': 0.001953125, '110010010111': 0.001953125, '011101111011': 0.0009765625, '110110111001': 0.0009765625, '011111100111': 0.0009765625, '000111101011': 0.0009765625, '100010000001': 0.0009765625, '000001101001': 0.0009765625, '110011010110': 0.001953125, '101000111111': 0.0009765625, '001010001111': 0.0009765625, '011101110011': 0.0009765625, '111110010011': 0.0009765625, '101000111010': 0.0009765625, '100010011011': 0.0009765625, '000011110110': 0.0009765625, '000000010001': 0.0009765625, '100110010001': 0.0009765625, '001000001011': 0.0009765625, '001011010001': 0.0009765625, '111111001011': 0.0009765625, '100010101101': 0.0009765625, '111110001110': 0.0009765625, '110001001011': 0.0009765625, '111111100010': 0.0009765625, '101000000101': 0.0009765625, '101000100111': 0.0009765625, '101110111010': 0.0009765625, '101000111110': 0.0009765625, '110011101011': 0.0009765625, '110000111100': 0.0009765625, '111101110110': 0.0009765625, '101101111001': 0.0009765625, '111111111110': 0.0009765625, '000100011111': 0.001953125, '111000101001': 0.0009765625, '101010100100': 0.0009765625, '111110110111': 0.0009765625, '000101101100': 0.0009765625, '101101011111': 0.0009765625, '010010111100': 0.0009765625, '110110010100': 0.0009765625, '110111100010': 0.0009765625, '110011110000': 0.0009765625, '000001010100': 0.0009765625, '000000101001': 0.0009765625, '000000011111': 0.0009765625, '110100000010': 0.0009765625, '100111101001': 0.0009765625, '111101010111': 0.0009765625, '101011101101': 0.0009765625, '010101110101': 0.0009765625, '011010110011': 0.0009765625, '101001010001': 0.0009765625, '100001100110': 0.0009765625, '011000111001': 0.0009765625, '101111000111': 0.0009765625, '010001101100': 0.0009765625, '100010111111': 0.0009765625, '011000001100': 0.0009765625, '011000001001': 0.0009765625, '100000110101': 0.0009765625, '011000100110': 0.0009765625, '110011001111': 0.0009765625, '001001110011': 0.0009765625, '110011011100': 0.0009765625, '100010100101': 0.0009765625, '111110100111': 0.0009765625, '110000110000': 0.001953125, '110011010111': 0.0009765625, '111000010101': 0.001953125, '011011000000': 0.0009765625, '011101101011': 0.0009765625, '011101011110': 0.0009765625, '100111101101': 0.0009765625, '100000110010': 0.0009765625, '000011100101': 0.0009765625, '010000100110': 0.0009765625, '110101100010': 0.0009765625, '101011101110': 0.0009765625, '110100100101': 0.0009765625, '010001000001': 0.0009765625, '110110100000': 0.0009765625, '111000011110': 0.0009765625, '010010110110': 0.0009765625, '100101000010': 0.0009765625, '110111111110': 0.0009765625, '000001010011': 0.0009765625, '001101101101': 0.0009765625, '011011000011': 0.0009765625, '000110010100': 0.0009765625, '100000101001': 0.001953125, '101101110111': 0.0009765625, '000101100010': 0.0009765625, '011111010101': 0.0009765625, '001111100011': 0.0009765625, '101111010000': 0.0009765625, '111011101001': 0.0009765625, '010100100100': 0.0009765625, '001011101111': 0.0009765625, '000010101101': 0.0009765625, '110110111000': 0.0009765625, '110000100011': 0.0009765625, '001011000000': 0.0009765625, '001011011101': 0.001953125, '101010000011': 0.001953125, '110000100110': 0.0009765625, '010011000000': 0.0009765625, '010001010101': 0.0009765625, '001001011001': 0.0009765625, '010011000100': 0.0009765625, '000000001111': 0.0009765625, '111110001101': 0.0009765625, '000111001110': 0.001953125, '110010011000': 0.0009765625, '100011100100': 0.0009765625, '011001011111': 0.0009765625, '000100101111': 0.0009765625, '110000001010': 0.0009765625, '001010001110': 0.0009765625, '101000101111': 0.0009765625, '001100000000': 0.0009765625, '111011100011': 0.0009765625, '010110000011': 0.001953125, '100101111101': 0.0009765625, '111100100100': 0.0009765625, '111111010100': 0.0009765625, '110100010010': 0.0009765625, '101000001001': 0.0009765625, '000000000100': 0.0009765625, '011101111100': 0.0009765625, '101111111011': 0.0009765625, '010011110000': 0.0009765625, '100110100010': 0.001953125, '000110110101': 0.0009765625, '110001010000': 0.0009765625, '010010101101': 0.0009765625, '101011100011': 0.0009765625, '010100111100': 0.0009765625, '101111000100': 0.0009765625, '010100111010': 0.0009765625, '011010111001': 0.0009765625, '001001101000': 0.001953125, '101010100000': 0.0009765625, '100101100111': 0.0009765625, '110000001011': 0.0009765625, '101011011101': 0.0009765625, '010001100011': 0.0009765625, '010001001000': 0.0009765625, '100110011000': 0.0009765625, '001010010001': 0.0009765625, '011010010101': 0.0009765625, '001000010011': 0.0009765625, '011100100100': 0.0009765625, '001110000111': 0.0009765625, '011011000001': 0.0009765625, '110001101100': 0.0009765625, '100111011111': 0.0009765625, '101000101001': 0.0009765625, '101111011001': 0.0009765625, '001010000100': 0.0009765625, '011001001001': 0.0009765625, '110111000001': 0.0009765625, '000100011101': 0.0009765625, '010111101011': 0.0009765625, '001110001011': 0.0009765625, '001100110000': 0.0009765625, '010000011011': 0.0009765625, '111111010111': 0.0009765625, '101000111000': 0.0009765625, '010010110010': 0.0009765625, '011101101111': 0.0009765625, '111110100011': 0.0009765625, '011111110011': 0.0009765625, '111111001010': 0.001953125, '001100000111': 0.0009765625, '110110110011': 0.0009765625, '011011001001': 0.0009765625, '011101010011': 0.001953125, '001001000111': 0.001953125, '010111001001': 0.0009765625, '000001100101': 0.0009765625, '010111110111': 0.0009765625, '000110010110': 0.0009765625, '000101101010': 0.0009765625, '111000111111': 0.0009765625, '011110001110': 0.0009765625, '111010100000': 0.0009765625, '111001110010': 0.0009765625, '110111011011': 0.0009765625, '010001110000': 0.0009765625, '011100111111': 0.0009765625, '000011010101': 0.0009765625, '001101110100': 0.0009765625, '111011011101': 0.0009765625, '110101010100': 0.0009765625, '010110011001': 0.0009765625, '110010100001': 0.0009765625, '011100111110': 0.001953125, '011010101000': 0.0009765625, '001101101001': 0.0009765625, '111010010001': 0.0009765625, '000101001011': 0.0009765625, '111010000010': 0.0009765625, '000110011101': 0.0009765625, '011110100001': 0.0009765625, '111011000111': 0.0009765625, '100011011001': 0.0009765625, '110010110000': 0.0009765625, '010000101101': 0.0009765625, '011100101010': 0.0009765625, '000000101011': 0.0009765625, '111010010110': 0.0009765625, '001000101011': 0.0009765625, '101111101110': 0.0009765625, '110001110110': 0.0009765625, '000000000001': 0.0009765625, '011000001110': 0.0009765625, '000100111010': 0.0009765625, '010001111011': 0.0009765625, '110111001101': 0.0009765625, '110100000101': 0.0009765625, '101011110101': 0.0009765625, '110100100000': 0.0009765625, '110110001111': 0.0009765625, '001111111101': 0.0009765625, '100100000010': 0.0009765625, '000111111100': 0.0009765625, '111001101101': 0.0009765625, '110011100011': 0.0009765625, '000100011010': 0.0009765625, '100101011011': 0.0009765625, '001011100000': 0.0009765625, '000001010000': 0.001953125, '100101111000': 0.0009765625, '111101011011': 0.0009765625, '000011000010': 0.0009765625, '111100111100': 0.0009765625, '010101010101': 0.0009765625, '001000011000': 0.001953125, '100000100101': 0.0009765625, '110011111101': 0.0009765625, '110110101011': 0.0009765625, '010010010011': 0.0009765625, '101011000111': 0.0009765625, '101011000100': 0.0009765625, '111111001100': 0.0009765625, '101111001011': 0.0009765625, '110010111110': 0.001953125, '000011100110': 0.001953125, '100011010000': 0.0009765625, '001101111011': 0.0009765625, '010100100010': 0.0009765625, '111111100101': 0.0009765625, '101010100110': 0.0009765625, '110101101010': 0.0009765625, '100000011010': 0.0009765625, '110100111010': 0.0009765625, '010100101110': 0.0009765625, '111101010110': 0.0009765625, '001000001101': 0.0009765625, '010001111110': 0.0009765625, '010111000000': 0.0009765625, '101110000010': 0.0009765625, '000100111011': 0.0009765625, '110100110000': 0.001953125, '010110111001': 0.0009765625, '001101011100': 0.0009765625, '111111111010': 0.0009765625, '001001110110': 0.0009765625, '001000001111': 0.0009765625, '010000101010': 0.001953125, '100111111011': 0.0009765625, '110110111101': 0.0009765625, '111110101001': 0.0009765625, '100001011000': 0.0009765625, '011011111000': 0.0009765625, '011101100011': 0.0009765625, '001010001010': 0.0009765625, '101100111111': 0.0009765625, '000111101110': 0.0009765625, '000100110000': 0.0009765625, '011111100100': 0.001953125, '011011100111': 0.0009765625, '101011100110': 0.0009765625, '000101111101': 0.0009765625, '001101010101': 0.0009765625, '011000000111': 0.001953125, '011101111101': 0.0009765625, '101101100000': 0.0009765625, '111110001010': 0.0009765625, '000100001011': 0.0009765625, '110110011001': 0.0009765625, '111111100110': 0.0009765625, '110100000000': 0.0009765625, '101010100101': 0.0009765625, '101001010101': 0.001953125, '001011110011': 0.0009765625, '101100000110': 0.0009765625, '001011011000': 0.0009765625, '100010110000': 0.0009765625, '101110011101': 0.0009765625, '110111110110': 0.0009765625, '000111011110': 0.0009765625, '110010111000': 0.0009765625, '000000001011': 0.0009765625, '000001010111': 0.0009765625, '100111101000': 0.0009765625, '111010001000': 0.0009765625, '110010110010': 0.0009765625, '111010111110': 0.0009765625, '010000100011': 0.0009765625, '011011011100': 0.0009765625, '100100101000': 0.0009765625, '000110010111': 0.0009765625, '000110111001': 0.0009765625, '000101010011': 0.0009765625, '011101001011': 0.0009765625, '000010010010': 0.0009765625, '111010010010': 0.0009765625, '101010011101': 0.0009765625, '000101100111': 0.0009765625, '110101110011': 0.0009765625, '010100001010': 0.0009765625, '010001001011': 0.0009765625, '011001001101': 0.001953125, '111111000000': 0.0009765625, '000110110010': 0.0009765625, '111010110010': 0.0009765625, '100110011010': 0.0009765625, '000110010010': 0.0009765625, '101101011101': 0.0009765625, '111011110011': 0.0009765625, '000101010101': 0.001953125, '100001111010': 0.0009765625, '111111011001': 0.0009765625, '101010100111': 0.0009765625, '110000111010': 0.0009765625, '101001001011': 0.0009765625, '110001100010': 0.0009765625, '010001001010': 0.0009765625, '110100010000': 0.0009765625, '100010110111': 0.0009765625, '100100101010': 0.0009765625, '110100000011': 0.0009765625, '001111001010': 0.0009765625, '101000000100': 0.0009765625, '101010111100': 0.0009765625, '010111100011': 0.0009765625, '100001101001': 0.001953125, '111000011111': 0.0009765625, '010110110000': 0.0009765625, '111001011111': 0.0009765625, '100000001111': 0.0009765625, '010111111000': 0.001953125, '010011010011': 0.0009765625, '011001000111': 0.0009765625, '100011110101': 0.0009765625, '000110100110': 0.0009765625, '010111100111': 0.0009765625, '110100011011': 0.0009765625, '000110110011': 0.0009765625, '010010010100': 0.0009765625, '100110101101': 0.0009765625, '111110001011': 0.0009765625, '000001100011': 0.0009765625, '010100001110': 0.0009765625, '001111101000': 0.0009765625, '000000100100': 0.0009765625, '101000111101': 0.0009765625, '101010100010': 0.0009765625, '010101100111': 0.0009765625, '000100100011': 0.0009765625, '000000011011': 0.0009765625, '000011111000': 0.0009765625, '111011011100': 0.0009765625, '101010001101': 0.0009765625, '011001111111': 0.0009765625, '110101000001': 0.0009765625, '011100100001': 0.0009765625, '100111010001': 0.001953125, '010010110100': 0.0009765625, '011101011100': 0.0009765625, '001101010110': 0.0009765625, '000111111011': 0.0009765625, '001111100101': 0.0009765625, '111010011000': 0.0009765625, '111100000011': 0.0009765625, '010101110001': 0.0009765625, '010001001100': 0.0009765625, '000111100110': 0.0009765625, '110111100101': 0.0009765625, '111010000101': 0.0009765625, '111011000001': 0.0009765625, '001111111010': 0.0009765625, '100010100111': 0.0009765625, '111101111010': 0.0009765625, '101100010010': 0.0009765625, '011111100110': 0.0009765625, '111111110111': 0.0009765625, '011111010111': 0.0009765625, '101011000001': 0.0009765625, '011100001100': 0.0009765625, '000010101001': 0.0009765625, '001000001000': 0.0009765625, '101100111000': 0.0009765625, '001000101001': 0.0009765625, '101001001101': 0.0009765625, '010101111100': 0.0009765625, '100100111011': 0.0009765625, '001100100010': 0.0009765625, '011100000001': 0.0009765625, '010010000001': 0.0009765625, '001100011001': 0.0009765625, '111011110000': 0.0009765625, '100100000101': 0.0009765625, '101000001011': 0.0009765625, '100111011100': 0.0009765625, '011011110001': 0.0009765625, '110011000010': 0.0009765625, '011010001000': 0.0009765625, '001110100000': 0.0009765625, '110011010101': 0.0009765625, '100010110010': 0.0009765625, '001001101111': 0.0009765625, '100010111001': 0.0009765625, '111111101001': 0.0009765625, '000011011111': 0.0009765625, '110011110110': 0.0009765625, '010010011010': 0.0009765625, '110010010110': 0.0009765625, '100110010111': 0.0009765625, '111100111110': 0.0009765625, '100000100111': 0.0009765625, '011110110001': 0.0009765625, '000001110101': 0.0009765625, '010110100001': 0.0009765625, '111110011010': 0.0009765625, '000011100011': 0.0009765625, '100011010110': 0.0009765625, '001111011101': 0.0009765625, '110000010000': 0.0009765625, '011010111000': 0.0009765625, '011001011101': 0.0009765625, '011011010100': 0.0009765625, '111101101011': 0.0009765625, '010111011101': 0.0009765625, '011100010101': 0.0009765625, '100000010110': 0.0009765625, '111100110010': 0.0009765625, '101001000110': 0.0009765625, '010011111010': 0.0009765625, '010100000011': 0.0009765625, '001100111111': 0.0009765625, '010111100001': 0.0009765625, '011001011001': 0.0009765625, '000010100010': 0.0009765625, '101110111011': 0.0009765625, '111001000001': 0.0009765625, '100001011011': 0.0009765625, '000101001000': 0.0009765625, '010100011001': 0.0009765625, '101100110000': 0.0009765625, '001111110101': 0.0009765625, '000111110010': 0.0009765625, '000110100001': 0.0009765625, '001011011111': 0.0009765625, '100101100010': 0.0009765625, '000010000001': 0.0009765625, '101001000100': 0.0009765625}"}</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/sckathach\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/grover-casse/index.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/404ctf/2025/quantum-challenges/solutions/grover-casse/index.ipynb" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://sckathach.github.io">
+<p>Home</p>
+</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="../../../../../about.html">
+<p>About</p>
+</a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
