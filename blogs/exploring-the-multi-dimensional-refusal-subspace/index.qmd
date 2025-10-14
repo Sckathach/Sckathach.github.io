@@ -45,8 +45,6 @@ I merged multiple harmful datasets, like AdvBench (@zou_universal_2023), StrongR
 ![Harmful sentences of BigBench clusterized with HDBSCAN in $\mathbb{R}^{\text{d\_embed}}$ and projected in 2d with PCA. Each cluster represent a distinct topic (e.g., "explosive creation", "hacking techniques", "illegal substances").](assets/clusters.svg){#fig-clusters}
 
 
-By computing difference-in-means vectors from different topical subsets, I found multiple non-collinear refusal directions with approximately $0.30$ cosine similarity, which confirms they span different dimensions. This approach has two key advantages: it does not require any gradient descent method or hyperparameter to tune, and each direction can be interpreted semantically. However, it does not garantee that the whole refusal cone has been found.
-
 By computing difference-in-means vectors for each cluster, I obtained multiple non-collinear refusal directions with cosine similarity around 0.3, confirming that they occupy different regions of the subspace. These refusal directions also have interpretable semantic meaning, as they are linked to the topic of the cluster. 
 
 Of course, it doesn’t guarantee full coverage of the refusal cone.

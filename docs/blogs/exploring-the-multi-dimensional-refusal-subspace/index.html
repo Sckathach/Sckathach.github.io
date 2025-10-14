@@ -478,7 +478,6 @@ Figure&nbsp;2: Harmful sentences of BigBench clusterized with HDBSCAN in <span c
 </figcaption>
 </figure>
 </div>
-<p>By computing difference-in-means vectors from different topical subsets, I found multiple non-collinear refusal directions with approximately <span class="math inline">\(0.30\)</span> cosine similarity, which confirms they span different dimensions. This approach has two key advantages: it does not require any gradient descent method or hyperparameter to tune, and each direction can be interpreted semantically. However, it does not garantee that the whole refusal cone has been found.</p>
 <p>By computing difference-in-means vectors for each cluster, I obtained multiple non-collinear refusal directions with cosine similarity around 0.3, confirming that they occupy different regions of the subspace. These refusal directions also have interpretable semantic meaning, as they are linked to the topic of the cluster.</p>
 <p>Of course, it doesn’t guarantee full coverage of the refusal cone.</p>
 </section>
