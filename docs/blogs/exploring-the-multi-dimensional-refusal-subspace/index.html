@@ -515,7 +515,8 @@ Figure&nbsp;1: Cosine similarity between refusal directions extracted via differ
 <li><strong>Task performance:</strong> Does the edited model retain performance on harmless tasks?</li>
 </ol>
 <p>For (1), I used an LLM-as-a-judge setup with two evaluators—one stricter than the other—to produce a range rather than a single value.<br>
-For (2), I evaluated using AI Inspect on the MMLU benchmark<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
+For (2), I evaluated using AI Inspect on the MMLU benchmark.</p>
+<p>The experiments where made on the Qwen3 famility of models <span class="citation" data-cites="yang_qwen3_2025">Yang et al. (<a href="#ref-yang_qwen3_2025" role="doc-biblioref">2025</a>)</span>, as my main interest was studying reasoning models. I used Mistral NeMo <span class="citation" data-cites="mistralai_mistralnemo_2024">Mistralai (<a href="#ref-mistralai_mistralnemo_2024" role="doc-biblioref">2024</a>)</span> and Gemini 2.5 <span class="citation" data-cites="comanici_gemini_2025">Comanici et al. (<a href="#ref-comanici_gemini_2025" role="doc-biblioref">2025</a>)</span> as evaluators. Every experiment was run on my laptop, a RTX 4090 with 16GB VRAM. The full evaluation pipeline is described in this footnote<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
 </section>
 </section>
 <section id="results" class="level2">
@@ -553,11 +554,17 @@ Figure&nbsp;3: Scores on the MMLU benchmark to assess retention on harmless task
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-UK_AI_Security_Institute_Inspect_AI_Framework_2024" class="csl-entry" role="listitem">
+AI Security Institute, UK. 2024. <span>“Inspect <span>AI:</span> <span>Framework</span> for <span>Large</span> <span>Language</span> <span>Model</span> <span>Evaluations</span>.”</span> <a href="https://github.com/UKGovernmentBEIS/inspect_ai">https://github.com/UKGovernmentBEIS/inspect_ai</a>.
+</div>
 <div id="ref-arditi_refusal_2024" class="csl-entry" role="listitem">
 Arditi, Andy, Oscar Obeso, Aaquib Syed, Daniel Paleka, Nina Panickssery, Wes Gurnee, and Neel Nanda. 2024. <span>“Refusal in Language Models Is Mediated by a Single Direction.”</span> <a href="https://arxiv.org/abs/2406.11717">https://arxiv.org/abs/2406.11717</a>.
 </div>
 <div id="ref-chu_jailbreak_2025" class="csl-entry" role="listitem">
 Chu, Junjie, Yugeng Liu, Ziqing Yang, Xinyue Shen, Michael Backes, and Yang Zhang. 2025. <span>“JailbreakRadar: Comprehensive Assessment of Jailbreak Attacks Against LLMs.”</span> <a href="https://arxiv.org/abs/2402.05668">https://arxiv.org/abs/2402.05668</a>.
+</div>
+<div id="ref-comanici_gemini_2025" class="csl-entry" role="listitem">
+Comanici, Gheorghe, Eric Bieber, Mike Schaekermann, Ice Pasupat, Noveen Sachdeva, Inderjit Dhillon, Marcel Blistein, et al. 2025. <span>“Gemini 2.5: Pushing the Frontier with Advanced Reasoning, Multimodality, Long Context, and Next Generation Agentic Capabilities.”</span> <a href="https://arxiv.org/abs/2507.06261">https://arxiv.org/abs/2507.06261</a>.
 </div>
 <div id="ref-hasting_introduction_2024" class="csl-entry" role="listitem">
 Hastings-Woodhouse, Sarah. 2024. <span>“Introduction to Mechanistic Interpretability.”</span>
@@ -565,8 +572,14 @@ Hastings-Woodhouse, Sarah. 2024. <span>“Introduction to Mechanistic Interpreta
 <div id="ref-he_jailbreaklens_2024" class="csl-entry" role="listitem">
 He, Zeqing, Zhibo Wang, Zhixuan Chu, Huiyu Xu, Rui Zheng, Kui Ren, and Chun Chen. 2024. <span>“JailbreakLens: Interpreting Jailbreak Mechanism in the Lens of Representation and Circuit.”</span> <a href="https://arxiv.org/abs/2411.11114">https://arxiv.org/abs/2411.11114</a>.
 </div>
+<div id="ref-hendrycks_measuring_2021" class="csl-entry" role="listitem">
+Hendrycks, Dan, Collin Burns, Steven Basart, Andy Zou, Mantas Mazeika, Dawn Song, and Jacob Steinhardt. 2021. <span>“Measuring Massive Multitask Language Understanding.”</span> <a href="https://arxiv.org/abs/2009.03300">https://arxiv.org/abs/2009.03300</a>.
+</div>
 <div id="ref-mazeika_harmbench_2024" class="csl-entry" role="listitem">
 Mazeika, Mantas, Long Phan, Xuwang Yin, Andy Zou, Zifan Wang, Norman Mu, Elham Sakhaee, et al. 2024. <span>“HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal.”</span> <a href="https://arxiv.org/abs/2402.04249">https://arxiv.org/abs/2402.04249</a>.
+</div>
+<div id="ref-mistralai_mistralnemo_2024" class="csl-entry" role="listitem">
+Mistralai. 2024. <span>“Mistral NeMo.”</span> <a href="https://mistral.ai/news/mistral-nemo">https://mistral.ai/news/mistral-nemo</a>.
 </div>
 <div id="ref-nanda_comprehensive_2022" class="csl-entry" role="listitem">
 Nanda, Neel. 2022. <span>“A Comprehensive Mechanistic Interpretability Explainer &amp; Glossary,”</span> December.
@@ -585,6 +598,9 @@ Winninger, Thomas, Boussad Addad, and Katarzyna Kapusta. 2025. <span>“Using Me
 </div>
 <div id="ref-wollschläger_geometry_2025" class="csl-entry" role="listitem">
 Wollschläger, Tom, Jannes Elstner, Simon Geisler, Vincent Cohen-Addad, Stephan Günnemann, and Johannes Gasteiger. 2025. <span>“The Geometry of Refusal in Large Language Models: Concept Cones and Representational Independence.”</span> <a href="https://arxiv.org/abs/2502.17420">https://arxiv.org/abs/2502.17420</a>.
+</div>
+<div id="ref-yang_qwen3_2025" class="csl-entry" role="listitem">
+Yang, An, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, Bo Zheng, Bowen Yu, et al. 2025. <span>“Qwen3 Technical Report.”</span> <a href="https://arxiv.org/abs/2505.09388">https://arxiv.org/abs/2505.09388</a>.
 </div>
 <div id="ref-zou_universal_2023" class="csl-entry" role="listitem">
 Zou, Andy, Zifan Wang, Nicholas Carlini, Milad Nasr, J. Zico Kolter, and Matt Fredrikson. 2023. <span>“Universal and Transferable Adversarial Attacks on Aligned Language Models.”</span> <a href="https://arxiv.org/abs/2307.15043">https://arxiv.org/abs/2307.15043</a>.
@@ -692,11 +708,15 @@ In practice, I did not ablate the embedding matrix or the first three layers, as
 </li>
 <li>LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR (<span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>).</li>
 </ul>
-<p>I don’t have a perfect solution, but I think generating long answers and using a LLM-as-a-judge setup is acceptable (for lack of better techniques), where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. Two judges were used: - Mistral NeMo, which tends to be lenient.<br>
-- Gemini 2.5 Flash, which is stricter.</p>
+<p>I don’t have a perfect solution, but I think generating long answers and using a LLM-as-a-judge setup is acceptable (for lack of better techniques), where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. Two judges were used:</p>
+<ul>
+<li>Mistral NeMo <span class="citation" data-cites="mistralai_mistralnemo_2024">Mistralai (<a href="#ref-mistralai_mistralnemo_2024" role="doc-biblioref">2024</a>)</span>, which tends to be lenient.<br>
+</li>
+<li>Gemini 2.5 Flash <span class="citation" data-cites="comanici_gemini_2025">Comanici et al. (<a href="#ref-comanici_gemini_2025" role="doc-biblioref">2025</a>)</span>, which is stricter.</li>
+</ul>
 <p>Evaluations were run with the DSPy framework (described <a href="../../blogs/dspy-tap/">here</a>).<br>
 Models were quantized to <code>Q4_K_M</code> using Llama.cpp for efficient inference and long-context evaluation (&gt;4000 tokens).</p>
-<p>To assess harmless-task performance, I used AI Inspect with MMLU (0-shot, 100 random samples).<br>
+<p>To assess harmless-task performance, I used AI Inspect <span class="citation" data-cites="UK_AI_Security_Institute_Inspect_AI_Framework_2024">AI Security Institute (<a href="#ref-UK_AI_Security_Institute_Inspect_AI_Framework_2024" role="doc-biblioref">2024</a>)</span> with MMLU <span class="citation" data-cites="hendrycks_measuring_2021">Hendrycks et al. (<a href="#ref-hendrycks_measuring_2021" role="doc-biblioref">2021</a>)</span> (0-shot, 100 random samples).<br>
 Although 100 samples is only a subset of the full 14k-question MMLU benchmark, this setting balances feasibility with acceptable evaluation time, especially for reasoning models.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->

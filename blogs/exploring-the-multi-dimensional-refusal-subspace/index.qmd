@@ -74,7 +74,9 @@ These edited models can then be tested with two main metrics:
 2. **Task performance:** Does the edited model retain performance on harmless tasks?  
 
 For (1), I used an LLM-as-a-judge setup with two evaluators—one stricter than the other—to produce a range rather than a single value.  
-For (2), I evaluated using AI Inspect on the MMLU benchmark[^eval].  
+For (2), I evaluated using AI Inspect on the MMLU benchmark.  
+
+The experiments where made on the Qwen3 famility of models @yang_qwen3_2025, as my main interest was studying reasoning models. I used Mistral NeMo @mistralai_mistralnemo_2024 and Gemini 2.5 @comanici_gemini_2025 as evaluators. Every experiment was run on my laptop, a RTX 4090 with 16GB VRAM. The full evaluation pipeline is described in this footnote[^eval].
 
 ## Results
 
@@ -223,11 +225,12 @@ The multi-dimensionality of the refusal subspace is not a new discovery, but thi
     - LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR (@winninger_using_2025).  
 
     I don't have a perfect solution, but I think generating long answers and using a LLM-as-a-judge setup is acceptable (for lack of better techniques), where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. Two judges were used:
-    - Mistral NeMo, which tends to be lenient.  
-    - Gemini 2.5 Flash, which is stricter.  
+
+    - Mistral NeMo @mistralai_mistralnemo_2024, which tends to be lenient.  
+    - Gemini 2.5 Flash @comanici_gemini_2025, which is stricter.
 
     Evaluations were run with the DSPy framework (described [here](/blogs/dspy-tap/)).  
     Models were quantized to `Q4_K_M` using Llama.cpp for efficient inference and long-context evaluation (>4000 tokens).  
 
-    To assess harmless-task performance, I used AI Inspect with MMLU (0-shot, 100 random samples).  
+    To assess harmless-task performance, I used AI Inspect @UK_AI_Security_Institute_Inspect_AI_Framework_2024 with MMLU @hendrycks_measuring_2021 (0-shot, 100 random samples).  
     Although 100 samples is only a subset of the full 14k-question MMLU benchmark, this setting balances feasibility with acceptable evaluation time, especially for reasoning models.  
