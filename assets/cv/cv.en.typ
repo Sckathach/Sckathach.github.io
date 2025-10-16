@@ -15,7 +15,7 @@
   center,
   text([M2 mathematics student at Télécom SudParis - ENS Paris-Saclay.
   
-  I'm looking for an intership starting April 2026, on LLM alignement, AI security, or more generally in fundamental AI that would lead to a PhD.], size: 1.3em),
+  I'm looking for an intership starting April 2026, on LLM alignement, AI security, or more generally fundamental AI that would lead to a PhD.], size: 1.3em),
 )
 #v(1em)
 // #show strong: set text(purple)

@@ -88,6 +88,7 @@ The experiments where made on the Qwen3 famility of models @yang_qwen3_2025, as 
 
 As shown in @fig-mmlu, this method does not significantly degrade model performance on harmless tasks, at least on MMLU. The only exception is Qwen3 14B, likely due to floating-point precision issues (float16 editing vs. float32 for others).  
 
+
 ## Conclusion
 
 The multi-dimensionality of the refusal subspace is not a new discovery, but this work shows that it also applies to newer and reasoning models. Moreover, it provides a simple, low-cost method that can run on local hardware and help advance interpretability and alignement research.  
