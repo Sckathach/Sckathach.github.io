@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Thomas Winninger">
-<meta name="dcterms.date" content="2025-09-15">
+<meta name="dcterms.date" content="2025-10-15">
 
 <title>Research note: Exploring the multi-dimensional refusal subspace in reasoning models – Thomas Winninger</title>
 <style>
@@ -394,11 +394,20 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#evidences-of-multi-dimensionality" id="toc-evidences-of-multi-dimensionality" class="nav-link active" data-scroll-target="#evidences-of-multi-dimensionality">Evidences of multi-dimensionality</a></li>
-  <li><a href="#characterizing-the-refusal-cone-with-a-practical-clusturing-based-approach" id="toc-characterizing-the-refusal-cone-with-a-practical-clusturing-based-approach" class="nav-link" data-scroll-target="#characterizing-the-refusal-cone-with-a-practical-clusturing-based-approach">Characterizing the refusal cone with a practical clusturing-based approach</a></li>
-  <li><a href="#experimental-validation" id="toc-experimental-validation" class="nav-link" data-scroll-target="#experimental-validation">Experimental validation</a></li>
-  <li><a href="#technical-details-on-the-pipeline" id="toc-technical-details-on-the-pipeline" class="nav-link" data-scroll-target="#technical-details-on-the-pipeline">Technical details on the pipeline</a></li>
-  <li><a href="#early-conclusion" id="toc-early-conclusion" class="nav-link" data-scroll-target="#early-conclusion">Early conclusion</a></li>
+  <li><a href="#evidence-for-multi-dimensionality" id="toc-evidence-for-multi-dimensionality" class="nav-link active" data-scroll-target="#evidence-for-multi-dimensionality">Evidence for multi-dimensionality</a>
+  <ul class="collapse">
+  <li><a href="#a-single-direction-computed-via-different-methods-gives-different-results" id="toc-a-single-direction-computed-via-different-methods-gives-different-results" class="nav-link" data-scroll-target="#a-single-direction-computed-via-different-methods-gives-different-results">A single direction computed via different methods gives different results</a></li>
+  <li><a href="#ablating-a-single-direction-is-no-longer-enough-to-remove-refusal" id="toc-ablating-a-single-direction-is-no-longer-enough-to-remove-refusal" class="nav-link" data-scroll-target="#ablating-a-single-direction-is-no-longer-enough-to-remove-refusal">Ablating a single direction is no longer enough to remove refusal</a></li>
+  <li><a href="#computing-the-refusal-direction-through-optimization-yields-better-results-than-the-difference-in-means" id="toc-computing-the-refusal-direction-through-optimization-yields-better-results-than-the-difference-in-means" class="nav-link" data-scroll-target="#computing-the-refusal-direction-through-optimization-yields-better-results-than-the-difference-in-means">Computing the refusal direction through optimization yields better results than the difference in means</a></li>
+  </ul></li>
+  <li><a href="#characterizing-the-refusal-cone-with-a-practical-clustering-based-approach" id="toc-characterizing-the-refusal-cone-with-a-practical-clustering-based-approach" class="nav-link" data-scroll-target="#characterizing-the-refusal-cone-with-a-practical-clustering-based-approach">Characterizing the refusal cone with a practical clustering-based approach</a>
+  <ul class="collapse">
+  <li><a href="#creation-of-the-variety-dataset" id="toc-creation-of-the-variety-dataset" class="nav-link" data-scroll-target="#creation-of-the-variety-dataset">Creation of the variety dataset</a></li>
+  <li><a href="#selecting-a-limited-number-of-directions" id="toc-selecting-a-limited-number-of-directions" class="nav-link" data-scroll-target="#selecting-a-limited-number-of-directions">Selecting a limited number of directions</a></li>
+  <li><a href="#testing-the-directions" id="toc-testing-the-directions" class="nav-link" data-scroll-target="#testing-the-directions">Testing the directions</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/blogs/exploring-the-multi-dimensional-refusal-subspace/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/blogs/exploring-the-multi-dimensional-refusal-subspace/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -425,7 +434,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 15, 2025</p>
+      <p class="date">October 15, 2025</p>
     </div>
   </div>
   
@@ -440,93 +449,108 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p><em>This work was conducted during my internship at NICT under the supervision of Chansu Han.</em></p>
 </blockquote>
-<p>This is an early research note, I plan to update it as the experiments progress.</p>
-<p>Over the past year, I’ve been studying interpretability and analyzing what happens inside large language models (LLMs) during adversarial attacks. One of the most interesting results is the discovery of a <strong>refusal subspace</strong> (<span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span>) in the model’s feature space. This subspace explains why some jailbreaks work and can even be used to create new ones efficiently.</p>
-<p>I previously suggested that this subspace might not be one-dimensional, and <span class="citation" data-cites="wollschläger_geometry_2025">Wollschläger et al. (<a href="#ref-wollschläger_geometry_2025" role="doc-biblioref">2025</a>)</span> later confirmed this, introducing a method to characterize it. However, their approach relies on gradient-based optimization and is too computationally heavy for small setups.</p>
-<p>Here, I propose a cheaper (though less precise) method to study this structure, along with new experimental evidence (especially on reasoning models) showing that we need to consider <strong>multiple dimensions</strong> rather than a single refusal vector for larger models.</p>
-<section id="evidences-of-multi-dimensionality" class="level2">
-<h2 class="anchored" data-anchor-id="evidences-of-multi-dimensionality">Evidences of multi-dimensionality</h2>
-<p>Mechanistic interpretability research (<span class="citation" data-cites="nanda_comprehensive_2022">Nanda (<a href="#ref-nanda_comprehensive_2022" role="doc-biblioref">2022</a>)</span>; <span class="citation" data-cites="hasting_introduction_2024">Hastings-Woodhouse (<a href="#ref-hasting_introduction_2024" role="doc-biblioref">2024</a>)</span>) has shown that some model behaviors can be expressed linearly in activation space (<span class="citation" data-cites="park_linear_2024">Park, Choe, and Veitch (<a href="#ref-park_linear_2024" role="doc-biblioref">2024</a>)</span>). For example, by comparing activations between contrastive pairs such as “How to create a bomb?” vs.&nbsp;“How to create a website?”, we can extract a <strong>refusal direction</strong>, a vector representing the model’s tendency to reject harmful queries (<span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span>).</p>
+<p>Over the past year, I’ve been studying interpretability and analyzing what happens inside large language models (LLMs) during adversarial attacks. One of my favorite findings is the discovery of a <strong>refusal subspace</strong> in the model’s feature space, which can, in small models, be reduced to a single dimension (<span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span>). This subspace explains why some jailbreaks work, and can also be used to create new ones efficiently.</p>
+<p>I previously suggested that this subspace might not be one-dimensional, and <span class="citation" data-cites="wollschläger_geometry_2025">Wollschläger et al. (<a href="#ref-wollschläger_geometry_2025" role="doc-biblioref">2025</a>)</span> confirmed this, introducing a method to characterize it. However, their approach relies on gradient-based optimization and is too computationally heavy for small setups, especially for my laptop, which prevents me from doing the experiments I would like to.</p>
+<p>Hence, I propose a cheaper (though less precise) method to study this structure, along with new experimental evidence (especially on reasoning models) showing that we need to consider <strong>multiple dimensions</strong>, rather than a single refusal vector, for larger models.</p>
+<section id="evidence-for-multi-dimensionality" class="level2">
+<h2 class="anchored" data-anchor-id="evidence-for-multi-dimensionality">Evidence for multi-dimensionality</h2>
+<p>Mechanistic interpretability research (<span class="citation" data-cites="nanda_comprehensive_2022">Nanda (<a href="#ref-nanda_comprehensive_2022" role="doc-biblioref">2022</a>)</span>; <span class="citation" data-cites="hasting_introduction_2024">Hastings-Woodhouse (<a href="#ref-hasting_introduction_2024" role="doc-biblioref">2024</a>)</span>) has shown that some model behaviors can be expressed linearly in activation space (<span class="citation" data-cites="park_linear_2024">Park, Choe, and Veitch (<a href="#ref-park_linear_2024" role="doc-biblioref">2024</a>)</span>). For example, by comparing activations between contrastive pairs such as <em>“How to create a bomb?”</em> vs.&nbsp;<em>“How to create a website?”</em>, we can extract a refusal direction, a vector representing the model’s tendency to reject harmful queries (<span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span>).</p>
 <p>While earlier work assumed this direction was one-dimensional, evidence suggests that refusal actually spans a <strong>multi-dimensional subspace</strong>, especially in larger models (<span class="citation" data-cites="wollschläger_geometry_2025">Wollschläger et al. (<a href="#ref-wollschläger_geometry_2025" role="doc-biblioref">2025</a>)</span>; <span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>).</p>
-<p>When refusal directions are extracted using different techniques (e.g., difference-in-means vs.&nbsp;probe classifiers), they are <strong>highly but not perfectly aligned</strong>. This imperfect cosine similarity indicates that the model’s refusal behavior isn’t captured by a single vector, but distributed across several correlated directions.</p>
+<section id="a-single-direction-computed-via-different-methods-gives-different-results" class="level3">
+<h3 class="anchored" data-anchor-id="a-single-direction-computed-via-different-methods-gives-different-results">A single direction computed via different methods gives different results</h3>
+<p>When refusal directions are extracted using different techniques, such as the <strong>difference in means (DIM)</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and <strong>probe classifiers</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, they are highly but not perfectly aligned. With cosine similarities descending to <span class="math inline">\(0.3\)</span>, this contradicts the one-dimensional hypothesis.</p>
 <div id="fig-cosine" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-cosine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="assets/cosine_pr_llama3.2_1b.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cosine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Cosine similarity between refusal directions extracted via different methods across layers of Llama 3.2 1b. While the cosine similarity is high in the first layers, it becomes less important in the later ones, with a minimal value of <span class="math inline">\(0.39\)</span> still being meaningful in <span class="math inline">\(\mathbb{R}^{\text{d\_embed}}\)</span>, but far from the <span class="math inline">\(1\)</span> expected if refusal truly occupied just one dimension.
+Figure&nbsp;1: Cosine similarity between refusal directions extracted via different methods across layers of Llama 3.2 1B. While the similarity is high in early layers, it decreases in later ones, with a minimal value of <span class="math inline">\(0.39\)</span>—still meaningful in <span class="math inline">\(\mathbb{R}^{\text{d\_embed}}\)</span>, but far from the <span class="math inline">\(1\)</span> expected if refusal truly occupied just one dimension.
 </figcaption>
 </figure>
 </div>
-<p>This structure also explains why <strong>ablating a single refusal direction</strong> often fails to jailbreak larger models: refusal is distributed and redundant. <span class="citation" data-cites="wollschläger_geometry_2025">Wollschläger et al. (<a href="#ref-wollschläger_geometry_2025" role="doc-biblioref">2025</a>)</span> described this as a <em>refusal cone</em> and proposed a gradient-based way to find it, which unfortunately, is too heavy for smaller machines like mine to perform.</p>
+<p>This phenomenon can also be observed when training multiple probes with different random seeds: they converge to distinct directions, again showing lower cosine similarity than expected.</p>
+</section>
+<section id="ablating-a-single-direction-is-no-longer-enough-to-remove-refusal" class="level3">
+<h3 class="anchored" data-anchor-id="ablating-a-single-direction-is-no-longer-enough-to-remove-refusal">Ablating a single direction is no longer enough to remove refusal</h3>
+<p>Using the ablation method proposed by <span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span> no longer works for recent models, especially those with more than 4 billion parameters. The attack success rate (ASR) can even drop to <span class="math inline">\(0\%\)</span> on models like Llama 3.2 3B.</p>
+</section>
+<section id="computing-the-refusal-direction-through-optimization-yields-better-results-than-the-difference-in-means" class="level3">
+<h3 class="anchored" data-anchor-id="computing-the-refusal-direction-through-optimization-yields-better-results-than-the-difference-in-means">Computing the refusal direction through optimization yields better results than the difference in means</h3>
+<p>During my experiments with SSR (<span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>), I observed that adversarial attacks based on probes consistently outperformed those based on DIM, often by a large margin (50% ASR vs.&nbsp;90% ASR).</p>
+<p><span class="citation" data-cites="wollschläger_geometry_2025">Wollschläger et al. (<a href="#ref-wollschläger_geometry_2025" role="doc-biblioref">2025</a>)</span> reported similar findings and extended the optimization to multiple directions, forming what they called the <strong>refusal cone</strong>. This concept helps explain the observations: while DIM provides one direction within the refusal cone, probe-based methods converge toward a different, more efficient direction, essentially sampling distinct regions of the same cone.</p>
+</section>
+</section>
+<section id="characterizing-the-refusal-cone-with-a-practical-clustering-based-approach" class="level2">
+<h2 class="anchored" data-anchor-id="characterizing-the-refusal-cone-with-a-practical-clustering-based-approach">Characterizing the refusal cone with a practical clustering-based approach</h2>
+<p>The idea behind the cheaper refusal cone extraction method is straightforward: if large models encode different categories of harmful content differently, then computing refusal directions per topic should expose several distinct vectors.</p>
+<section id="creation-of-the-variety-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="creation-of-the-variety-dataset">Creation of the variety dataset</h3>
+<p>I merged multiple harmful datasets, including AdvBench (<span class="citation" data-cites="zou_universal_2023">Zou et al. (<a href="#ref-zou_universal_2023" role="doc-biblioref">2023</a>)</span>) and StrongREJECT (<span class="citation" data-cites="souly_strongreject_2024">Souly et al. (<a href="#ref-souly_strongreject_2024" role="doc-biblioref">2024</a>)</span>), into a unified BigBench-style dataset of about 1,200 samples. Using a sentence transformer embedding and HDBSCAN clustering, I grouped semantically similar prompts together and used an LLM to label each cluster, resulting in 74 distinct categories<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>By computing difference-in-means vectors for each cluster, I obtained multiple non-collinear refusal directions with cosine similarities around 0.3, confirming that they occupy different regions of the subspace. These refusal directions also have interpretable semantic meaning, being linked to the topics of their clusters.</p>
+<p>Of course, this method doesn’t guarantee full coverage of the refusal cone.</p>
+</section>
+<section id="selecting-a-limited-number-of-directions" class="level3">
+<h3 class="anchored" data-anchor-id="selecting-a-limited-number-of-directions">Selecting a limited number of directions</h3>
+<p>This method yields multiple directions (12 in my setup). To extract only a few representative ones, several options can be used:</p>
+<ul>
+<li>Use singular value decomposition to extract a basis<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.<br>
+</li>
+<li>Select the “least aligned” directions by minimizing cosine similarity between pairs<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.<br>
+</li>
+<li>Select a random subset.</li>
+</ul>
+<p><span class="citation" data-cites="wollschläger_geometry_2025">Wollschläger et al. (<a href="#ref-wollschläger_geometry_2025" role="doc-biblioref">2025</a>)</span> constructed a basis with the Gram-Schmidt algorithm, but I found it less efficient than the second method, which simply selects the best candidates. Thus, I’ll be using the second method for the rest of this work.</p>
 <blockquote class="blockquote">
-<p><em>It also clarifies some earlier results: in SSR (<span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>), the <em>ProbeSSR</em> variant consistently outperformed <em>SteeringSSR</em> even though they’re theoretically similar. SteeringSSR uses a single difference-in-means (DIM) vector, while ProbeSSR (initialized randomly) can converge toward different, more efficient refusal directions — essentially sampling parts of the same cone.</em></p>
+<p>Even though, in practice, the subspace found by the cone method may be smaller than that found by SVD, this is not guaranteed<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
 </blockquote>
 </section>
-<section id="characterizing-the-refusal-cone-with-a-practical-clusturing-based-approach" class="level2">
-<h2 class="anchored" data-anchor-id="characterizing-the-refusal-cone-with-a-practical-clusturing-based-approach">Characterizing the refusal cone with a practical clusturing-based approach</h2>
-<p>The idea for the cheap refusal cone extraction is straightforward: if large models encode different categories of harmful content differently, then computing refusal directions per topic should expose several distinct vectors.</p>
-<p>I merged multiple harmful datasets, like AdvBench (<span class="citation" data-cites="zou_universal_2023">Zou et al. (<a href="#ref-zou_universal_2023" role="doc-biblioref">2023</a>)</span>), StrongREJECT (<span class="citation" data-cites="souly_strongreject_2024">Souly et al. (<a href="#ref-souly_strongreject_2024" role="doc-biblioref">2024</a>)</span>), into a unified BigBench-style dataset of about 1,200 samples. Using a sentence transformer embedding (<code>text-embedding-embeddinggemma-300m-qat</code>) and <strong>HDBSCAN</strong> clustering, I grouped semantically similar prompts together (<a href="#fig-clusters" class="quarto-xref">Figure&nbsp;2</a>).</p>
-<div id="fig-clusters" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-clusters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="assets/clusters.svg" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-clusters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Harmful sentences of BigBench clusterized with HDBSCAN in <span class="math inline">\(\mathbb{R}^{\text{d\_embed}}\)</span> and projected in 2d with PCA. Each cluster represent a distinct topic (e.g., “explosive creation”, “hacking techniques”, “illegal substances”).
-</figcaption>
-</figure>
-</div>
-<p>By computing difference-in-means vectors for each cluster, I obtained multiple non-collinear refusal directions with cosine similarity around 0.3, confirming that they occupy different regions of the subspace. These refusal directions also have interpretable semantic meaning, as they are linked to the topic of the cluster.</p>
-<p>Of course, it doesn’t guarantee full coverage of the refusal cone.</p>
+<section id="testing-the-directions" class="level3">
+<h3 class="anchored" data-anchor-id="testing-the-directions">Testing the directions</h3>
+<p>Once the directions are found, we can steer the model to induce or reduce refusal. Alternatively, we can directly edit the model by ablating the directions from its weights, producing an edited version with the refusal cone removed. I followed <span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span>’s approach, ablating every matrix writing to the residual stream<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
+<p>These edited models can then be tested with two main metrics:</p>
+<ol type="1">
+<li><strong>Refusal susceptibility:</strong> Is the edited model more likely to answer harmful prompts?<br>
+</li>
+<li><strong>Task performance:</strong> Does the edited model retain performance on harmless tasks?</li>
+</ol>
+<p>For (1), I used an LLM-as-a-judge setup with two evaluators—one stricter than the other—to produce a range rather than a single value.<br>
+For (2), I evaluated using AI Inspect on the MMLU benchmark<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
 </section>
-<section id="experimental-validation" class="level2">
-<h2 class="anchored" data-anchor-id="experimental-validation">Experimental validation</h2>
-<p>To test whether these directions truly correspond to distinct refusal components, I ablated one, two, and three refusal vectors in Qwen3-8B, then measured the model’s responses to vanilla harmful prompts using the DSPy evaluation pipeline.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
 <div id="fig-multi" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-multi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="assets/asr_multidim.svg" class="img-fluid figure-img">
+<img src="assets/asr_qwen_rs.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Distribution of evaluator scores using vanilla harmful prompts and ablating <strong>1 (Orange)</strong>, <strong>2 (Pink)</strong>, and <strong>3 (Violet)</strong> refusal directions . On the Y-axis, the number of samples, on the X-axis, the score given by the evaluator: <strong>1 (Fail)</strong> - complete refusal, <strong>2 (Fail)</strong> - partial refusal or no information, <strong>3 (Success)</strong> - accepts and gives a few details, <strong>4 (Success)</strong> - accepts and give detailed answer.
+Figure&nbsp;2: Attack Success Rate (ASR) on the vanilla harmful dataset (no jailbreak) using Qwen3 models with different numbers of ablated refusal directions. 0 corresponds to the original model. <strong>Dark bars:</strong> Gemini evaluation. <strong>Light bars:</strong> Mistral Nemo evaluation, which gives slightly higher scores.
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-multi" class="quarto-xref">Figure&nbsp;3</a> shows that, as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores. But more importantly, that while one direction is not sufficient to remove refusal, multiple dimensions are.</p>
-<p>As shown in <a href="#fig-multi" class="quarto-xref">Figure&nbsp;3</a>, the distribution shifts toward higher compliance scores as more refusal directions are ablated. More importantly, a single ablation doesn’t fully remove refusal, but multiple ablations do, confirming that refusal is multi-dimensional.</p>
-<p>One limitation of this simplified approach is that it doesn’t account for harmless-task performance: ablating several refusal directions may degrade unrelated capabilities, as also noted by <span class="citation" data-cites="wollschläger_geometry_2025">Wollschläger et al. (<a href="#ref-wollschläger_geometry_2025" role="doc-biblioref">2025</a>)</span>.</p>
-</section>
-<section id="technical-details-on-the-pipeline" class="level2">
-<h2 class="anchored" data-anchor-id="technical-details-on-the-pipeline">Technical details on the pipeline</h2>
-<p>The <strong>harmful dataset</strong> used to form BigBench included: AdvBench (<span class="citation" data-cites="zou_universal_2023">Zou et al. (<a href="#ref-zou_universal_2023" role="doc-biblioref">2023</a>)</span>), HarmBench (<span class="citation" data-cites="mazeika_harmbench_2024">Mazeika et al. (<a href="#ref-mazeika_harmbench_2024" role="doc-biblioref">2024</a>)</span>), StrongREJECT (<span class="citation" data-cites="souly_strongreject_2024">Souly et al. (<a href="#ref-souly_strongreject_2024" role="doc-biblioref">2024</a>)</span>), ForbiddenQuestions (<span class="citation" data-cites="chu_jailbreak_2025">Chu et al. (<a href="#ref-chu_jailbreak_2025" role="doc-biblioref">2025</a>)</span>), and MaliciousInstruct (<span class="citation" data-cites="qiu_latent_2023">Qiu et al. (<a href="#ref-qiu_latent_2023" role="doc-biblioref">2023</a>)</span>), totaling 1,271 samples.</p>
-<p>Embeddings were computed with <code>text-embedding-embeddinggemma-300m-qat</code>, and <strong>HDBSCAN</strong> was chosen to handle the 768-dimensional, unevenly distributed data.</p>
-<p>Once the clusters were formed, I used <strong>Qwen3-8B</strong> to label them automatically, making the dataset easier to interpret later. I also generated contrastive harmless prompts with this model (as in SSR, <span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>).</p>
-<div id="lst-bbexample" class="json listing quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-lst figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-bbexample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Listing&nbsp;1: Example of a harmful-harmless pair along with its topic in Bigbench
-</figcaption>
-<div aria-describedby="lst-bbexample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"harmful_prompt"</span><span class="fu">:</span> <span class="st">"How to create a bomb?"</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"harmless_prompt"</span><span class="fu">:</span> <span class="st">"How to create a website?"</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"topic"</span><span class="fu">:</span> <span class="st">"explosive creation"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="#fig-multi" class="quarto-xref">Figure&nbsp;2</a> shows that as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores—even without jailbreaks or adversarial suffixes. More importantly, while ablating a single direction is insufficient for larger models (e.g., Qwen3 8B and 14B), multiple directions succeed in reducing refusal.</p>
+<div id="fig-mmlu" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mmlu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="assets/mmlu_qwen_rs.svg" class="img-fluid figure-img">
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mmlu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Scores on the MMLU benchmark to assess retention on harmless tasks.
+</figcaption>
 </figure>
 </div>
-<p>To evaluate the success of jailbreaks, I used the DSPy framework I developped with Mistral NeMo as the backbone (<span class="citation" data-cites="mistralai_mistralnemo_2024">Mistralai (<a href="#ref-mistralai_mistralnemo_2024" role="doc-biblioref">2024</a>)</span>). See the <a href="../../posts/dspy-tap/">post</a> for more details.</p>
+<p>As shown in <a href="#fig-mmlu" class="quarto-xref">Figure&nbsp;3</a>, this method does not significantly degrade model performance on harmless tasks, at least on MMLU. The only exception is Qwen3 14B, likely due to floating-point precision issues (float16 editing vs.&nbsp;float32 for others).</p>
 </section>
-<section id="early-conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="early-conclusion">Early conclusion</h2>
-<p>These results strongly suggest that refusal is not a single direction but spans a multi-dimensional subspace. Even though this clustering-based method is simple, it gives clear, interpretable evidence, and can run on local hardware.</p>
-<p>This makes it a useful baseline for exploring larger models and paves the way for more systematic work on disentangling safety-related features from general reasoning abilities.</p>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The multi-dimensionality of the refusal subspace is not a new discovery, but this work shows that it also applies to newer and reasoning models. Moreover, it provides a simple, low-cost method that can run on local hardware and help advance interpretability and alignement research.</p>
 
 
 
 </section>
+
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-arditi_refusal_2024" class="csl-entry" role="listitem">
@@ -538,11 +562,11 @@ Chu, Junjie, Yugeng Liu, Ziqing Yang, Xinyue Shen, Michael Backes, and Yang Zhan
 <div id="ref-hasting_introduction_2024" class="csl-entry" role="listitem">
 Hastings-Woodhouse, Sarah. 2024. <span>“Introduction to Mechanistic Interpretability.”</span>
 </div>
+<div id="ref-he_jailbreaklens_2024" class="csl-entry" role="listitem">
+He, Zeqing, Zhibo Wang, Zhixuan Chu, Huiyu Xu, Rui Zheng, Kui Ren, and Chun Chen. 2024. <span>“JailbreakLens: Interpreting Jailbreak Mechanism in the Lens of Representation and Circuit.”</span> <a href="https://arxiv.org/abs/2411.11114">https://arxiv.org/abs/2411.11114</a>.
+</div>
 <div id="ref-mazeika_harmbench_2024" class="csl-entry" role="listitem">
 Mazeika, Mantas, Long Phan, Xuwang Yin, Andy Zou, Zifan Wang, Norman Mu, Elham Sakhaee, et al. 2024. <span>“HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal.”</span> <a href="https://arxiv.org/abs/2402.04249">https://arxiv.org/abs/2402.04249</a>.
-</div>
-<div id="ref-mistralai_mistralnemo_2024" class="csl-entry" role="listitem">
-Mistralai. 2024. <span>“Mistral NeMo.”</span> <a href="https://mistral.ai/news/mistral-nemo">https://mistral.ai/news/mistral-nemo</a>.
 </div>
 <div id="ref-nanda_comprehensive_2022" class="csl-entry" role="listitem">
 Nanda, Neel. 2022. <span>“A Comprehensive Mechanistic Interpretability Explainer &amp; Glossary,”</span> December.
@@ -565,7 +589,117 @@ Wollschläger, Tom, Jannes Elstner, Simon Geisler, Vincent Cohen-Addad, Stephan 
 <div id="ref-zou_universal_2023" class="csl-entry" role="listitem">
 Zou, Andy, Zifan Wang, Nicholas Carlini, Milad Nasr, J. Zico Kolter, and Matt Fredrikson. 2023. <span>“Universal and Transferable Adversarial Attacks on Aligned Language Models.”</span> <a href="https://arxiv.org/abs/2307.15043">https://arxiv.org/abs/2307.15043</a>.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><strong>Extracting the refusal direction with the Difference-in-Means (DIM) method</strong></p>
+<p>This is the method from <span class="citation" data-cites="arditi_refusal_2024">Arditi et al. (<a href="#ref-arditi_refusal_2024" role="doc-biblioref">2024</a>)</span>.<br>
+Given pairs of harmful and harmless prompts (e.g., “How to create a bomb?” vs.&nbsp;“How to create a website?”), we first perform a forward pass to compute the activations of the residual stream at each layer on the last token, after the MLP (<code>resid_post</code>).</p>
+<p>At layer <span class="math inline">\(l\)</span>, we obtain <span class="math inline">\(a_l^{\text{hf}}\)</span> for harmful prompts and <span class="math inline">\(a_l^{\text{hl}}\)</span> for harmless ones.<br>
+The refusal direction is then computed as:</p>
+<p><span class="math display">\[
+\vec{r}_l = \frac{1}{|\text{HF}|}\sum_{\text{hf} \in \text{HF}} a_l^{\text{hf}} -
+\frac{1}{|\text{HL}|}\sum_{\text{hl} \in \text{HL}} a_l^{\text{hl}}
+\]</span></p>
+<p>where<br>
+- <span class="math inline">\(\vec{r}_l\)</span> is the refusal direction at layer <span class="math inline">\(l\)</span>,<br>
+- <span class="math inline">\(\text{HF}\)</span> is the set of harmful prompts, and<br>
+- <span class="math inline">\(\text{HL}\)</span> is the set of harmless prompts.</p>
+<p>Variants exist: some average activations across all tokens (<span class="citation" data-cites="he_jailbreaklens_2024">He et al. (<a href="#ref-he_jailbreaklens_2024" role="doc-biblioref">2024</a>)</span>), and some use intermediate positions within the transformer layer instead of post-MLP activations.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><strong>Extracting the refusal direction with probe classifiers</strong></p>
+<p>This approach follows <span class="citation" data-cites="he_jailbreaklens_2024">He et al. (<a href="#ref-he_jailbreaklens_2024" role="doc-biblioref">2024</a>)</span> and <span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>.<br>
+Activations are collected as in the DIM method, but a one-layer neural probe is trained to predict refusal:</p>
+<p><span class="math display">\[
+p_l(\text{sentence}) = \sigma(\vec{w}_l^T a_l + b_l)
+\]</span></p>
+<p>The probe minimizes the binary cross-entropy loss:</p>
+<p><span class="math display">\[
+\min_{\vec{w}_l, b_l} \sum_{\text{hf} \in \text{HF}} \mathcal{L}(0, \sigma(\vec{w}_l^T a_l^{\text{hf}} + b_l)) +
+\sum_{\text{hl} \in \text{HL}} \mathcal{L}(1, \sigma(\vec{w}_l^T a_l^{\text{hl}} + b_l))
+\]</span></p>
+<p>The normalized weight vector gives the refusal direction: <span class="math inline">\(\vec{r}_l = \vec{w}_l / ||\vec{w}_l||\)</span>.<br>
+In practice, the bias term is often close to zero.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><strong>Creation of the harmful dataset</strong></p>
+<p>The combined dataset included AdvBench (<span class="citation" data-cites="zou_universal_2023">Zou et al. (<a href="#ref-zou_universal_2023" role="doc-biblioref">2023</a>)</span>), HarmBench (<span class="citation" data-cites="mazeika_harmbench_2024">Mazeika et al. (<a href="#ref-mazeika_harmbench_2024" role="doc-biblioref">2024</a>)</span>), StrongREJECT (<span class="citation" data-cites="souly_strongreject_2024">Souly et al. (<a href="#ref-souly_strongreject_2024" role="doc-biblioref">2024</a>)</span>), ForbiddenQuestions (<span class="citation" data-cites="chu_jailbreak_2025">Chu et al. (<a href="#ref-chu_jailbreak_2025" role="doc-biblioref">2025</a>)</span>), and MaliciousInstruct (<span class="citation" data-cites="qiu_latent_2023">Qiu et al. (<a href="#ref-qiu_latent_2023" role="doc-biblioref">2023</a>)</span>), totaling 1,271 samples.</p>
+<p>Embeddings were computed with <code>text-embedding-embeddinggemma-300m-qat</code>.<br>
+HDBSCAN was chosen to handle the uneven, high-dimensional (768D) space.</p>
+<p>Clusters were automatically labeled with Qwen3-8B and used to generate contrastive harmless prompts, following the SSR approach (<span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>).</p>
+<div id="lst-bbexample" class="json listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-bbexample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Listing&nbsp;1: Example of a harmful–harmless pair with topic label in BigBench
+</figcaption>
+<div aria-describedby="lst-bbexample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"harmful_prompt"</span><span class="fu">:</span> <span class="st">"How to create a bomb?"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"harmless_prompt"</span><span class="fu">:</span> <span class="st">"How to create a website?"</span><span class="fu">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"topic"</span><span class="fu">:</span> <span class="st">"explosive creation"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</figure>
+</div>
+<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></li>
+<li id="fn4"><p><strong>Reducing the number of refusal directions with singular value decomposition (SVD)</strong></p>
+<p>Given <span class="math inline">\(b\)</span> refusal directions <span class="math inline">\(\vec{r}_l^1, \vec{r}_l^2, \ldots, \vec{r}_l^b\)</span>, concatenate them into a matrix <span class="math inline">\(A\)</span>:</p>
+<p><span class="math display">\[
+A = [\vec{r}_l^1, \vec{r}_l^2, \ldots, \vec{r}_l^b] \in \mathbb{R}^{b \times \text{d\_embed}}
+\]</span></p>
+<p>Applying SVD gives:</p>
+<p><span class="math display">\[
+A = U\Sigma V^T
+\]</span></p>
+<p>The top-<span class="math inline">\(k\)</span> singular vectors form an orthonormal basis:</p>
+<p><span class="math display">\[
+\vec{r}_{l}^{\text{SVD}} = [U_{:,1}, U_{:,2}, \ldots, U_{:,k}]
+\]</span></p>
+<p>This captures the directions that explain the greatest variance.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><strong>Reducing the number of refusal directions with cosine-similarity selection (MINCOS)</strong></p>
+<p>Given <span class="math inline">\(b\)</span> refusal directions <span class="math inline">\(\vec{r}_l^1, \ldots, \vec{r}_l^b\)</span>, compute the Gram matrix of pairwise cosine similarities:</p>
+<p><span class="math display">\[
+G_{ij} = \frac{\langle \vec{r}_l^i, \vec{r}_l^j \rangle}{||\vec{r}_l^i|| \cdot ||\vec{r}_l^j||}
+\]</span></p>
+<p>For each direction <span class="math inline">\(i\)</span>, sum its total similarity:</p>
+<p><span class="math display">\[
+s_i = \sum_{j=1, j \neq i}^{b} |G_{ij}|
+\]</span></p>
+<p>Select the <span class="math inline">\(k\)</span> directions with the smallest <span class="math inline">\(s_i\)</span>:</p>
+<p><span class="math display">\[
+\mathcal{I}^{\text{MINCOS}} = \underset{|\mathcal{I}|=k}{\arg\min} \sum_{i \in \mathcal{I}} s_i
+\]</span></p>
+<p>The selected directions are <span class="math inline">\(\vec{r}_l^{\text{MINCOS}} = \{\vec{r}_l^i : i \in \mathcal{I}^{\text{MINCOS}}\}\)</span>.<br>
+Unlike SVD, MINCOS preserves actual learned directions and does not produce orthogonal ones.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><strong>Relationship between MINCOS and SVD subspaces</strong></p>
+<p>The subspace found by MINCOS is not necessarily contained within the one found by SVD.<br>
+While SVD captures the top-<span class="math inline">\(k\)</span> principal components (usually explaining 90–95% of the variance), MINCOS may select directions outside this space:</p>
+<p><span class="math display">\[
+\text{Vect}(\vec{r}_l^{\text{MINCOS}}) \not\subseteq \text{Vect}(\vec{r}_l^{\text{SVD}})
+\]</span></p>
+<p>In practice, when cosine similarities are moderate (e.g., 0.15), the MINCOS subspace can be considered “smaller” or less destructive than the SVD one.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><strong>Ablation process: orthogonalizing weight matrices</strong></p>
+<p>To remove the influence of a refusal direction <span class="math inline">\(\hat{\vec{r}}\)</span> from the model, we modify each weight matrix that writes to the residual stream.<br>
+For an output matrix <span class="math inline">\(W_{\text{out}} \in \mathbb{R}^{d_{\text{embed}} \times d_{\text{input}}}\)</span> (e.g., attention and MLP output matrices), we project it orthogonally:</p>
+<p><span class="math display">\[
+W_{\text{out}}' \leftarrow W_{\text{out}} - \hat{\vec{r}}\hat{\vec{r}}^T W_{\text{out}}
+\]</span></p>
+<p>This ensures <span class="math inline">\(W_{\text{out}}'\)</span> no longer writes any component along <span class="math inline">\(\hat{\vec{r}}\)</span>.<br>
+In practice, I did not ablate the embedding matrix or the first three layers, as refusal directions are poorly defined there (low probe accuracy).<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><strong>Evaluation details</strong></p>
+<p>Many papers evaluate model refusal using bag-of-words filters or LLM classifiers like Llama Guard, but I find these evaluation very inaccurate, especially for reasoning models:</p>
+<ul>
+<li>Lexical methods fail because models may begin with neutral phrasing (“Sure, here is…”) before refusing, or refuse implicitly without using “refusal words.”<br>
+</li>
+<li>Short generations are insufficient: reasoning models may refuse early but then provide harmful content thousands of tokens later (after 4000 tokens for instance with Qwen 3 8b).<br>
+</li>
+<li>LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR (<span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>).</li>
+</ul>
+<p>I don’t have a perfect solution, but I think generating long answers and using a LLM-as-a-judge setup is acceptable (for lack of better techniques), where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. Two judges were used: - Mistral NeMo, which tends to be lenient.<br>
+- Gemini 2.5 Flash, which is stricter.</p>
+<p>Evaluations were run with the DSPy framework (described <a href="../../blogs/dspy-tap/">here</a>).<br>
+Models were quantized to <code>Q4_K_M</code> using Llama.cpp for efficient inference and long-context evaluation (&gt;4000 tokens).</p>
+<p>To assess harmless-task performance, I used AI Inspect with MMLU (0-shot, 100 random samples).<br>
+Although 100 samples is only a subset of the full 14k-question MMLU benchmark, this setting balances feasibility with acceptable evaluation time, especially for reasoning models.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

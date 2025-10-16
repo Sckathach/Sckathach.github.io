@@ -4,88 +4,230 @@ author:
   - name: "Thomas Winninger"
 toc: true
 code-fold: true
-date: 2025-09-15
+date: 2025-10-15
 bibliography: "references.bib"
-reference-location: margin
 ---
 
 > _This work was conducted during my internship at NICT under the supervision of Chansu Han._
 
-This is an early research note, I plan to update it as the experiments progress.  
+Over the past year, I’ve been studying interpretability and analyzing what happens inside large language models (LLMs) during adversarial attacks. One of my favorite findings is the discovery of a **refusal subspace** in the model’s feature space, which can, in small models, be reduced to a single dimension (@arditi_refusal_2024). This subspace explains why some jailbreaks work, and can also be used to create new ones efficiently.  
 
-Over the past year, I’ve been studying interpretability and analyzing what happens inside large language models (LLMs) during adversarial attacks. One of the most interesting results is the discovery of a **refusal subspace** (@arditi_refusal_2024) in the model’s feature space. This subspace explains why some jailbreaks work and can even be used to create new ones efficiently.  
+I previously suggested that this subspace might not be one-dimensional, and @wollschläger_geometry_2025 confirmed this, introducing a method to characterize it. However, their approach relies on gradient-based optimization and is too computationally heavy for small setups, especially for my laptop, which prevents me from doing the experiments I would like to.  
 
-I previously suggested that this subspace might not be one-dimensional, and @wollschläger_geometry_2025 later confirmed this, introducing a method to characterize it. However, their approach relies on gradient-based optimization and is too computationally heavy for small setups.  
+Hence, I propose a cheaper (though less precise) method to study this structure, along with new experimental evidence (especially on reasoning models) showing that we need to consider **multiple dimensions**, rather than a single refusal vector, for larger models.  
 
-Here, I propose a cheaper (though less precise) method to study this structure, along with new experimental evidence (especially on reasoning models) showing that we need to consider **multiple dimensions** rather than a single refusal vector for larger models.  
+## Evidence for multi-dimensionality
 
-## Evidences of multi-dimensionality
-
-Mechanistic interpretability research (@nanda_comprehensive_2022; @hasting_introduction_2024) has shown that some model behaviors can be expressed linearly in activation space (@park_linear_2024). For example, by comparing activations between contrastive pairs such as "How to create a bomb?" vs. "How to create a website?",  we can extract a **refusal direction**, a vector representing the model’s tendency to reject harmful queries (@arditi_refusal_2024).  
+Mechanistic interpretability research (@nanda_comprehensive_2022; @hasting_introduction_2024) has shown that some model behaviors can be expressed linearly in activation space (@park_linear_2024). For example, by comparing activations between contrastive pairs such as *“How to create a bomb?”* vs. *“How to create a website?”*, we can extract a refusal direction, a vector representing the model’s tendency to reject harmful queries (@arditi_refusal_2024).  
 
 While earlier work assumed this direction was one-dimensional, evidence suggests that refusal actually spans a **multi-dimensional subspace**, especially in larger models (@wollschläger_geometry_2025; @winninger_using_2025).  
 
-When refusal directions are extracted using different techniques (e.g., difference-in-means vs. probe classifiers), they are **highly but not perfectly aligned**. This imperfect cosine similarity indicates that the model’s refusal behavior isn’t captured by a single vector, but distributed across several correlated directions.
+### A single direction computed via different methods gives different results
 
+When refusal directions are extracted using different techniques, such as the **difference in means (DIM)**[^dim] and **probe classifiers**[^probes], they are highly but not perfectly aligned. With cosine similarities descending to $0.3$, this contradicts the one-dimensional hypothesis.  
 
-![Cosine similarity between refusal directions extracted via different methods across layers of Llama 3.2 1b. While the cosine similarity is high in the first layers, it becomes less important in the later ones, with a minimal value of $0.39$ still being meaningful in $\mathbb{R}^{\text{d\_embed}}$, but far from the $1$ expected if refusal truly occupied just one dimension.](assets/cosine_pr_llama3.2_1b.svg){#fig-cosine}
+![Cosine similarity between refusal directions extracted via different methods across layers of Llama 3.2 1B. While the similarity is high in early layers, it decreases in later ones, with a minimal value of $0.39$—still meaningful in $\mathbb{R}^{\text{d\_embed}}$, but far from the $1$ expected if refusal truly occupied just one dimension.](assets/cosine_pr_llama3.2_1b.svg){#fig-cosine}
 
-This structure also explains why **ablating a single refusal direction** often fails to jailbreak larger models: refusal is distributed and redundant. @wollschläger_geometry_2025 described this as a *refusal cone* and proposed a gradient-based way to find it, which unfortunately, is too heavy for smaller machines like mine to perform.
+This phenomenon can also be observed when training multiple probes with different random seeds: they converge to distinct directions, again showing lower cosine similarity than expected.  
 
-> _It also clarifies some earlier results: in SSR (@winninger_using_2025), the *ProbeSSR* variant consistently outperformed *SteeringSSR* even though they’re theoretically similar. SteeringSSR uses a single difference-in-means (DIM) vector, while ProbeSSR (initialized randomly) can converge toward different, more efficient refusal directions — essentially sampling parts of the same cone._
+### Ablating a single direction is no longer enough to remove refusal
 
+Using the ablation method proposed by @arditi_refusal_2024 no longer works for recent models, especially those with more than 4 billion parameters. The attack success rate (ASR) can even drop to $0\%$ on models like Llama 3.2 3B.
 
-## Characterizing the refusal cone with a practical clusturing-based approach
+### Computing the refusal direction through optimization yields better results than the difference in means
 
+During my experiments with SSR (@winninger_using_2025), I observed that adversarial attacks based on probes consistently outperformed those based on DIM, often by a large margin (50% ASR vs. 90% ASR).  
 
-The idea for the cheap refusal cone extraction is straightforward: if large models encode different categories of harmful content differently, then computing refusal directions per topic should expose several distinct vectors.  
+@wollschläger_geometry_2025 reported similar findings and extended the optimization to multiple directions, forming what they called the **refusal cone**. This concept helps explain the observations: while DIM provides one direction within the refusal cone, probe-based methods converge toward a different, more efficient direction, essentially sampling distinct regions of the same cone.  
 
-I merged multiple harmful datasets, like AdvBench (@zou_universal_2023), StrongREJECT (@souly_strongreject_2024), into a unified BigBench-style dataset of about 1,200 samples. Using a sentence transformer embedding (`text-embedding-embeddinggemma-300m-qat`) and **HDBSCAN** clustering, I grouped semantically similar prompts together (@fig-clusters).
+## Characterizing the refusal cone with a practical clustering-based approach
 
-![Harmful sentences of BigBench clusterized with HDBSCAN in $\mathbb{R}^{\text{d\_embed}}$ and projected in 2d with PCA. Each cluster represent a distinct topic (e.g., "explosive creation", "hacking techniques", "illegal substances").](assets/clusters.svg){#fig-clusters}
+The idea behind the cheaper refusal cone extraction method is straightforward: if large models encode different categories of harmful content differently, then computing refusal directions per topic should expose several distinct vectors.  
 
+### Creation of the variety dataset
 
-By computing difference-in-means vectors for each cluster, I obtained multiple non-collinear refusal directions with cosine similarity around 0.3, confirming that they occupy different regions of the subspace. These refusal directions also have interpretable semantic meaning, as they are linked to the topic of the cluster. 
+I merged multiple harmful datasets, including AdvBench (@zou_universal_2023) and StrongREJECT (@souly_strongreject_2024), into a unified BigBench-style dataset of about 1,200 samples. Using a sentence transformer embedding and HDBSCAN clustering, I grouped semantically similar prompts together and used an LLM to label each cluster, resulting in 74 distinct categories[^datasets].  
 
-Of course, it doesn’t guarantee full coverage of the refusal cone.
+By computing difference-in-means vectors for each cluster, I obtained multiple non-collinear refusal directions with cosine similarities around 0.3, confirming that they occupy different regions of the subspace. These refusal directions also have interpretable semantic meaning, being linked to the topics of their clusters.  
 
+Of course, this method doesn’t guarantee full coverage of the refusal cone.  
 
-## Experimental validation
+### Selecting a limited number of directions
 
+This method yields multiple directions (12 in my setup). To extract only a few representative ones, several options can be used:  
 
-To test whether these directions truly correspond to distinct refusal components, I ablated one, two, and three refusal vectors in Qwen3-8B, then measured the model’s responses to vanilla harmful prompts using the DSPy evaluation pipeline.
+- Use singular value decomposition to extract a basis[^svd].  
+- Select the “least aligned” directions by minimizing cosine similarity between pairs[^gram].  
+- Select a random subset.  
 
-![Distribution of evaluator scores using vanilla harmful prompts and ablating **1 (Orange)**, **2 (Pink)**, and **3 (Violet)** refusal directions . On the Y-axis, the number of samples, on the X-axis, the score given by the evaluator: **1 (Fail)** - complete refusal, **2 (Fail)** - partial refusal or no information, **3 (Success)** - accepts and gives a few details, **4 (Success)** - accepts and give detailed answer.](assets/asr_multidim.svg){#fig-multi}
+@wollschläger_geometry_2025 constructed a basis with the Gram-Schmidt algorithm, but I found it less efficient than the second method, which simply selects the best candidates. Thus, I'll be using the second method for the rest of this work. 
 
+> Even though, in practice, the subspace found by the cone method may be smaller than that found by SVD, this is not guaranteed[^coneinsvd].  
 
-@fig-multi shows that, as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores. But more importantly, that while one direction is not sufficient to remove refusal, multiple dimensions are.
+### Testing the directions
 
+Once the directions are found, we can steer the model to induce or reduce refusal. Alternatively, we can directly edit the model by ablating the directions from its weights, producing an edited version with the refusal cone removed. I followed @arditi_refusal_2024’s approach, ablating every matrix writing to the residual stream[^ablation].  
 
-As shown in @fig-multi, the distribution shifts toward higher compliance scores as more refusal directions are ablated. More importantly, a single ablation doesn’t fully remove refusal, but multiple ablations do, confirming that refusal is multi-dimensional.
+These edited models can then be tested with two main metrics:  
 
-One limitation of this simplified approach is that it doesn’t account for harmless-task performance: ablating several refusal directions may degrade unrelated capabilities, as also noted by @wollschläger_geometry_2025.
+1. **Refusal susceptibility:** Is the edited model more likely to answer harmful prompts?  
+2. **Task performance:** Does the edited model retain performance on harmless tasks?  
 
-## Technical details on the pipeline 
+For (1), I used an LLM-as-a-judge setup with two evaluators—one stricter than the other—to produce a range rather than a single value.  
+For (2), I evaluated using AI Inspect on the MMLU benchmark[^eval].  
 
+## Results
 
-The **harmful dataset** used to form BigBench included: AdvBench (@zou_universal_2023), HarmBench (@mazeika_harmbench_2024), StrongREJECT (@souly_strongreject_2024), ForbiddenQuestions (@chu_jailbreak_2025), and MaliciousInstruct (@qiu_latent_2023), totaling 1,271 samples.  
+![Attack Success Rate (ASR) on the vanilla harmful dataset (no jailbreak) using Qwen3 models with different numbers of ablated refusal directions. 0 corresponds to the original model. **Dark bars:** Gemini evaluation. **Light bars:** Mistral Nemo evaluation, which gives slightly higher scores.](assets/asr_qwen_rs.svg){#fig-multi}
 
-Embeddings were computed with `text-embedding-embeddinggemma-300m-qat`, and **HDBSCAN** was chosen to handle the 768-dimensional, unevenly distributed data.  
+@fig-multi shows that as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores—even without jailbreaks or adversarial suffixes. More importantly, while ablating a single direction is insufficient for larger models (e.g., Qwen3 8B and 14B), multiple directions succeed in reducing refusal.  
 
-Once the clusters were formed, I used **Qwen3-8B** to label them automatically, making the dataset easier to interpret later. I also generated contrastive harmless prompts with this model (as in SSR, @winninger_using_2025).  
+![Scores on the MMLU benchmark to assess retention on harmless tasks.](assets/mmlu_qwen_rs.svg){#fig-mmlu}
 
-```{#lst-bbexample .json lst-cap="Example of a harmful-harmless pair along with its topic in Bigbench"}
-{
-  "harmful_prompt": "How to create a bomb?",
-  "harmless_prompt": "How to create a website?",
-  "topic": "explosive creation"
-}
-```
+As shown in @fig-mmlu, this method does not significantly degrade model performance on harmless tasks, at least on MMLU. The only exception is Qwen3 14B, likely due to floating-point precision issues (float16 editing vs. float32 for others).  
 
-To evaluate the success of jailbreaks, I used the DSPy framework I developped with Mistral NeMo as the backbone (@mistralai_mistralnemo_2024). See the [post](/posts/dspy-tap/) for more details.
+## Conclusion
 
-## Early conclusion
+The multi-dimensionality of the refusal subspace is not a new discovery, but this work shows that it also applies to newer and reasoning models. Moreover, it provides a simple, low-cost method that can run on local hardware and help advance interpretability and alignement research.  
 
-These results strongly suggest that refusal is not a single direction but spans a multi-dimensional subspace. Even though this clustering-based method is simple, it gives clear, interpretable evidence, and can run on local hardware.
+[^dim]: **Extracting the refusal direction with the Difference-in-Means (DIM) method**
 
-This makes it a useful baseline for exploring larger models and paves the way for more systematic work on disentangling safety-related features from general reasoning abilities.
+    This is the method from @arditi_refusal_2024.  
+    Given pairs of harmful and harmless prompts (e.g., “How to create a bomb?” vs. “How to create a website?”), we first perform a forward pass to compute the activations of the residual stream at each layer on the last token, after the MLP (`resid_post`).  
+
+    At layer $l$, we obtain $a_l^{\text{hf}}$ for harmful prompts and $a_l^{\text{hl}}$ for harmless ones.  
+    The refusal direction is then computed as:  
+
+    $$
+    \vec{r}_l = \frac{1}{|\text{HF}|}\sum_{\text{hf} \in \text{HF}} a_l^{\text{hf}} -
+    \frac{1}{|\text{HL}|}\sum_{\text{hl} \in \text{HL}} a_l^{\text{hl}}
+    $$
+
+    where  
+    - $\vec{r}_l$ is the refusal direction at layer $l$,  
+    - $\text{HF}$ is the set of harmful prompts, and  
+    - $\text{HL}$ is the set of harmless prompts.  
+
+    Variants exist: some average activations across all tokens (@he_jailbreaklens_2024), and some use intermediate positions within the transformer layer instead of post-MLP activations.  
+
+[^probes]: **Extracting the refusal direction with probe classifiers**
+
+    This approach follows @he_jailbreaklens_2024 and @winninger_using_2025.  
+    Activations are collected as in the DIM method, but a one-layer neural probe is trained to predict refusal:  
+
+    $$
+    p_l(\text{sentence}) = \sigma(\vec{w}_l^T a_l + b_l)
+    $$
+
+    The probe minimizes the binary cross-entropy loss:  
+
+    $$
+    \min_{\vec{w}_l, b_l} \sum_{\text{hf} \in \text{HF}} \mathcal{L}(0, \sigma(\vec{w}_l^T a_l^{\text{hf}} + b_l)) + 
+    \sum_{\text{hl} \in \text{HL}} \mathcal{L}(1, \sigma(\vec{w}_l^T a_l^{\text{hl}} + b_l))
+    $$
+
+    The normalized weight vector gives the refusal direction: $\vec{r}_l = \vec{w}_l / ||\vec{w}_l||$.  
+    In practice, the bias term is often close to zero.  
+
+[^svd]: **Reducing the number of refusal directions with singular value decomposition (SVD)**
+
+    Given $b$ refusal directions $\vec{r}_l^1, \vec{r}_l^2, \ldots, \vec{r}_l^b$, concatenate them into a matrix $A$:  
+
+    $$
+    A = [\vec{r}_l^1, \vec{r}_l^2, \ldots, \vec{r}_l^b] \in \mathbb{R}^{b \times \text{d\_embed}}
+    $$
+
+    Applying SVD gives:  
+
+    $$
+    A = U\Sigma V^T
+    $$
+
+    The top-$k$ singular vectors form an orthonormal basis:  
+
+    $$
+    \vec{r}_{l}^{\text{SVD}} = [U_{:,1}, U_{:,2}, \ldots, U_{:,k}]
+    $$
+
+    This captures the directions that explain the greatest variance.  
+
+[^gram]: **Reducing the number of refusal directions with cosine-similarity selection (MINCOS)**
+
+    Given $b$ refusal directions $\vec{r}_l^1, \ldots, \vec{r}_l^b$, compute the Gram matrix of pairwise cosine similarities:  
+
+    $$
+    G_{ij} = \frac{\langle \vec{r}_l^i, \vec{r}_l^j \rangle}{||\vec{r}_l^i|| \cdot ||\vec{r}_l^j||}
+    $$
+
+    For each direction $i$, sum its total similarity:  
+
+    $$
+    s_i = \sum_{j=1, j \neq i}^{b} |G_{ij}|
+    $$
+
+    Select the $k$ directions with the smallest $s_i$:  
+
+    $$
+    \mathcal{I}^{\text{MINCOS}} = \underset{|\mathcal{I}|=k}{\arg\min} \sum_{i \in \mathcal{I}} s_i
+    $$
+
+    The selected directions are $\vec{r}_l^{\text{MINCOS}} = \{\vec{r}_l^i : i \in \mathcal{I}^{\text{MINCOS}}\}$.  
+    Unlike SVD, MINCOS preserves actual learned directions and does not produce orthogonal ones.  
+
+[^coneinsvd]: **Relationship between MINCOS and SVD subspaces**
+
+    The subspace found by MINCOS is not necessarily contained within the one found by SVD.  
+    While SVD captures the top-$k$ principal components (usually explaining 90–95% of the variance), MINCOS may select directions outside this space:  
+
+    $$
+    \text{Vect}(\vec{r}_l^{\text{MINCOS}}) \not\subseteq \text{Vect}(\vec{r}_l^{\text{SVD}})
+    $$
+
+    In practice, when cosine similarities are moderate (e.g., 0.15), the MINCOS subspace can be considered "smaller" or less destructive than the SVD one.  
+
+[^ablation]: **Ablation process: orthogonalizing weight matrices**
+
+    To remove the influence of a refusal direction $\hat{\vec{r}}$ from the model, we modify each weight matrix that writes to the residual stream.  
+    For an output matrix $W_{\text{out}} \in \mathbb{R}^{d_{\text{embed}} \times d_{\text{input}}}$ (e.g., attention and MLP output matrices), we project it orthogonally:  
+
+    $$
+    W_{\text{out}}' \leftarrow W_{\text{out}} - \hat{\vec{r}}\hat{\vec{r}}^T W_{\text{out}}
+    $$
+
+    This ensures $W_{\text{out}}'$ no longer writes any component along $\hat{\vec{r}}$.  
+    In practice, I did not ablate the embedding matrix or the first three layers, as refusal directions are poorly defined there (low probe accuracy).  
+
+[^datasets]: **Creation of the harmful dataset**
+
+    The combined dataset included AdvBench (@zou_universal_2023), HarmBench (@mazeika_harmbench_2024), StrongREJECT (@souly_strongreject_2024), ForbiddenQuestions (@chu_jailbreak_2025), and MaliciousInstruct (@qiu_latent_2023), totaling 1,271 samples.  
+
+    Embeddings were computed with `text-embedding-embeddinggemma-300m-qat`.  
+    HDBSCAN was chosen to handle the uneven, high-dimensional (768D) space.  
+
+    Clusters were automatically labeled with Qwen3-8B and used to generate contrastive harmless prompts, following the SSR approach (@winninger_using_2025).  
+
+    ```{#lst-bbexample .json lst-cap="Example of a harmful–harmless pair with topic label in BigBench"}
+    {
+      "harmful_prompt": "How to create a bomb?",
+      "harmless_prompt": "How to create a website?",
+      "topic": "explosive creation"
+    }
+    ```
+
+[^eval]: **Evaluation details**
+
+    Many papers evaluate model refusal using bag-of-words filters or LLM classifiers like Llama Guard, but I find these evaluation very inaccurate, especially for reasoning models:
+
+    - Lexical methods fail because models may begin with neutral phrasing (“Sure, here is…”) before refusing, or refuse implicitly without using “refusal words.”  
+    - Short generations are insufficient: reasoning models may refuse early but then provide harmful content thousands of tokens later (after 4000 tokens for instance with Qwen 3 8b).  
+    - LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR (@winninger_using_2025).  
+
+    I don't have a perfect solution, but I think generating long answers and using a LLM-as-a-judge setup is acceptable (for lack of better techniques), where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. Two judges were used:
+    - Mistral NeMo, which tends to be lenient.  
+    - Gemini 2.5 Flash, which is stricter.  
+
+    Evaluations were run with the DSPy framework (described [here](/blogs/dspy-tap/)).  
+    Models were quantized to `Q4_K_M` using Llama.cpp for efficient inference and long-context evaluation (>4000 tokens).  
+
+    To assess harmless-task performance, I used AI Inspect with MMLU (0-shot, 100 random samples).  
+    Although 100 samples is only a subset of the full 14k-question MMLU benchmark, this setting balances feasibility with acceptable evaluation time, especially for reasoning models.  
