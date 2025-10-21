@@ -64,6 +64,6 @@
 
 - Mechanistic interpretability for LLM attack and defense, _École Polytechnique, CeSIA, Apr 25_. #link("https://sckathach.github.io/talks/slides/cesia-ssr.pdf", [Slides])
 
-- Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. #link("https://sckathach.github.io/talks/hackademint-causapscal/assets/main.pdf", [Slides]) / #link("https://sckathach.github.io/talks/hackademint-causapscal/index.qmd", [Webpage])
+- Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. #link("https://sckathach.github.io/talks/hackademint-causapscal/assets/main.pdf", [Slides]) / #link("https://sckathach.github.io/talks/hackademint-causapscal/", [Webpage])
 
 - Model Poisoning, _Station F, CeSIA, Jun 24_. #link("https://sckathach.github.io/talks/slides/cesia-poison.pdf", [Slides])
