@@ -26,7 +26,7 @@ While earlier work assumed this direction was one-dimensional, evidence suggests
 
 When refusal directions are extracted using different techniques, such as the **difference in means (DIM)**[^dim] and **probe classifiers**[^probes], they are highly but not perfectly aligned. With cosine similarities descending to $0.3$, this contradicts the one-dimensional hypothesis.  
 
-![Cosine similarity between refusal directions extracted via different methods across layers of Llama 3.2 1B. While the similarity is high in early layers, it decreases in later ones, with a minimal value of $0.39$—still meaningful in $\mathbb{R}^{\text{d\_embed}}$, but far from the $1$ expected if refusal truly occupied just one dimension.](assets/cosine_pr_llama3.2_1b.svg){#fig-cosine}
+![Cosine similarity between normed refusal directions extracted via **probes ($x$-axis)** and **steering ($y$-axis)** across layers of Llama 3.2 1B. While the similarity is high in early layers, it decreases in later ones, with a minimal value of $0.39$ - still meaningful in $\mathbb{R}^{\text{d\_embed}}$, but far from the $1$ expected if refusal truly occupied just one dimension.](assets/cosine_pr_llama3.2_1b.svg){#fig-cosine}
 
 This phenomenon can also be observed when training multiple probes with different random seeds: they converge to distinct directions, again showing lower cosine similarity than expected.  
 
@@ -71,18 +71,22 @@ Once the directions are found, we can steer the model to induce or reduce refusa
 These edited models can then be tested with two main metrics:  
 
 1. **Refusal susceptibility:** Is the edited model more likely to answer harmful prompts?  
-2. **Task performance:** Does the edited model retain performance on harmless tasks?  
+2. **Performance on harmless tasks:** Does the edited model retain performance on harmless tasks?  
 
-For (1), I used an LLM-as-a-judge setup with two evaluators—one stricter than the other—to produce a range rather than a single value.  
+For (1), I used an LLM-as-a-judge setup with two evaluators - one stricter than the other - to produce a range rather than a single value.  
 For (2), I evaluated using AI Inspect on the MMLU benchmark.  
 
-The experiments where made on the Qwen3 famility of models @yang_qwen3_2025, as my main interest was studying reasoning models. I used Mistral NeMo @mistralai_mistralnemo_2024 and Gemini 2.5 @comanici_gemini_2025 as evaluators. Every experiment was run on my laptop, a RTX 4090 with 16GB VRAM. The full evaluation pipeline is described in this footnote[^eval].
+The experiments where made on the Qwen3 famility of models @yang_qwen3_2025, as my main interest was studying reasoning models. I used Mistral NeMo @mistralai_mistralnemo_2024 and Gemini 2.5 @comanici_gemini_2025 as evaluators. Every experiment was run on my laptop, a RTX 4090 with 16GB VRAM. The full evaluation pipeline is described in this footnote, as well as *why I'm using two different evaluators*[^eval].
 
 ## Results
 
-![Attack Success Rate (ASR) on the vanilla harmful dataset (no jailbreak) using Qwen3 models with different numbers of ablated refusal directions. 0 corresponds to the original model. **Dark bars:** Gemini evaluation. **Light bars:** Mistral Nemo evaluation, which gives slightly higher scores.](assets/asr_qwen_rs.svg){#fig-multi}
+### Ablating multiple refusal directions do reduce refusal, more directions are needed for bigger models
+
+![Attack Success Rate (ASR) on the vanilla harmful dataset (no jailbreak) using Qwen3 models with different numbers of ablated refusal directions. 0 corresponds to the original model. **Dark bars:** Evaluated by Gemini. **Light bars:** Evaluated by Mistral Nemo, which is more leniant.](assets/asr_qwen_rs.svg){#fig-multi}
 
 @fig-multi shows that as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores—even without jailbreaks or adversarial suffixes. More importantly, while ablating a single direction is insufficient for larger models (e.g., Qwen3 8B and 14B), multiple directions succeed in reducing refusal.  
+
+### Ablating refusal directions does not significantly degrade model performance on harmless task (MMLU) 
 
 ![Scores on the MMLU benchmark to assess retention on harmless tasks.](assets/mmlu_qwen_rs.svg){#fig-mmlu}
 
@@ -91,7 +95,9 @@ As shown in @fig-mmlu, this method does not significantly degrade model performa
 
 ## Conclusion
 
-The multi-dimensionality of the refusal subspace is not a new discovery, but this work shows that it also applies to newer and reasoning models. Moreover, it provides a simple, low-cost method that can run on local hardware and help advance interpretability and alignement research.  
+The multi-dimensionality of the refusal subspace is not a new discovery, but this work shows that it also applies to newer reasoning models. Moreover, it provides a simple, low-cost method that can run on local hardware and help advance interpretability and alignement research.  
+
+
 
 [^dim]: **Extracting the refusal direction with the Difference-in-Means (DIM) method**
 
@@ -102,7 +108,7 @@ The multi-dimensionality of the refusal subspace is not a new discovery, but thi
     The refusal direction is then computed as:  
 
     $$
-    \vec{r}_l = \frac{1}{|\text{HF}|}\sum_{\text{hf} \in \text{HF}} a_l^{\text{hf}} -
+    \vec{k}_l = \frac{1}{|\text{HF}|}\sum_{\text{hf} \in \text{HF}} a_l^{\text{hf}} -
     \frac{1}{|\text{HL}|}\sum_{\text{hl} \in \text{HL}} a_l^{\text{hl}}
     $$
 
@@ -223,9 +229,9 @@ The multi-dimensionality of the refusal subspace is not a new discovery, but thi
 
     - Lexical methods fail because models may begin with neutral phrasing (“Sure, here is…”) before refusing, or refuse implicitly without using “refusal words.”  
     - Short generations are insufficient: reasoning models may refuse early but then provide harmful content thousands of tokens later (after 4000 tokens for instance with Qwen 3 8b).  
-    - LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR (@winninger_using_2025).  
+    - LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR, and can themselve be prone to attacks or reward hacking (@nasr_attacker_2025 @winninger_using_2025).  
 
-    I don't have a perfect solution, but I think generating long answers and using a LLM-as-a-judge setup is acceptable (for lack of better techniques), where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. Two judges were used:
+    Manual verification seems the most robust method (@nasr_attacker_2025), however, if it is not possible, I think generating long answers and using a LLM-as-a-judge is an acceptable minimum, where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. In this work, I used two judges to reduce bias:
 
     - Mistral NeMo @mistralai_mistralnemo_2024, which tends to be lenient.  
     - Gemini 2.5 Flash @comanici_gemini_2025, which is stricter.

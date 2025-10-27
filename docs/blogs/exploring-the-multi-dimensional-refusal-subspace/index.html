@@ -100,9 +100,9 @@ div.csl-indent {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-919c7ec90743d9b1e9761dff04b41dfc.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b61d6e92de5155c6a8e4c38e16c33acb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark-329f76175cbb6fc5ab394fed898235b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-0c777506123ec0af8568e49e273bc51f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b61d6e92de5155c6a8e4c38e16c33acb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -406,7 +406,11 @@ window.Quarto = {
   <li><a href="#selecting-a-limited-number-of-directions" id="toc-selecting-a-limited-number-of-directions" class="nav-link" data-scroll-target="#selecting-a-limited-number-of-directions">Selecting a limited number of directions</a></li>
   <li><a href="#testing-the-directions" id="toc-testing-the-directions" class="nav-link" data-scroll-target="#testing-the-directions">Testing the directions</a></li>
   </ul></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#ablating-multiple-refusal-directions-do-reduce-refusal-more-directions-are-needed-for-bigger-models" id="toc-ablating-multiple-refusal-directions-do-reduce-refusal-more-directions-are-needed-for-bigger-models" class="nav-link" data-scroll-target="#ablating-multiple-refusal-directions-do-reduce-refusal-more-directions-are-needed-for-bigger-models">Ablating multiple refusal directions do reduce refusal, more directions are needed for bigger models</a></li>
+  <li><a href="#ablating-refusal-directions-does-not-significantly-degrade-model-performance-on-harmless-task-mmlu" id="toc-ablating-refusal-directions-does-not-significantly-degrade-model-performance-on-harmless-task-mmlu" class="nav-link" data-scroll-target="#ablating-refusal-directions-does-not-significantly-degrade-model-performance-on-harmless-task-mmlu">Ablating refusal directions does not significantly degrade model performance on harmless task (MMLU)</a></li>
+  </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Sckathach/Sckathach.github.io/edit/main/blogs/exploring-the-multi-dimensional-refusal-subspace/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/blob/main/blogs/exploring-the-multi-dimensional-refusal-subspace/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/Sckathach/Sckathach.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -465,7 +469,7 @@ window.Quarto = {
 <img src="assets/cosine_pr_llama3.2_1b.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cosine-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Cosine similarity between refusal directions extracted via different methods across layers of Llama 3.2 1B. While the similarity is high in early layers, it decreases in later ones, with a minimal value of <span class="math inline">\(0.39\)</span>—still meaningful in <span class="math inline">\(\mathbb{R}^{\text{d\_embed}}\)</span>, but far from the <span class="math inline">\(1\)</span> expected if refusal truly occupied just one dimension.
+Figure&nbsp;1: Cosine similarity between normed refusal directions extracted via <strong>probes (<span class="math inline">\(x\)</span>-axis)</strong> and <strong>steering (<span class="math inline">\(y\)</span>-axis)</strong> across layers of Llama 3.2 1B. While the similarity is high in early layers, it decreases in later ones, with a minimal value of <span class="math inline">\(0.39\)</span> - still meaningful in <span class="math inline">\(\mathbb{R}^{\text{d\_embed}}\)</span>, but far from the <span class="math inline">\(1\)</span> expected if refusal truly occupied just one dimension.
 </figcaption>
 </figure>
 </div>
@@ -512,26 +516,31 @@ Figure&nbsp;1: Cosine similarity between refusal directions extracted via differ
 <ol type="1">
 <li><strong>Refusal susceptibility:</strong> Is the edited model more likely to answer harmful prompts?<br>
 </li>
-<li><strong>Task performance:</strong> Does the edited model retain performance on harmless tasks?</li>
+<li><strong>Performance on harmless tasks:</strong> Does the edited model retain performance on harmless tasks?</li>
 </ol>
-<p>For (1), I used an LLM-as-a-judge setup with two evaluators—one stricter than the other—to produce a range rather than a single value.<br>
+<p>For (1), I used an LLM-as-a-judge setup with two evaluators - one stricter than the other - to produce a range rather than a single value.<br>
 For (2), I evaluated using AI Inspect on the MMLU benchmark.</p>
-<p>The experiments where made on the Qwen3 famility of models <span class="citation" data-cites="yang_qwen3_2025">Yang et al. (<a href="#ref-yang_qwen3_2025" role="doc-biblioref">2025</a>)</span>, as my main interest was studying reasoning models. I used Mistral NeMo <span class="citation" data-cites="mistralai_mistralnemo_2024">Mistralai (<a href="#ref-mistralai_mistralnemo_2024" role="doc-biblioref">2024</a>)</span> and Gemini 2.5 <span class="citation" data-cites="comanici_gemini_2025">Comanici et al. (<a href="#ref-comanici_gemini_2025" role="doc-biblioref">2025</a>)</span> as evaluators. Every experiment was run on my laptop, a RTX 4090 with 16GB VRAM. The full evaluation pipeline is described in this footnote<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
+<p>The experiments where made on the Qwen3 famility of models <span class="citation" data-cites="yang_qwen3_2025">Yang et al. (<a href="#ref-yang_qwen3_2025" role="doc-biblioref">2025</a>)</span>, as my main interest was studying reasoning models. I used Mistral NeMo <span class="citation" data-cites="mistralai_mistralnemo_2024">Mistralai (<a href="#ref-mistralai_mistralnemo_2024" role="doc-biblioref">2024</a>)</span> and Gemini 2.5 <span class="citation" data-cites="comanici_gemini_2025">Comanici et al. (<a href="#ref-comanici_gemini_2025" role="doc-biblioref">2025</a>)</span> as evaluators. Every experiment was run on my laptop, a RTX 4090 with 16GB VRAM. The full evaluation pipeline is described in this footnote, as well as <em>why I’m using two different evaluators</em><a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>.</p>
 </section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="ablating-multiple-refusal-directions-do-reduce-refusal-more-directions-are-needed-for-bigger-models" class="level3">
+<h3 class="anchored" data-anchor-id="ablating-multiple-refusal-directions-do-reduce-refusal-more-directions-are-needed-for-bigger-models">Ablating multiple refusal directions do reduce refusal, more directions are needed for bigger models</h3>
 <div id="fig-multi" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-multi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="assets/asr_qwen_rs.svg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Attack Success Rate (ASR) on the vanilla harmful dataset (no jailbreak) using Qwen3 models with different numbers of ablated refusal directions. 0 corresponds to the original model. <strong>Dark bars:</strong> Gemini evaluation. <strong>Light bars:</strong> Mistral Nemo evaluation, which gives slightly higher scores.
+Figure&nbsp;2: Attack Success Rate (ASR) on the vanilla harmful dataset (no jailbreak) using Qwen3 models with different numbers of ablated refusal directions. 0 corresponds to the original model. <strong>Dark bars:</strong> Evaluated by Gemini. <strong>Light bars:</strong> Evaluated by Mistral Nemo, which is more leniant.
 </figcaption>
 </figure>
 </div>
 <p><a href="#fig-multi" class="quarto-xref">Figure&nbsp;2</a> shows that as more refusal directions are ablated, the distribution shifts rightward toward higher compliance scores—even without jailbreaks or adversarial suffixes. More importantly, while ablating a single direction is insufficient for larger models (e.g., Qwen3 8B and 14B), multiple directions succeed in reducing refusal.</p>
+</section>
+<section id="ablating-refusal-directions-does-not-significantly-degrade-model-performance-on-harmless-task-mmlu" class="level3">
+<h3 class="anchored" data-anchor-id="ablating-refusal-directions-does-not-significantly-degrade-model-performance-on-harmless-task-mmlu">Ablating refusal directions does not significantly degrade model performance on harmless task (MMLU)</h3>
 <div id="fig-mmlu" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-mmlu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -544,9 +553,10 @@ Figure&nbsp;3: Scores on the MMLU benchmark to assess retention on harmless task
 </div>
 <p>As shown in <a href="#fig-mmlu" class="quarto-xref">Figure&nbsp;3</a>, this method does not significantly degrade model performance on harmless tasks, at least on MMLU. The only exception is Qwen3 14B, likely due to floating-point precision issues (float16 editing vs.&nbsp;float32 for others).</p>
 </section>
+</section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>The multi-dimensionality of the refusal subspace is not a new discovery, but this work shows that it also applies to newer and reasoning models. Moreover, it provides a simple, low-cost method that can run on local hardware and help advance interpretability and alignement research.</p>
+<p>The multi-dimensionality of the refusal subspace is not a new discovery, but this work shows that it also applies to newer reasoning models. Moreover, it provides a simple, low-cost method that can run on local hardware and help advance interpretability and alignement research.</p>
 
 
 
@@ -584,6 +594,9 @@ Mistralai. 2024. <span>“Mistral NeMo.”</span> <a href="https://mistral.ai/ne
 <div id="ref-nanda_comprehensive_2022" class="csl-entry" role="listitem">
 Nanda, Neel. 2022. <span>“A Comprehensive Mechanistic Interpretability Explainer &amp; Glossary,”</span> December.
 </div>
+<div id="ref-nasr_attacker_2025" class="csl-entry" role="listitem">
+Nasr, Milad, Nicholas Carlini, Chawin Sitawarin, Sander V. Schulhoff, Jamie Hayes, Michael Ilie, Juliette Pluto, et al. 2025. <span>“The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against Llm Jailbreaks and Prompt Injections.”</span> <a href="https://arxiv.org/abs/2510.09023">https://arxiv.org/abs/2510.09023</a>.
+</div>
 <div id="ref-park_linear_2024" class="csl-entry" role="listitem">
 Park, Kiho, Yo Joong Choe, and Victor Veitch. 2024. <span>“The Linear Representation Hypothesis and the Geometry of Large Language Models.”</span> <a href="https://arxiv.org/abs/2311.03658">https://arxiv.org/abs/2311.03658</a>.
 </div>
@@ -614,7 +627,7 @@ Given pairs of harmful and harmless prompts (e.g., “How to create a bomb?” v
 <p>At layer <span class="math inline">\(l\)</span>, we obtain <span class="math inline">\(a_l^{\text{hf}}\)</span> for harmful prompts and <span class="math inline">\(a_l^{\text{hl}}\)</span> for harmless ones.<br>
 The refusal direction is then computed as:</p>
 <p><span class="math display">\[
-\vec{r}_l = \frac{1}{|\text{HF}|}\sum_{\text{hf} \in \text{HF}} a_l^{\text{hf}} -
+\vec{k}_l = \frac{1}{|\text{HF}|}\sum_{\text{hf} \in \text{HF}} a_l^{\text{hf}} -
 \frac{1}{|\text{HL}|}\sum_{\text{hl} \in \text{HL}} a_l^{\text{hl}}
 \]</span></p>
 <p>where<br>
@@ -706,9 +719,9 @@ In practice, I did not ablate the embedding matrix or the first three layers, as
 </li>
 <li>Short generations are insufficient: reasoning models may refuse early but then provide harmful content thousands of tokens later (after 4000 tokens for instance with Qwen 3 8b).<br>
 </li>
-<li>LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR (<span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>).</li>
+<li>LLM classifiers (e.g., Llama Guard 3) perform poorly on unseen attacks like SSR, and can themselve be prone to attacks or reward hacking (<span class="citation" data-cites="nasr_attacker_2025">Nasr et al. (<a href="#ref-nasr_attacker_2025" role="doc-biblioref">2025</a>)</span> <span class="citation" data-cites="winninger_using_2025">Winninger, Addad, and Kapusta (<a href="#ref-winninger_using_2025" role="doc-biblioref">2025</a>)</span>).</li>
 </ul>
-<p>I don’t have a perfect solution, but I think generating long answers and using a LLM-as-a-judge setup is acceptable (for lack of better techniques), where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. Two judges were used:</p>
+<p>Manual verification seems the most robust method (<span class="citation" data-cites="nasr_attacker_2025">Nasr et al. (<a href="#ref-nasr_attacker_2025" role="doc-biblioref">2025</a>)</span>), however, if it is not possible, I think generating long answers and using a LLM-as-a-judge is an acceptable minimum, where a larger or equivalent model judges responses to make sure the evaluator understands the conversation. In this work, I used two judges to reduce bias:</p>
 <ul>
 <li>Mistral NeMo <span class="citation" data-cites="mistralai_mistralnemo_2024">Mistralai (<a href="#ref-mistralai_mistralnemo_2024" role="doc-biblioref">2024</a>)</span>, which tends to be lenient.<br>
 </li>
