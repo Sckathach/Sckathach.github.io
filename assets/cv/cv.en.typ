@@ -13,15 +13,18 @@
 )
 #align(
   center,
-  text([M2 mathematics student at Télécom SudParis - ENS Paris-Saclay.
-  
-  I'm looking for an intership starting April 2026, on LLM alignement, AI security, or more generally fundamental AI that would lead to a PhD.], size: 1.3em),
+  text(
+    [M2 mathematics student at Télécom SudParis - ENS Paris-Saclay.
+
+      I'm looking for an intership starting April 2026, on diffusion, LLM alignement, GNNs, or more generally fundamental AI that would lead to a PhD.],
+    size: 1.3em,
+  ),
 )
 #v(1em)
 // #show strong: set text(purple)
 
-*Mail:* thomas.winninger\@telecom-sudparis.eu  *- Website:* #link("https://le-magicien-quantique.github.io") 
-*LinkedIN:* #link("https://linkedin.com/in/thomas-winninger", [thomas-winninger]) 
+*Mail:* thomas.winninger\@telecom-sudparis.eu  *- Website:* #link("https://le-magicien-quantique.github.io")
+*LinkedIN:* #link("https://linkedin.com/in/thomas-winninger", [thomas-winninger])
 
 
 = Education
@@ -36,13 +39,13 @@
 = Experience
 
 - Jul - Sep 2025 - *Research internship in LLM security - NICT* \
-  Research on the security and jailbreak interpretability of Large Reasoning Models (LRMs). 
+  Research on the security and jailbreak interpretability of Large Reasoning Models (LRMs).
 
-- Mar - May 2025 - *Research internship in AI explanability - INRIA* \ 
-  Verified robust explanation for language models. 
+- Mar - May 2025 - *Research internship in AI explanability - INRIA* \
+  Verified robust explanation for language models.
 
 - Jul - Dec 2024 - *Research internship in AI security - Thales* \
-  Implementations and improvements of state-of-the-art attacks on LLMs. 
+  Implementations and improvements of state-of-the-art attacks on LLMs.
 
 - 2022 - 2024 - *Teaching and infrastructure - HackademINT* \
   Teaching (cloud and AI security), cloud management (Kubernetes), creation of challenges (AI & quantum physics), and organization of 404CTF 2023 & 2024 (largest cyber security competition in France).
@@ -67,3 +70,4 @@
 - Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. #link("https://sckathach.github.io/talks/hackademint-causapscal/assets/main.pdf", [Slides]) / #link("https://sckathach.github.io/talks/hackademint-causapscal/", [Webpage])
 
 - Model Poisoning, _Station F, CeSIA, Jun 24_. #link("https://sckathach.github.io/talks/slides/cesia-poison.pdf", [Slides])
+
