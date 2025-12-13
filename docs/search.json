@@ -1215,14 +1215,14 @@
     "href": "research.html#talks",
     "title": "Thomas Winninger",
     "section": "Talks",
-    "text": "Talks\n\nAdversarial attacks against reasoning LLMs, Tokyo, NICT, Sep 25.\nScaling abstract domains to Large Language Models with Hybrid Constrained Zonotopes, ENS Ulm, INRIA, Jun 25.\nMechanistic interpretability for LLM attack and defense, École Polytechnique, CeSIA, Apr 25. Slides\nModel Poisoning, Station F, CeSIA, Jun 24. Slides\nGNN based IDS and its robustness against adversarial attacks, Télécom SudParis, HackademINT, Jun 24. Slides\nCheating Detection in the 404 CTF, Rendez-vous de la Recherche et de l’Enseignement de la Sécurité des Systèmes d’Information (RESSI), May 24."
+    "text": "Talks\n\nAdversarial attacks against reasoning LLMs, Tokyo, NICT, Sep 25.\nScaling abstract domains to Large Language Models with Hybrid Constrained Zonotopes, ENS Ulm, INRIA, Jun 25.\nMechanistic interpretability for LLM attack and defense, École Polytechnique, CeSIA, Apr 25. Slides\nModel Poisoning, Station F, CeSIA, Jun 24. Slides\nCheating Detection in the 404 CTF, Rendez-vous de la Recherche et de l’Enseignement de la Sécurité des Systèmes d’Information (RESSI), May 24."
   },
   {
     "objectID": "research.html#teaching",
     "href": "research.html#teaching",
     "title": "Thomas Winninger",
     "section": "Teaching",
-    "text": "Teaching\n\nIntroduction to AI security and reverse engineering, Télécom SudParis, HackademINT, Apr 25. Slides / Webpage\nIntroduction to prompt hacking, Télécom SudParis, HackademINT, Nov 23. Slides\nHow to backdoor federated learning, Télécom SudParis, HackademINT, May 23. Slides\nIntroduction to AI & cyber security, Télécom SudParis, HackademINT, May 23. Slides"
+    "text": "Teaching\n\nIntroduction to AI security and reverse engineering, Télécom SudParis, HackademINT, Apr 25. Slides / Webpage\nGNN based IDS and its robustness against adversarial attacks, Télécom SudParis, HackademINT, Jun 24. Slides\nIntroduction to prompt hacking, Télécom SudParis, HackademINT, Nov 23. Slides\nHow to backdoor federated learning, Télécom SudParis, HackademINT, May 23. Slides\nIntroduction to AI & cyber security, Télécom SudParis, HackademINT, May 23. Slides"
   },
   {
     "objectID": "research.html#school-reports",

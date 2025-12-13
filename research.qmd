@@ -13,12 +13,12 @@
 
 - Model Poisoning, _Station F, CeSIA, Jun 24_. [Slides](./talks/slides/cesia-poison.pdf)
 
-- GNN based IDS and its robustness against adversarial attacks, _Télécom SudParis, HackademINT, Jun 24_. [Slides](./talks/slides/hackademint-gnn-based-ids.pdf) 
-
 - Cheating Detection in the 404 CTF, _Rendez-vous de la Recherche et de l'Enseignement de la Sécurité des Systèmes d'Information (RESSI), May 24_.
 
 ## Teaching 
 - Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. [Slides](./talks/hackademint-causapscal/assets/main.pdf) / [Webpage](./talks/hackademint-causapscal/index.qmd)
+
+- GNN based IDS and its robustness against adversarial attacks, _Télécom SudParis, HackademINT, Jun 24_. [Slides](./talks/slides/hackademint-gnn-based-ids.pdf) 
 
 - Introduction to prompt hacking, _Télécom SudParis, HackademINT, Nov 23_. [Slides](./talks/slides/hackademint-prompt-hacking.pdf)
 
