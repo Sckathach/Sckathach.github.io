@@ -11,13 +11,14 @@
 
 - Mechanistic interpretability for LLM attack and defense, _École Polytechnique, CeSIA, Apr 25_. [Slides](./talks/slides/cesia-ssr.pdf)
 
-- Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. [Slides](./talks/hackademint-causapscal/assets/main.pdf) / [Webpage](./talks/hackademint-causapscal/index.qmd)
-
 - Model Poisoning, _Station F, CeSIA, Jun 24_. [Slides](./talks/slides/cesia-poison.pdf)
 
 - GNN based IDS and its robustness against adversarial attacks, _Télécom SudParis, HackademINT, Jun 24_. [Slides](./talks/slides/hackademint-gnn-based-ids.pdf) 
 
 - Cheating Detection in the 404 CTF, _Rendez-vous de la Recherche et de l'Enseignement de la Sécurité des Systèmes d'Information (RESSI), May 24_.
+
+## Teaching 
+- Introduction to AI security and reverse engineering, _Télécom SudParis, HackademINT, Apr 25_. [Slides](./talks/hackademint-causapscal/assets/main.pdf) / [Webpage](./talks/hackademint-causapscal/index.qmd)
 
 - Introduction to prompt hacking, _Télécom SudParis, HackademINT, Nov 23_. [Slides](./talks/slides/hackademint-prompt-hacking.pdf)
 
@@ -25,7 +26,9 @@
 
 - Introduction to AI & cyber security, _Télécom SudParis, HackademINT, May 23_. [Slides](./talks/slides/hackademint-ai-in-cybersecurity.pdf)
 
-## Research reports
+## School reports
+
+- Presentation of ViViDex: Learning Vision-Based Dexterous Manipulation from Human Videos, _Turnel V, Winninger T, Dec 25_. [Paper](./assets/robotics_paper.pdf) / [Slides](./assets/robotics_slides.pdf)
 
 - Graph Neural Network based Intrusion Detection and its Robustness against Adversarial Attacks, _Moreau R., Winninger T., Blanc G., Jun 24_. [Paper](./assets/papers/moreau_graph_2024.pdf)
 
