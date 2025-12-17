@@ -54,7 +54,7 @@ You can contact me at: **thomas [dot] winninger [at] telecom-sudparis [dot] eu**
 
 ## Miscellaneous 
 
-- Languages: **Python, [French](https://fr.wikipedia.org/wiki/Baguette_(pain)), OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash, Japanese (JLPT 4), Lean
-- Tools/ Frameworks: **PyTorch**, **nnsight**, Docker (Podman), Kubernetes, React, Qiskit, Archlinux
-- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics, sports, video game (playing & development), meditation 
+- Languages: **Python, [French](https://fr.wikipedia.org/wiki/Baguette_(pain)), OCaml, English**, Typst, TypeScript, Lua, Rust, C, Bash, Japanese (JLPT 4), Lean.
+- Tools/ Frameworks: **PyTorch**, **nnsight**, Docker (Podman), Kubernetes, React, Qiskit, Archlinux.
+- Other interests: Piano, guitar, teaching, reading, geopolitics, particle physics, sports, video game (playing & development), meditation.
 - I completed the Alignment Research Engineer Accelerator (ARENA) and the AI Safety Fundamental (AISF) curriculums.

@@ -28,7 +28,9 @@
 
 ## School reports
 
-- Presentation of ViViDex: Learning Vision-Based Dexterous Manipulation from Human Videos, _Turnel V, Winninger T, Dec 25_. [Paper](./assets/robotics_paper.pdf) / [Slides](./assets/robotics_slides.pdf)
+- Denoising Score Matching, _Turnel V, Winninger T, Dec 25_. [Paper](./assets/dsm_paper.pdf) / [Poster](./assets/dsm_poster.pdf)
+
+- Presentation of ViViDex: Learning Vision-Based Dexterous Manipulation from Human Videos, _Turnel V, Winninger T, Dec 25_. [Paper](./assets/robotics_paper.pdf) / [Poster](./assets/robotics_slides.pdf)
 
 - Graph Neural Network based Intrusion Detection and its Robustness against Adversarial Attacks, _Moreau R., Winninger T., Blanc G., Jun 24_. [Paper](./assets/papers/moreau_graph_2024.pdf)
 
