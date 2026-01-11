@@ -37,9 +37,6 @@ You can contact me at: **thomas [dot] winninger [at] telecom-sudparis [dot] eu**
 
 ## Experience
 
-- Sep 2025 - _now_ - **Teaching and research sprints - [PIAF](https://piaf-saclay.org/)** \
-    Teaching (interpretability, LLM training and fine-tuning) and organizing short research sprints (teams of ~5 people, lasting under four days).
-
 - Jul - Sep 2025 - **Research internship in LLM security - [NICT](https://csl.nict.go.jp/en/)** \
     Research on the security and jailbreak interpretability of Large Reasoning Models (LRMs). _I studied LRM robustness, adapted state-of-the-art black-box and white-box attack from LLMs, and started studying jailbreaks with interpretability methods on LRMs._ 
 
