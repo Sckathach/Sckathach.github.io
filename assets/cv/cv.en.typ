@@ -16,7 +16,8 @@
   text(
     [M2 mathematics student at Télécom SudParis - ENS Paris-Saclay.
 
-      I'm looking for an intership starting April 2026, on diffusion, LLM alignement, GNNs, or more generally fundamental AI that would lead to a PhD.],
+      //I'm looking for an intership starting April 2026, on diffusion, LLM alignement, GNNs, or more generally fundamental AI that would lead to a PhD.
+    ],
     size: 1.3em,
   ),
 )
