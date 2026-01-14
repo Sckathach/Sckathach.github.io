@@ -31,7 +31,7 @@
 = Education
 
 - 2025 - 2026 *Master MVA, ENS Paris-Saclay* \
-  Topology, optimal transport, reinforcement learning, training and deploying large-scale models, LLM, graph neural networks, learning for protein science, convex optimization.
+  Topology, optimal transport, diffusion models, reinforcement learning, training and deploying large-scale models, LLM, graph neural networks, learning for protein science, convex optimization.
 
 - 2022 - 2026 *Engineering Degree, Télécom SudParis* \
   Telecommunications, cyber security, cloud, information theory, probability, optimization, graph theory, graph neural networks, signal processing.
@@ -54,9 +54,11 @@
 
 = Miscellaneous
 
-- Spoken languages: *French (native), English (TOEIC)*, Japanese (JLPT 4)
+- Spoken languages: *French (native), English (professional)*, Japanese (JLPT 4)
 
 - Programming languages: *Python, OCaml*, Typst, TypeScript, Lua, Rust, C, Bash, Lean
+
+- Frameworks: *Pytorch, NNsight, Transformer Lens*, DsPY, PyG, Docker (Podman), Kubernetes, Qiskit
 
 = Papers
 
