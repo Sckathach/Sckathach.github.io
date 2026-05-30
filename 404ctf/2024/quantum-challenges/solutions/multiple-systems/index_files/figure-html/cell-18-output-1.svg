@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="2732.5" height="531.25" viewBox="-36.0 0 2186.0 425.0">
+<defs>
+</defs>
+<path d="M10,25 L25,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M10,75 L25,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M10,125 L25,125" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M10,175 L25,175" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M27,2 L2123,2 L2123,398 L27,398 Z" stroke="black" fill="lightblue" stroke-dasharray="1,2" stroke-linejoin="miter" />
+<text x="29" y="405" font-size="8" text-anchor="start">CPLX</text>
+<path d="M25,25 L53,25 L72,44" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M78,44 L97,25 L125,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M25,75 L53,75 L72,56" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M78,56 L97,75 L125,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M50,43 L100,43 L100,57 L50,57 Z" stroke="black" fill="black" stroke-linejoin="miter" />
+<text x="75" y="85" font-size="7" text-anchor="middle"></text>
+<text x="75" y="26" font-size="7" text-anchor="middle"></text>
+<path d="M50,43 L100,43 L100,47 L50,47 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<path d="M93,50 L103,50 L103,60 L93,60 Z" stroke="black" fill="aquamarine" stroke-linejoin="miter" />
+<text x="98" y="57" font-size="6" text-anchor="middle">H</text>
+<path d="M25,125 L125,125" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M25,175 L125,175" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,25 L225,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,75 L225,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,125 L225,125" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,175 L225,175" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,225 L225,225" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,275 L225,275" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,325 L225,325" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M125,375 L225,375" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M127.5,2.5 L222.5,2.5 L222.5,397.5 L127.5,397.5 Z" stroke="darkred" fill="lightpink" stroke-linejoin="miter" />
+<text x="135" y="24" font-size="8" text-anchor="start" font-weight="bold"><tspan x="135" dy="0em">HERALDED</tspan><tspan x="135" dy="1em">CNOT</tspan></text>
+<path d="M225,25 L325,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,75 L325,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,125 L325,125" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,175 L325,175" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,225 L325,225" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,275 L325,275" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,325 L325,325" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,375 L325,375" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M227.5,2.5 L322.5,2.5 L322.5,397.5 L227.5,397.5 Z" stroke="darkred" fill="lightpink" stroke-linejoin="miter" />
+<text x="235" y="40" font-size="8" text-anchor="start" font-weight="bold"><tspan x="235" dy="0em">PASSAGE</tspan><tspan x="235" dy="1em">BELL</tspan><tspan x="235" dy="1em">-&gt;</tspan><tspan x="235" dy="1em">CANONIQUE</tspan></text>
+<path d="M325,25 L340,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M325,75 L340,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M325,125 L340,125" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M325,175 L340,175" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M107,225 C107,225,107,215,117,215 L125,215 L125,235 L117,235 C107,235,107,225,107,225 L107,225" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="113" y="241" font-size="6" text-anchor="middle" font-style="italic">[herald0]</text>
+<text x="117" y="228" font-size="7" text-anchor="middle">0</text>
+<path d="M107,275 C107,275,107,265,117,265 L125,265 L125,285 L117,285 C107,285,107,275,107,275 L107,275" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="113" y="291" font-size="6" text-anchor="middle" font-style="italic">[herald1]</text>
+<text x="117" y="278" font-size="7" text-anchor="middle">1</text>
+<path d="M107,325 C107,325,107,315,117,315 L125,315 L125,335 L117,335 C107,335,107,325,107,325 L107,325" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="113" y="341" font-size="6" text-anchor="middle" font-style="italic">[herald2]</text>
+<text x="117" y="328" font-size="7" text-anchor="middle">0</text>
+<path d="M107,375 C107,375,107,365,117,365 L125,365 L125,385 L117,385 C107,385,107,375,107,375 L107,375" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="113" y="391" font-size="6" text-anchor="middle" font-style="italic">[herald3]</text>
+<text x="117" y="378" font-size="7" text-anchor="middle">1</text>
+<path d="M-2,15 L10,15 L10,85 L-2,85 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<text x="4" y="27" font-size="7" text-anchor="middle">0</text>
+<text x="4" y="77" font-size="7" text-anchor="middle">1</text>
+<text x="-2" y="91" font-size="6" text-anchor="start" font-style="italic">[0]</text>
+<path d="M-2,115 L10,115 L10,185 L-2,185 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<text x="4" y="127" font-size="7" text-anchor="middle">2</text>
+<text x="4" y="177" font-size="7" text-anchor="middle">3</text>
+<text x="-2" y="191" font-size="6" text-anchor="start" font-style="italic">[1]</text>
+<path d="M233,235 L225,235 L225,215 L233,215 C233,215,243,215,243,225 C243,235,233,235,233,235 L233,235" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="241" font-size="6" text-anchor="middle" font-style="italic">[herald0]</text>
+<text x="233" y="228" font-size="7" text-anchor="middle">0</text>
+<path d="M233,285 L225,285 L225,265 L233,265 C233,265,243,265,243,275 C243,285,233,285,233,285 L233,285" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="291" font-size="6" text-anchor="middle" font-style="italic">[herald1]</text>
+<text x="233" y="278" font-size="7" text-anchor="middle">1</text>
+<path d="M233,335 L225,335 L225,315 L233,315 C233,315,243,315,243,325 C243,335,233,335,233,335 L233,335" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="341" font-size="6" text-anchor="middle" font-style="italic">[herald2]</text>
+<text x="233" y="328" font-size="7" text-anchor="middle">0</text>
+<path d="M233,385 L225,385 L225,365 L233,365 C233,365,243,365,243,375 C243,385,233,385,233,385 L233,385" stroke-width="1" stroke="black" stroke-linejoin="miter" fill="white" />
+<text x="238" y="391" font-size="6" text-anchor="middle" font-style="italic">[herald3]</text>
+<text x="233" y="378" font-size="7" text-anchor="middle">1</text>
+<path d="M340,15 L352,15 L352,85 L340,85 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<text x="346" y="27" font-size="7" text-anchor="middle">0</text>
+<text x="346" y="77" font-size="7" text-anchor="middle">1</text>
+<text x="352" y="91" font-size="6" text-anchor="end" font-style="italic">[0]</text>
+<path d="M340,115 L352,115 L352,185 L340,185 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<text x="346" y="127" font-size="7" text-anchor="middle">2</text>
+<text x="346" y="177" font-size="7" text-anchor="middle">3</text>
+<text x="352" y="191" font-size="6" text-anchor="end" font-style="italic">[1]</text>
+</svg>

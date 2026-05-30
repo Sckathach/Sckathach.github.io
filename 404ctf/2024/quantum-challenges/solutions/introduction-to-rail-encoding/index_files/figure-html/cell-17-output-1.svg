@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="195.0" height="156.25" viewBox="-28.0 0 156.0 125.0">
+<defs>
+</defs>
+<path d="M10,25 L25,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M10,75 L25,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M25,25 L75,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M30,40 L39,40 L53,10 L44,10 L30,40 L39,40 Z" stroke="black" fill="gray" stroke-linejoin="miter" />
+<text x="47" y="38" font-size="7" text-anchor="start">Φ=pi/3</text>
+<path d="M25,75 L75,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M75,25 L90,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M75,75 L90,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<text x="100" y="28" font-size="6" text-anchor="end">0</text>
+<text x="100" y="78" font-size="6" text-anchor="end">1</text>
+<text x="0" y="28" font-size="6" text-anchor="start">0</text>
+<text x="0" y="78" font-size="6" text-anchor="start">1</text>
+</svg>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="882.5" height="156.25" viewBox="-28.0 0 706.0 125.0">
+<defs>
+</defs>
+<path d="M10,25 L25,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M10,75 L25,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M25,25 L75,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M30,40 L39,40 L53,10 L44,10 L30,40 L39,40 Z" stroke="black" fill="gray" stroke-linejoin="miter" />
+<text x="47" y="38" font-size="7" text-anchor="start">Φ=pi</text>
+<path d="M25,75 L75,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M75,25 L103,25 L122,44" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M128,44 L147,25 L175,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M75,75 L103,75 L122,56" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M128,56 L147,75 L175,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M100,43 L150,43 L150,57 L100,57 Z" stroke="black" fill="black" stroke-linejoin="miter" />
+<text x="125" y="80" font-size="7" text-anchor="middle"></text>
+<text x="125" y="26" font-size="7" text-anchor="middle">Θ=15*pi/4</text>
+<path d="M100,43 L150,43 L150,47 L100,47 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<path d="M143,50 L153,50 L153,60 L143,60 Z" stroke="black" fill="thistle" stroke-linejoin="miter" />
+<text x="148" y="57" font-size="6" text-anchor="middle">Rx</text>
+<path d="M175,25 L225,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M180,40 L189,40 L203,10 L194,10 L180,40 L189,40 Z" stroke="black" fill="gray" stroke-linejoin="miter" />
+<text x="197" y="38" font-size="7" text-anchor="start">Φ=pi</text>
+<path d="M175,75 L225,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,25 L253,25 L272,44" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M278,44 L297,25 L325,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M225,75 L253,75 L272,56" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M278,56 L297,75 L325,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M250,43 L300,43 L300,57 L250,57 Z" stroke="black" fill="black" stroke-linejoin="miter" />
+<text x="275" y="85" font-size="7" text-anchor="middle"></text>
+<text x="275" y="26" font-size="7" text-anchor="middle"></text>
+<path d="M250,43 L300,43 L300,47 L250,47 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<path d="M293,50 L303,50 L303,60 L293,60 Z" stroke="black" fill="aquamarine" stroke-linejoin="miter" />
+<text x="298" y="57" font-size="6" text-anchor="middle">H</text>
+<path d="M325,25 L375,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M330,40 L339,40 L353,10 L344,10 L330,40 L339,40 Z" stroke="black" fill="gray" stroke-linejoin="miter" />
+<text x="347" y="38" font-size="7" text-anchor="start">Φ=pi</text>
+<path d="M325,75 L375,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M375,25 L403,25 L422,44" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M428,44 L447,25 L475,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M375,75 L403,75 L422,56" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M428,56 L447,75 L475,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M400,43 L450,43 L450,57 L400,57 Z" stroke="black" fill="black" stroke-linejoin="miter" />
+<text x="425" y="80" font-size="7" text-anchor="middle"></text>
+<text x="425" y="26" font-size="7" text-anchor="middle">Θ=15*pi/4</text>
+<path d="M400,43 L450,43 L450,47 L400,47 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<path d="M443,50 L453,50 L453,60 L443,60 Z" stroke="black" fill="thistle" stroke-linejoin="miter" />
+<text x="448" y="57" font-size="6" text-anchor="middle">Rx</text>
+<path d="M475,25 L525,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M480,40 L489,40 L503,10 L494,10 L480,40 L489,40 Z" stroke="black" fill="gray" stroke-linejoin="miter" />
+<text x="497" y="38" font-size="7" text-anchor="start">Φ=pi</text>
+<path d="M475,75 L525,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M525,25 L553,25 L572,44" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M578,44 L597,25 L625,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M525,75 L553,75 L572,56" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M578,56 L597,75 L625,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M550,43 L600,43 L600,57 L550,57 Z" stroke="black" fill="black" stroke-linejoin="miter" />
+<text x="575" y="85" font-size="7" text-anchor="middle"></text>
+<text x="575" y="26" font-size="7" text-anchor="middle"></text>
+<path d="M550,43 L600,43 L600,47 L550,47 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<path d="M593,50 L603,50 L603,60 L593,60 Z" stroke="black" fill="aquamarine" stroke-linejoin="miter" />
+<text x="598" y="57" font-size="6" text-anchor="middle">H</text>
+<path d="M625,25 L640,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M625,75 L640,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<text x="650" y="28" font-size="6" text-anchor="end">0</text>
+<text x="650" y="78" font-size="6" text-anchor="end">1</text>
+<text x="0" y="28" font-size="6" text-anchor="start">0</text>
+<text x="0" y="78" font-size="6" text-anchor="start">1</text>
+</svg>

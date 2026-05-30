@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="445.0" height="156.25" viewBox="-28.0 0 356.0 125.0">
+<defs>
+</defs>
+<path d="M10,25 L25,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M10,75 L25,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M25,25 L53,25 L72,44" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M78,44 L97,25 L125,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M25,75 L53,75 L72,56" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M78,56 L97,75 L125,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M50,43 L100,43 L100,57 L50,57 Z" stroke="black" fill="black" stroke-linejoin="miter" />
+<text x="75" y="85" font-size="7" text-anchor="middle"></text>
+<text x="75" y="26" font-size="7" text-anchor="middle"></text>
+<path d="M50,43 L100,43 L100,47 L50,47 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<path d="M93,50 L103,50 L103,60 L93,60 Z" stroke="black" fill="aquamarine" stroke-linejoin="miter" />
+<text x="98" y="57" font-size="6" text-anchor="middle">H</text>
+<path d="M125,75 L175,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M130,90 L139,90 L153,60 L144,60 L130,90 L139,90 Z" stroke="black" fill="gray" stroke-linejoin="miter" />
+<text x="147" y="88" font-size="7" text-anchor="start">Φ=pi</text>
+<path d="M125,25 L175,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M175,25 L203,25 L222,44" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M228,44 L247,25 L275,25" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M175,75 L203,75 L222,56" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M228,56 L247,75 L275,75" stroke="darkred" stroke-width="3" fill="none" />
+<path d="M200,43 L250,43 L250,57 L200,57 Z" stroke="black" fill="black" stroke-linejoin="miter" />
+<text x="225" y="85" font-size="7" text-anchor="middle"></text>
+<text x="225" y="26" font-size="7" text-anchor="middle"></text>
+<path d="M200,43 L250,43 L250,47 L200,47 Z" stroke="black" fill="lightgray" stroke-linejoin="miter" />
+<path d="M243,50 L253,50 L253,60 L243,60 Z" stroke="black" fill="aquamarine" stroke-linejoin="miter" />
+<text x="248" y="57" font-size="6" text-anchor="middle">H</text>
+<path d="M275,25 L290,25" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<path d="M275,75 L290,75" stroke-width="3" stroke="darkred" stroke-linejoin="miter" fill="none" />
+<text x="300" y="28" font-size="6" text-anchor="end">0</text>
+<text x="300" y="78" font-size="6" text-anchor="end">1</text>
+<text x="0" y="28" font-size="6" text-anchor="start">0</text>
+<text x="0" y="78" font-size="6" text-anchor="start">1</text>
+</svg>
