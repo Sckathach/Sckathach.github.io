@@ -1,0 +1,59 @@
+/* report.css — the internship report's overrides of the kit: math, figures, tables. Colours come from tokens.css (html-lab/design). */
+:root { --mathfont: "KaTeX_Main"; }
+.masthead .authors { color: var(--ink-2); margin: 4px 0 14px; font-size: 15px; }
+.abstract { font-size: 16px; color: var(--ink-2); margin: 0 0 26px; }
+h2 .num, h3 .num, h4 .num { color: var(--muted); margin-right: 0.45em; font-variant-numeric: tabular-nums; }
+h4 { font-size: 16px; margin: 26px 0 6px; }
+figure img.static { display: block; margin: 0 auto; }
+figure.narrow img.static { width: 60%; }
+@media (max-width: 760px) { figure.narrow img.static { width: 100%; } }
+figure.tab figcaption { margin-bottom: 8px; }
+figure.tab { overflow-x: auto; }
+table.tbl td.l, table.tbl th.l { text-align: left; }
+table.tbl td em { font-style: italic; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+.thm { border-left: 3px solid var(--accent); background: color-mix(in srgb, var(--accent) 5%, transparent); padding: 10px 14px; margin: 18px 0; border-radius: 0 4px 4px 0; }
+.thm > .thm-h { font-weight: 650; margin-right: 0.4em; }
+details.proof { margin: -8px 0 18px; }
+.todo { background: #fff3b0; color: #5a4a00; padding: 0 3px; border-radius: 2px; }
+.incident li { margin-bottom: 2px; }
+.globe-wrap { position: relative; }
+canvas.globe { width: 100%; max-width: 560px; aspect-ratio: 1; display: block; margin: 0 auto; touch-action: none; cursor: grab; }
+canvas.globe:active { cursor: grabbing; }
+.heat { width: 100%; display: block; user-select: none; }
+.toy { width: 100%; max-width: 340px; aspect-ratio: 1; display: block; margin: 0 auto; touch-action: none; user-select: none; -webkit-user-select: none; }
+.toy text { font: 600 12px var(--font); }
+.toy .handle { cursor: grab; }
+.c2 { display: grid; gap: 18px; grid-template-columns: minmax(0, 340px) 1fr; align-items: center; }
+@media (max-width: 720px) { .c2 { grid-template-columns: 1fr; } }
+.newfig { font-size: 12px; color: var(--muted); margin-left: 6px; }
+ol.refs { list-style: none; padding-left: 0; }
+ol.refs li { font-size: 14px; margin-bottom: 6px; padding-left: 2em; text-indent: -2em; overflow-wrap: anywhere; } /* APA: unnumbered, hanging indent */
+#gl-legend .sw { width: 10px; height: 10px; display: inline-block; }
+/* sidenote numbers from JS (report.js), not a CSS counter: a note inside a closed <details> would skip the counter */
+.sn-ref::after { content: attr(data-n); }
+figure img.static { max-width: 820px; }
+figure:not(.wide) img.static { max-width: 100%; }
+/* the figures are transparent SVGs: no white card in the light theme (the kit's one is for the old opaque figures);
+   the dark theme keeps a light card, the figure text is dark ink */
+figure img.static { background: transparent; padding: 0; }
+:root[data-theme="dark"] figure img.static { background: #f7f5f2; padding: 8px; }
+
+/* appendix: prompts, conversations, token grid, diagram legends (typst blocks of the PDF) */
+.console, .conv { font: 12.5px/1.5 var(--mono, ui-monospace, monospace); color: var(--ink); border-radius: 5px; padding: 12px 14px; margin: 16px 6px 18px 0; overflow-x: auto; }
+.console { background: color-mix(in srgb, var(--neutral, #8C8C96) 14%, var(--bg)); }
+/* the PDF's `card`: tinted box, coloured border, hard shadow */
+.conv { background: color-mix(in srgb, var(--orange) 16%, var(--bg)); border: 1.5px solid var(--orange-6); box-shadow: 3px 3px 0 color-mix(in srgb, var(--ink) 16%, transparent); }
+.console .pu { color: var(--violet-ink); } .console .ps { color: var(--orange-ink); }
+.conv .turn { margin: 0 0 8px; white-space: pre-wrap; overflow-wrap: anywhere; } .conv .turn:last-child { margin-bottom: 0; }
+pre.code { background: transparent !important; border: 0 !important; box-shadow: none; padding: 0; margin: 10px 0; font: 12.5px/1.5 var(--mono, ui-monospace, monospace); overflow-x: auto; }
+pre.code code, .conv code { font: inherit; background: none; padding: 0; }
+/* syntax colours (the typst default theme's) */
+.tok-k, .tok-kn, .tok-kc, .tok-kd, .tok-kr, .tok-ow { color: #d73a49; } .tok-nf, .tok-nc, .tok-nd { color: #4b69c6; } .tok-s, .tok-s1, .tok-s2, .tok-sd, .tok-si { color: #6f42c1; }
+.tok-c, .tok-c1, .tok-cm, .tok-cs { color: #8c8c96; } .tok-m, .tok-mi, .tok-mf { color: #b8720c; } .tok-nb, .tok-bp { color: #4b69c6; }
+:root[data-theme="dark"] .tok-k, :root[data-theme="dark"] .tok-kn { color: #ff7b8a; } :root[data-theme="dark"] .tok-nf, :root[data-theme="dark"] .tok-nc, :root[data-theme="dark"] .tok-nb { color: #8fb0ff; } :root[data-theme="dark"] .tok-s, :root[data-theme="dark"] .tok-s1, :root[data-theme="dark"] .tok-s2, :root[data-theme="dark"] .tok-sd { color: #c9a6ff; }
+table.consolegrid td { vertical-align: top; padding: 2px 10px 8px 0; }
+.legend-inline { white-space: nowrap; margin-left: 6px; } .legend-inline .key { display: inline-flex; align-items: center; gap: 4px; margin-right: 10px; }
+.legend-inline i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+.tokgrid { overflow-x: auto; } .tokgrid table { border-collapse: collapse; margin: 0 auto; font-size: 13px; } .tokgrid td { padding: 3px 7px; text-align: center; }
+.tokgrid tr:first-child td { font-family: var(--mono, monospace); }
